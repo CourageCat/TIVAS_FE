@@ -1,0 +1,221 @@
+// Header ============
+.header {
+  .navigation {
+    padding: 33px var(--home-padding) 0;
+  }
+}
+
+// Breadcrumbs
+.breadcrumbs {
+  margin-top: 15px;
+  background-color: #f3f3f3;
+  text-align: center;
+  padding: 48px 0;
+
+  .title {
+    font-family: "Poppins", sans-serif;
+    text-transform: uppercase;
+    font-size: 3rem;
+    font-weight: 700;
+    color: #000;
+  }
+
+  .nav {
+    color: #000;
+    font-size: 1.8rem;
+    font-family: "Inter", sans-serif;
+  }
+
+  .text {
+    color: #898989;
+  }
+  // padding: 40px 145px 0;
+}
+// Main
+.main {
+  margin-top: 5px;
+  padding: 37px 50px;
+  margin: 5px auto 0;
+  // background-color: orange;
+
+  // Search\
+  .top-content {
+    display: flex;
+    justify-content: center;
+    .heading {
+      display: flex;
+      gap: 10px;
+      text-align: center;
+      font-family: "Poppins", sans-serif;
+      font-size: 4rem;
+      z-index: 1;
+      top: 25%;
+      position: absolute;
+      padding: 20px;
+      font-weight: 500;
+      color: #15100d;
+    }
+    .heading-desc {
+      font-size: 2.4rem;
+      font-family: "Poppins", sans-serif;
+      position: absolute;
+      top: 35%;
+      z-index: 1;
+      display: flex;
+      justify-content: center;
+      color: white;
+      font-weight: 600;
+    }
+    .search {
+      width: 100%;
+      position: absolute;
+      top: 40%;
+      right: 0;
+      padding: 10px;
+      line-height: 4.8rem;
+    }
+    .header-img {
+      width: 100%;
+      border-radius: 10px;
+      position: relative;
+      object-fit: cover;
+      max-height: 280px;
+    }
+  }
+}
+
+.project {
+  display: flex;
+  align-items: flex-start;
+  column-gap: 20px;
+  .image {
+    width: 200px;
+    height: 180px;
+  }
+
+  .name {
+    font-family: "Inter", sans-serif;
+    font-size: 3rem;
+    font-weight: 600;
+    color: #0b0b0b;
+  }
+
+  .location {
+    margin-top: 10px;
+    display: inline-flex;
+    align-items: center;
+    column-gap: 2px;
+    .icon {
+      width: 20px;
+      height: 20px;
+    }
+    .position {
+      font-family: "Inter", sans-serif;
+      font-size: 1.8rem;
+      font-weight: 500;
+    }
+  }
+}
+
+.list-listing {
+  margin-top: 30px;
+
+  .table {
+    width: 100%;
+    border-collapse: collapse;
+  }
+  .thead {
+    .column {
+      padding: 8px;
+      border: none;
+      text-align: left;
+
+      .title {
+        font-family: "Poppins", sans-serif;
+        font-size: 1.6rem;
+        font-weight: 400;
+      }
+    }
+  }
+
+  .tbody {
+    .column {
+      padding: 30px 8px;
+      border-top: 1px solid #ddd;
+      text-align: left;
+
+      .text {
+        display: inline-block;
+        white-space: nowrap;
+        overflow: hidden;
+        text-overflow: ellipsis;
+        vertical-align: middle;
+      }
+
+      .name {
+        font-family: "Inter", sans-serif;
+        font-size: 1.7rem;
+        font-weight: 500;
+        color: #000;
+      }
+
+      .btn {
+        display: inline-block;
+        padding: 4px 8px;
+
+        font-size: 1.4rem;
+        font-family: "Inter", sans-serif;
+        background-color: #0091b3;
+        color: #fff;
+        user-select: none;
+        transition: all 0.5s;
+
+        &:hover {
+          background: #00748f;
+        }
+      }
+    }
+    .trow {
+      &:hover {
+        background-color: #1cb9541a;
+      }
+    }
+  }
+
+  .tfoot {
+    display: block;
+    margin-top: 15px;
+
+    .pagination {
+      .MuiButtonBase-root {
+        padding: 23px;
+        font-size: 2.2rem;
+        font-family: "Inter", sans-serif;
+      }
+    }
+  }
+
+  .unit {
+    width: max-content;
+    .text {
+    }
+    .name {
+    }
+  }
+
+  .sleep {
+    .name {
+    }
+  }
+
+  .date {
+    width: 300px;
+    .name {
+    }
+  }
+  .price {
+    width: 100px;
+    .name {
+    }
+  }
+}

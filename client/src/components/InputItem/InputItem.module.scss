@@ -1,0 +1,75 @@
+// :root {
+// }
+
+.input-wrapper {
+    width: 100%;
+
+    .text-error {
+        display: inline-block;
+        padding-top: 10px;
+        margin-left: 3px;
+        color: var(--error-color);
+        font-family: "Inter", sans-serif;
+        font-size: 1.5rem;
+    }
+}
+
+.input {
+    width: 100%;
+    position: relative;
+
+    .password-icons,
+    .error-icon {
+        position: absolute;
+        transform: translateY(-50%);
+        top: 50%;
+        right: 2%;
+    }
+
+    .error {
+        border-color: rgb(181, 21, 21);
+    }
+
+    .error-icon {
+        .icon {
+            font-size: 2rem;
+            color: red;
+        }
+    }
+}
+
+.input-item {
+    outline: none;
+
+    width: 100%;
+    border: 1px solid #ababab;
+    background: #fff;
+
+    font-family: "Inter", sans-serif;
+    font-size: 1.6rem;
+    font-weight: 400;
+
+    padding: 18px 30px;
+    color: #000;
+
+    &::placeholder {
+        color: #5d5d5d;
+    }
+
+    &:hover {
+        border: 1px solid #4d4b4b;
+    }
+
+    &:focus {
+        border: 1px solid #000;
+    }
+
+    &.readOnly {
+        border: 1px solid #f2f2f2;
+        background: #f2f2f2;
+
+        color: #b5b5b5;
+
+        cursor: default;
+    }
+}

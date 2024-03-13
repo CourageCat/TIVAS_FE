@@ -1,0 +1,26 @@
+.admin-wrapper {
+  display: grid;
+  grid-template-areas: "sidebar main";
+  grid-template-columns: 0.2fr 1fr;
+  min-height: 100vh;
+}
+
+.sidebar {
+  grid-area: "sidebar";
+  background-color: var(--admin-sidebar-bg);
+}
+
+.main {
+  grid-area: "main";
+  background-color: var(--admin-sidebar-bg);
+  display: grid;
+  grid-template-rows: auto 1fr;
+  // Header
+  .header {
+  }
+  // Children
+  .children {
+    padding: 0 20px;
+
+  }
+}

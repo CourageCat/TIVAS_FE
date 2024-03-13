@@ -1,0 +1,238 @@
+.wrapper {
+  height: 2000px;
+  border-radius: 8px;
+  padding: 16px;
+  background-color: #fff;
+  box-shadow: rgba(17, 17, 26, 0.1) 0px 8px 24px,
+    rgba(247, 247, 250, 0.1) 0px 16px 56px, rgba(17, 17, 26, 0.1) 0px 24px 80px;
+  padding-bottom: 30px;
+}
+
+.wrapper.color-changed {
+  background: #b5b1b1;
+}
+
+.title {
+  font-family: "Inter", sans-serif;
+  font-size: 3rem;
+  font-weight: 600;
+}
+
+.content {
+  margin-top: 30px;
+  position: relative;
+
+  .paginate {
+    position: absolute;
+    bottom: -50px;
+    left: 50%;
+    transform: translateX(-50%);
+  }
+}
+
+.list-user {
+  margin-top: 30px;
+
+  .table {
+    width: 100%;
+    border-collapse: collapse;
+  }
+  .thead {
+    .column {
+      padding: 8px;
+      border: none;
+      text-align: left;
+
+      .title {
+        font-family: "Poppins", sans-serif;
+        font-size: 1.8rem;
+        font-weight: 500;
+      }
+    }
+  }
+
+  .tbody {
+    .column {
+      padding: 15px 8px;
+      border-top: 1px solid #ddd;
+      text-align: left;
+
+      .text {
+        display: inline-block;
+        white-space: nowrap;
+        overflow: hidden;
+        text-overflow: ellipsis;
+      }
+    }
+    .trow {
+      transition: border-left-color 0.3s, box-shadow 0.3s;
+      &:hover {
+        border-left-color: #1570ee;
+        box-shadow: inset 5px 0 0 #1570ee;
+      }
+    }
+  }
+
+  .tfoot {
+    display: block;
+    margin-top: 15px;
+
+    .pagination {
+      .MuiButtonBase-root {
+        padding: 23px;
+        font-size: 2.2rem;
+        font-family: "Inter", sans-serif;
+      }
+    }
+  }
+
+  .avatar {
+    width: 150px;
+    vertical-align: middle;
+    .image {
+      width: 60px;
+      height: 60px;
+      object-fit: cover;
+      display: block;
+      //   border-radius: 8px;
+    }
+  }
+
+  .username {
+    width: 200px;
+    .text {
+      vertical-align: middle;
+    }
+    .name {
+      font-family: "Inter", sans-serif;
+      font-size: 1.5rem;
+      font-weight: 400;
+      color: #000;
+    }
+  }
+
+  .fullName {
+    width: 250px;
+    .text {
+      width: 200px;
+      vertical-align: middle;
+    }
+    .name {
+      font-family: "Inter", sans-serif;
+      font-size: 1.4rem;
+      font-weight: 400;
+      color: #000;
+    }
+  }
+
+  .email {
+    width: 200px;
+    .text {
+      width: 150px;
+      vertical-align: middle;
+    }
+    .name {
+      font-family: "Inter", sans-serif;
+      font-size: 1.4rem;
+      font-weight: 400;
+      color: #000;
+    }
+  }
+  .phoneNumber {
+    width: 200px;
+    .text {
+      width: 150px;
+      vertical-align: middle;
+    }
+    .name {
+      font-family: "Inter", sans-serif;
+      font-size: 1.4rem;
+      font-weight: 400;
+      color: #000;
+    }
+  }
+  .typeLogin {
+    width: 150px;
+    .text {
+      width: 100px;
+      vertical-align: middle;
+    }
+    .name {
+      font-family: "Inter", sans-serif;
+      font-size: 1.4rem;
+      font-weight: 400;
+      color: #000;
+    }
+  }
+
+  .status {
+    width: 100px;
+    .text {
+      vertical-align: middle;
+    }
+    .btn {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      width: 80px;
+      height: 40px;
+      background-color: rgb(1, 43, 231);
+      border-radius: 6px;
+    }
+    .ban {
+      background-color: rgb(255, 0, 0);
+      position: relative;
+
+      &:hover {
+        .reason {
+          display: inline-block;
+        }
+      }
+
+      .reason {
+        position: absolute;
+        content: "Click to see reason!";
+        display: none;
+        top: -80%;
+        left: -20%;
+        transform: translate(-50%, -50%);
+        width: max-content;
+        padding: 5px;
+        border-radius: 4px;
+        background-color: #dddcdc;
+        font-family: "Inter", sans-serif;
+        font-size: 1.4rem;
+      }
+    }
+    .name {
+      font-family: "Inter", sans-serif;
+      font-size: 1.4rem;
+      font-weight: 400;
+      color: #fff;
+      user-select: none;
+    }
+  }
+
+  .action {
+    user-select: none;
+  }
+}
+
+.header-list {
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr 1fr 1fr;
+  gap: 40px;
+  border: #beb8b87b solid 0.5px;
+
+  // margin-bottom: 40px;
+  padding: 10px 20px;
+  border-radius: 10px 10px 0 0;
+  background: #d0c3c334;
+
+  .header {
+    font-family: "Inter", sans-serif;
+    font-size: 1.5rem;
+
+    font-weight: 600;
+  }
+}

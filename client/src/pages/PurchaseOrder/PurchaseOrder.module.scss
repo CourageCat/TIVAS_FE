@@ -1,0 +1,21 @@
+.header {
+  .navigation {
+    padding: 33px var(--home-padding) 0;
+  }
+}
+
+.main {
+  padding: 0 100px;
+  display: flex;
+  align-items: flex-start;
+  column-gap: 30px;
+}
+
+.sidebar {
+  background-color: orange;
+}
+
+.main-view {
+  background-color: yellow;
+  flex: 1;
+}

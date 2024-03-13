@@ -1,0 +1,211 @@
+.wrapper {
+    // background: red;
+    position: relative;
+    border-radius: 8px;
+    padding: 30px;
+    background-color: #fff;
+    box-shadow: rgba(17, 17, 26, 0.1) 0px 8px 24px,
+        rgba(17, 17, 26, 0.1) 0px 16px 56px, rgba(17, 17, 26, 0.1) 0px 24px 80px;
+    padding-bottom: 30px;
+    height: 1000px;
+}
+
+.title {
+    font-family: "Inter", sans-serif;
+    font-size: 3rem;
+    font-weight: 600;
+}
+
+.icon {
+    width: 30px;
+    height: 30px;
+    object-fit: cover;
+}
+
+.row {
+    display: flex;
+    justify-content: space-between;
+}
+
+.content {
+    padding: 20px;
+}
+
+.ticket-detail-wrapper {
+    margin-top: 30px;
+
+    .ticket-detail {
+        // padding: 20px;
+        display: flex;
+    }
+}
+
+.table {
+    width: 100%;
+    border-collapse: collapse;
+}
+.thead {
+    .column {
+        padding: 8px;
+        border: none;
+        text-align: left;
+
+        .title {
+            font-family: "Poppins", sans-serif;
+            font-size: 1.8rem;
+            font-weight: 500;
+        }
+    }
+}
+
+.tbody {
+    .column {
+        padding: 15px 8px;
+        border-top: 1px solid #ddd;
+        text-align: left;
+
+        .text {
+            display: inline-block;
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
+        }
+    }
+    .trow {
+        &:hover {
+            background-color: #1cb9541a;
+        }
+    }
+}
+
+.tfoot {
+    display: block;
+    margin-top: 15px;
+
+    .pagination {
+        .MuiButtonBase-root {
+            padding: 23px;
+            font-size: 2.2rem;
+            font-family: "Inter", sans-serif;
+        }
+    }
+}
+
+.index {
+    width: 60px;
+    .num {
+        // text-align: center;
+        font-family: "Inter", sans-serif;
+        font-size: 1.5rem;
+        font-weight: 600;
+    }
+}
+
+.project {
+    width: 300px;
+
+    .text {
+        width: 200px;
+    }
+    .infor {
+        display: flex;
+        align-items: center;
+        column-gap: 10px;
+    }
+    .image {
+        width: 100px;
+        height: 100px;
+        object-fit: cover;
+        border-radius: 8px;
+    }
+
+    .box {
+        width: 200px;
+
+        .name-project {
+            font-family: "Inter", sans-serif;
+            font-size: 1.8rem;
+            font-weight: 600;
+        }
+
+        .location {
+            display: inline-flex;
+            align-items: center;
+            column-gap: 2px;
+            .icon {
+                width: 15px;
+                height: 15px;
+            }
+            .position {
+                font-family: "Inter", sans-serif;
+                font-size: 1.4rem;
+                font-weight: 500;
+            }
+        }
+    }
+}
+
+.unit {
+    width: 250px;
+    .text {
+        width: 250px;
+    }
+    .name {
+        font-family: "Inter", sans-serif;
+        font-size: 1.5rem;
+        font-weight: 500;
+        color: #000;
+    }
+}
+
+.sleep {
+    width: 150px;
+    .name {
+        font-family: "Inter", sans-serif;
+        font-size: 1.5rem;
+        font-weight: 500;
+        color: #000;
+    }
+}
+
+.type-room {
+    width: 400px;
+    overflow: hidden;
+    // white-space: nowrap;
+    .name {
+        font-family: "Inter", sans-serif;
+        font-size: 1.5rem;
+        font-weight: 500;
+        color: #000;
+    }
+}
+
+.date {
+    width: 200px;
+    .name {
+        font-family: "Inter", sans-serif;
+        font-size: 1.5rem;
+        font-weight: 500;
+        color: #000;
+    }
+}
+.price {
+    .name {
+        font-family: "Inter", sans-serif;
+        font-size: 1.5rem;
+        font-weight: 500;
+        color: #000;
+    }
+}
+
+.empty-img {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    background-position: 50%;
+    background-repeat: no-repeat;
+    background-size: contain;
+    height: 200px;
+    width: 200px;
+}

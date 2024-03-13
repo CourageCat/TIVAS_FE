@@ -1,0 +1,120 @@
+.wrapper {
+    border-radius: 8px;
+    padding: 16px;
+    background-color: #fff;
+    box-shadow: rgba(17, 17, 26, 0.1) 0px 8px 24px,
+        rgba(17, 17, 26, 0.1) 0px 16px 56px, rgba(17, 17, 26, 0.1) 0px 24px 80px;
+    padding-bottom: 30px;
+}
+
+.heading {
+    font-family: 'Poppins', sans-serif;
+    font-size: 2.3rem;
+    font-weight: 500;
+    color: #0b0b0b;
+}
+
+// Form
+.form {
+    display: flex;
+    flex-direction: column;
+    row-gap: 32px;
+}
+
+// Row
+.row {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    column-gap: 50px;
+}
+
+.input_compo {
+    display: flex;
+    flex-direction: column;
+    row-gap: 10px;
+
+    .label {
+        font-family: "Inter", sans-serif;
+        font-size: 1.6rem;
+        font-weight: 500;
+        line-height: 1.5;
+    }
+    .input {
+        display: inline-block;
+        outline: none;
+        border: 1px solid #b9bdc7;
+        border-radius: 8px;
+        padding: 9.5px 16px;
+        font-family: "Inter", sans-serif;
+        font-size: 1.5rem;
+        font-weight: 400;
+    }
+}
+
+.text-area {
+    width: 100%;
+    resize: none;
+
+    outline: none;
+    border: 1px solid #b9bdc7;
+    border-radius: 8px;
+    padding: 9.5px 16px;
+    font-family: "Inter", sans-serif;
+    font-size: 1.5rem;
+    font-weight: 400;
+}
+
+// Thumbnail ==========
+
+.file_preview {
+    padding-top: 30px;
+    display: flex;
+    align-items: center;
+    .img {
+        width: 100px;
+        height: 100px;
+    }
+}
+
+.file_info {
+    margin-left: 30px;
+    font-family: "Inter", sans-serif;
+    font-size: 1.6rem;
+    font-weight: 500;
+}
+
+.file_remove {
+    margin-left: 20px;
+    cursor: pointer;
+
+    .icon {
+        width: 30px;
+        height: 30px;
+        object-fit: cover;
+    }
+
+    &:hover {
+        opacity: 0.5;
+    }
+}
+
+.action {
+    outline: none;
+    border: none;
+    margin-top: 10px;
+    text-align: center;
+    padding: 10px 24px;
+
+    font-family: "Inter", sans-serif;
+    font-size: 1.6rem;
+    font-weight: 500;
+
+    background-color: #1570ef;
+    color: #fff;
+
+    user-select: none;
+
+    &:hover {
+        opacity: 0.9;
+    }
+}

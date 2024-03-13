@@ -1,0 +1,55 @@
+.heading {
+  text-align: center;
+  color: #000;
+  font-family: "Poppins", sans-serif;
+  font-size: 3.5rem;
+  font-weight: 500;
+}
+
+.title {
+  margin-top: 5px;
+  font-family: "Poppins", sans-serif;
+  font-size: 2.5rem;
+  font-weight: 500;
+  color: #000;
+}
+
+.row-card {
+  display: flex;
+  align-items: center;
+}
+
+.form-wrapper {
+  margin-top: 8px;
+  display: flex;
+  flex-direction: column;
+  row-gap: 24px;
+}
+
+.action-login {
+  width: 100%;
+  outline: none;
+  border: none;
+  border-radius: 40px;
+  padding: 10px 0;
+  font-family: "Inter", sans-serif;
+  font-size: 1.5rem;
+  font-weight: 400;
+}
+
+.hide-login {
+  border: 1px solid #f2f2f2;
+  background: #f2f2f2;
+  color: #b5b5b5;
+  cursor: default;
+}
+
+.show-login {
+  color: #0b0b0b;
+  border: 1px solid #ffe1c5;
+  background: #ffcc41;
+  cursor: pointer;
+}
+.show-login:hover {
+  background: #fac73b;
+}/*# sourceMappingURL=CardForm.module.css.map */

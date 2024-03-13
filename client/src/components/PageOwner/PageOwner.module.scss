@@ -1,0 +1,68 @@
+.owner-intro{
+    .header-slogan{
+        display: grid;
+    justify-content: center;
+    align-items: center;
+    .tivas-product{
+        color: #000;
+        font-family: "Poppins", sans-serif;
+        font-size: 4rem;
+        font-style: normal;
+        font-weight: 500;
+    }
+    .tivas-text{
+        color: #555;
+        font-family: "Poppins",sans-serif;
+        font-size: 1.6rem;
+        font-style: normal;
+        font-weight: 400;
+    }
+    }
+    .body{
+        .item{
+            display: grid;
+            width: 250px;
+            .box-img{
+                width: 250px;
+                cursor: pointer;
+            }
+            .info{
+                display: grid;
+                justify-content: center;
+                text-align: center;
+                margin-top: 15px;
+                .description{
+                    color: #000;
+                    text-align: center;
+                    font-family: "Poppins";
+                    font-size: 2.2rem;
+                    font-style: normal;
+                    font-weight: 500;
+                }
+            }
+            .button{
+                padding: 12px;
+                background-color: #FFCC41;
+                display: flex;
+                justify-content: center;
+                width: 150px;
+                height: 45px;
+                text-align: center;
+                border-radius: 10px;
+                margin-top: 15px;
+                cursor: pointer;
+            }
+            .button:hover{
+                background-color: rgb(245, 255, 154);
+                transition-duration: 0.5s;
+            }
+            
+        }
+    }
+}
+.father {
+    display: flex;
+    justify-content: center;
+    grid-gap: 110px;
+    margin-top: 30px;
+}
