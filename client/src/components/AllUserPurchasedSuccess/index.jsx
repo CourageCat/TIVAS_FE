@@ -11,7 +11,7 @@ import { getUserPriority } from "~/controllers/reservationTicket";
 
 import { useDispatch, useSelector } from "react-redux";
 import createAxios from "~/configs/axios";
-import { compleateBooking, rejectBooking } from "~/controllers/booking";
+import { completeBooking, rejectBooking } from "~/controllers/booking";
 import ToastNotify from "../ToastNotify";
 import { Toaster, toast } from "sonner";
 
@@ -84,10 +84,10 @@ function AllUserPurchasedSuccess() {
     fetchListing();
   }, [page]);
 
-  const handleSuccessBooking = async (timeshareID) => {
-    const res = await compleateBooking(axiosInstance, {
-      userID: currentUser?.data?.id,
-      timeShareID: timeshareID,
+  const handleSuccessBooking = async (timeShareID, userID) => {
+    const res = await completeBooking(axiosInstance, {
+      userID,
+      timeShareID,
     });
     setNotify({
       ...res,
@@ -95,10 +95,10 @@ function AllUserPurchasedSuccess() {
     });
   };
 
-  const handleFailureBooking = async (timeshareID) => {
+  const handleFailureBooking = async (timeShareID, userID) => {
     const res = await rejectBooking(axiosInstance, {
-      userID: currentUser?.data?.id,
-      timeShareID: timeshareID,
+      userID,
+      timeShareID,
     });
     setNotify({
       ...res,
@@ -214,7 +214,10 @@ function AllUserPurchasedSuccess() {
                                 <button
                                   className={cx("success", "btn")}
                                   onClick={() =>
-                                    handleSuccessBooking(item?.timeShareID)
+                                    handleSuccessBooking(
+                                      item?.timeShareID,
+                                      item?.userID
+                                    )
                                   }
                                 >
                                   Success
@@ -222,7 +225,10 @@ function AllUserPurchasedSuccess() {
                                 <button
                                   className={cx("fail", "btn")}
                                   onClick={() =>
-                                    handleFailureBooking(item?.timeShareID)
+                                    handleFailureBooking(
+                                      item?.timeShareID,
+                                      item?.userID
+                                    )
                                   }
                                 >
                                   fail
