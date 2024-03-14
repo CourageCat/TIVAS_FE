@@ -53,6 +53,9 @@ const images = {
     importantIcon: require("~/assets/images/importantIcon.svg").default,
     visaImage: require("~/assets/images/visaImg.png"),
     empty: require("~/assets/images/empty.png"),
+    heartIcon: require("~/assets/images/heartIcon.svg").default,
+    blackPlus: require("~/assets/images/blackPlus.svg").default,
+    trashIcon: require("~/assets/images/trashIcon.svg").default,
 };
 
 export default images;

@@ -49,8 +49,8 @@ function convertToDate(inputDate) {
 }
 
 function AdminManageProject() {
-  const dispatch = useDispatch();
-  const navigate = useNavigate();
+    const dispatch = useDispatch();
+    const navigate = useNavigate();
 
     const currentUser = useSelector((state) => state.auth.login.user);
     const axiosInstance = createAxios(dispatch, currentUser);
@@ -62,23 +62,23 @@ function AdminManageProject() {
 
     const [page, setPage] = useState(1);
 
-  useEffect(() => {
-    const fetchUser = async () => {
-      const res = await getAllWithType(axiosInstance, {
-        page: page,
-        limit: limit,
-      });
-      if (res) {
-        setListProjects(res.data);
-        setCountPage(res.countPages);
-      } else {
-        setListProjects([]);
-        setCountPage(1);
-      }
-    };
-    fetchUser();
-    window.scrollTo(0, 0);
-  }, [page]);
+    useEffect(() => {
+        const fetchUser = async () => {
+            const res = await getAllWithType(axiosInstance, {
+                page: page,
+                limit: limit,
+            });
+            if (res) {
+                setListProjects(res.data);
+                setCountPage(res.countPages);
+            } else {
+                setListProjects([]);
+                setCountPage(1);
+            }
+        };
+        fetchUser();
+        window.scrollTo(0, 0);
+    }, [page]);
 
     useEffect(() => {
         if (notify?.err === 1) {
@@ -110,147 +110,195 @@ function AdminManageProject() {
         <div className={cx("wrapper")}>
             <Toaster position="top-right" richColors expand={true} />
 
-      <h1 className={cx("title")}> Manage projects</h1>
-      <div className={cx("content")}>
-        <div className={cx("list-projects")}>
-          <table className={cx("table")}>
-            <thead className={cx("thead")}>
-              <tr>
-                <th className={cx("id", "column")}>
-                  <h4 className={cx("title")}>ID</h4>
-                </th>
-                <th className={cx("project", "column")}>
-                  <h4 className={cx("title")}>Project</h4>
-                </th>
-                <th className={cx("unit", "column")}>
-                  <h4 className={cx("title")}>Type project</h4>
-                </th>
-                <th className={cx("unit", "column")}>
-                  <h4 className={cx("title")}>Building status</h4>
-                </th>
-                <th className={cx("sleep", "column")}>
-                  <h4 className={cx("title")}>Sale Status</h4>
-                </th>
-                <th className={cx("date", "column")}>
-                  <h4 className={cx("title")}>Reservation date</h4>
-                </th>
-                <th className={cx("date", "column")}>
-                  <h4 className={cx("title")}>Booking date</h4>
-                </th>
-                <th className={cx("action", "column")}>
-                  <h4 className={cx("title")}>Action</h4>
-                </th>
-              </tr>
-            </thead>
-            <tbody className={cx("tbody")}>
-              {listProjects?.map((item, index) => {
-                return (
-                  <tr
-                    key={index}
-                    className={cx("trow")}
-                    // onClick={() => handleNavigate(item.id)}
-                  >
-                    <td className={cx("id", "column")}>
-                      <span className={cx("name", "text")}>{index + 1}</span>
-                    </td>
-                    <td className={cx("project", "column")}>
-                      <figure className={cx("infor")}>
-                        <img
-                          src={item?.thumbnailPathUrl}
-                          alt="image_one"
-                          className={cx("image")}
+            <h1 className={cx("title")}> Manage projects</h1>
+            <div className={cx("content")}>
+                <div className={cx("list-projects")}>
+                    <table className={cx("table")}>
+                        <thead className={cx("thead")}>
+                            <tr>
+                                <th className={cx("id", "column")}>
+                                    <h4 className={cx("title")}>ID</h4>
+                                </th>
+                                <th className={cx("project", "column")}>
+                                    <h4 className={cx("title")}>Project</h4>
+                                </th>
+                                <th className={cx("unit", "column")}>
+                                    <h4 className={cx("title")}>
+                                        Type project
+                                    </h4>
+                                </th>
+                                <th className={cx("status", "column")}>
+                                    <h4 className={cx("title")}>
+                                        Building status
+                                    </h4>
+                                </th>
+                                <th className={cx("sleep", "column")}>
+                                    <h4 className={cx("title")}>Sale Status</h4>
+                                </th>
+                                <th className={cx("date", "column")}>
+                                    <h4 className={cx("title")}>
+                                        Reservation date
+                                    </h4>
+                                </th>
+                                <th className={cx("date", "column")}>
+                                    <h4 className={cx("title")}>
+                                        Booking date
+                                    </h4>
+                                </th>
+                                <th className={cx("action", "column")}>
+                                    <h4 className={cx("title")}>Action</h4>
+                                </th>
+                            </tr>
+                        </thead>
+                        <tbody className={cx("tbody")}>
+                            {listProjects?.map((item, index) => {
+                                return (
+                                    <tr
+                                        key={index}
+                                        className={cx("trow")}
+                                        // onClick={() => handleNavigate(item.id)}
+                                    >
+                                        <td className={cx("id", "column")}>
+                                            <span
+                                                className={cx("name", "text")}
+                                            >
+                                                {index + 1}
+                                            </span>
+                                        </td>
+                                        <td className={cx("project", "column")}>
+                                            <figure className={cx("infor")}>
+                                                <img
+                                                    src={item?.thumbnailPathUrl}
+                                                    alt="image_one"
+                                                    className={cx("image")}
+                                                />
+                                                <section className={cx("box")}>
+                                                    <h3
+                                                        className={cx(
+                                                            "name-project",
+                                                            "text"
+                                                        )}
+                                                    >
+                                                        {item?.name}
+                                                    </h3>
+                                                    <div
+                                                        className={cx(
+                                                            "location"
+                                                        )}
+                                                    >
+                                                        <svg
+                                                            className={cx(
+                                                                "icon"
+                                                            )}
+                                                            xmlns="http://www.w3.org/2000/svg"
+                                                            width="16"
+                                                            height="16"
+                                                            fill="currentColor"
+                                                            viewBox="0 0 16 16"
+                                                        >
+                                                            <path d="M8 16s6-5.686 6-10A6 6 0 0 0 2 6c0 4.314 6 10 6 10m0-7a3 3 0 1 1 0-6 3 3 0 0 1 0 6" />
+                                                        </svg>
+                                                        <span
+                                                            className={cx(
+                                                                "position",
+                                                                "text"
+                                                            )}
+                                                        >
+                                                            {item?.location}
+                                                        </span>
+                                                    </div>
+                                                </section>
+                                            </figure>
+                                        </td>
+                                        <td className={cx("unit", "column")}>
+                                            <span
+                                                className={cx("name", "text")}
+                                            >
+                                                {item?.typeOfProject}
+                                            </span>
+                                        </td>
+                                        <td className={cx("sleep", "column")}>
+                                            <span className={cx("name")}>
+                                                {item?.buildingStatus === 1 &&
+                                                    "Up coming"}
+                                                {item?.buildingStatus === 2 &&
+                                                    "On going"}
+                                                {item?.buildingStatus === 3 &&
+                                                    "Already implemented"}
+                                            </span>
+                                        </td>
+                                        <td className={cx("sleep", "column")}>
+                                            <span className={cx("name")}>
+                                                {item?.status === 0 &&
+                                                    "Not reservation"}
+                                                {item?.status === 1 &&
+                                                    "Open reservation"}
+                                                {item?.status === 2 &&
+                                                    "Open booking"}
+                                                {item?.status === 3 &&
+                                                    "Close booking"}
+                                            </span>
+                                        </td>
+                                        <td className={cx("date", "column")}>
+                                            {item?.reservationDate === null ||
+                                            item?.reservationDate === "" ||
+                                            item?.openDate === null ||
+                                            item?.openDate === "" ? (
+                                                <span className={cx("name")}>
+                                                    Empty
+                                                </span>
+                                            ) : (
+                                                <span className={cx("name")}>
+                                                    {`${convertToDate(
+                                                        item?.reservationDate
+                                                    )} - ${convertToDate(
+                                                        item?.openDate
+                                                    )}`}
+                                                </span>
+                                            )}
+                                        </td>
+                                        <td
+                                            className={cx(
+                                                "booking-date",
+                                                "column"
+                                            )}
+                                        >
+                                            <span className={cx("name")}>
+                                                {`${convertToDate(
+                                                    item?.openDate
+                                                )} ${convertToDate(
+                                                    item?.closeDate
+                                                )}`}
+                                            </span>
+                                        </td>
+                                        <td className={cx("action", "column")}>
+                                            <ActionProject
+                                                id={item?.id}
+                                                nameProject={item?.name}
+                                                status={item?.status}
+                                                notify={notify}
+                                                setNotify={setNotify}
+                                            />
+                                        </td>
+                                    </tr>
+                                );
+                            })}
+                        </tbody>
+                    </table>
+                </div>
+                <div className={cx("paginate")}>
+                    <Stack spacing={2}>
+                        <Pagination
+                            count={countPage}
+                            variant="outlined"
+                            color="primary"
+                            onChange={handlePageChange}
                         />
-                        <section className={cx("box")}>
-                          <h3 className={cx("name-project", "text")}>
-                            {item?.name}
-                          </h3>
-                          <div className={cx("location")}>
-                            <svg
-                              className={cx("icon")}
-                              xmlns="http://www.w3.org/2000/svg"
-                              width="16"
-                              height="16"
-                              fill="currentColor"
-                              viewBox="0 0 16 16"
-                            >
-                              <path d="M8 16s6-5.686 6-10A6 6 0 0 0 2 6c0 4.314 6 10 6 10m0-7a3 3 0 1 1 0-6 3 3 0 0 1 0 6" />
-                            </svg>
-                            <span className={cx("position", "text")}>
-                              {item?.location}
-                            </span>
-                          </div>
-                        </section>
-                      </figure>
-                    </td>
-                    <td className={cx("unit", "column")}>
-                      <span className={cx("name", "text")}>
-                        {item?.typeOfProject}
-                      </span>
-                    </td>
-                    <td className={cx("sleep", "column")}>
-                      <span className={cx("name")}>
-                        {item?.buildingStatus === 1 && "Up coming"}
-                        {item?.buildingStatus === 2 && "On going"}
-                        {item?.buildingStatus === 3 && "Already implemented"}
-                      </span>
-                    </td>
-                    <td className={cx("sleep", "column")}>
-                      <span className={cx("name")}>
-                        {item?.status === 0 && "Not reservation"}
-                        {item?.status === 1 && "Open reservation"}
-                        {item?.status === 2 && "Open booking"}
-                        {item?.status === 3 && "Close booking"}
-                      </span>
-                    </td>
-                    <td className={cx("date", "column")}>
-                      {item?.reservationDate === null ||
-                      item?.reservationDate === "" ||
-                      item?.openDate === null ||
-                      item?.openDate === "" ? (
-                        <span className={cx("name")}>Empty</span>
-                      ) : (
-                        <span className={cx("name")}>
-                          {`${convertToDate(
-                            item?.reservationDate
-                          )} - ${convertToDate(item?.openDate)}`}
-                        </span>
-                      )}
-                    </td>
-                    <td className={cx("date", "column")}>
-                      <span className={cx("name")}>
-                        {`${convertToDate(item?.openDate)} - ${convertToDate(
-                          item?.closeDate
-                        )}`}
-                      </span>
-                    </td>
-                    <td className={cx("action", "column")}>
-                      <ActionProject
-                        id={item?.id}
-                        nameProject={item?.name}
-                        status={item?.status}
-                        notify={notify}
-                        setNotify={setNotify}
-                      />
-                    </td>
-                  </tr>
-                );
-              })}
-            </tbody>
-          </table>
+                    </Stack>
+                </div>
+            </div>
         </div>
-        <div className={cx("paginate")}>
-          <Stack spacing={2}>
-            <Pagination
-              count={countPage}
-              variant="outlined"
-              color="primary"
-              onChange={handlePageChange}
-            />
-          </Stack>
-        </div>
-      </div>
-    </div>
-  );
+    );
 }
 
 export default AdminManageProject;

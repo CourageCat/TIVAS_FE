@@ -9,6 +9,7 @@ import { useDispatch, useSelector } from "react-redux";
 
 import images from "~/assets/images";
 import { Link } from "react-router-dom";
+import { LocationDisabled } from "@mui/icons-material";
 
 const cx = classNames.bind(styles);
 
@@ -31,6 +32,7 @@ function ExpandList({ locationDetail }) {
     //     fetchData();
     // }, []);
 
+    console.log(locationDetail);
     return (
         <div className={cx("expand-list-wrapper")}>
             <div className={cx("content")}>
@@ -46,12 +48,18 @@ function ExpandList({ locationDetail }) {
                     </div>
                 </div>
                 {/* List Content */}
-                <div className={cx("list-content")}>
-                    {locationDetail?.map((item) => (
-                        <Link to="/locate">
-                            <span className={cx("desc")}>{item?.name}</span>
-                        </Link>
-                    ))}
+                <div className={cx("list-content-wrapper")}>
+                    <div className={cx("list-content")}>
+                        <div className={cx("scroll-content")}>
+                            {locationDetail?.map((item, index) => (
+                                <Link to={`/locate/${index}`} key={index}>
+                                    <span className={cx("desc")}>
+                                        {item?.name}
+                                    </span>
+                                </Link>
+                            ))}
+                        </div>
+                    </div>
                 </div>
             </div>
         </div>

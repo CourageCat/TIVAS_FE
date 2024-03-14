@@ -1,222 +1,280 @@
 // Simple Gallery
 
 .fit {
-  object-fit: cover;
+    object-fit: cover;
 }
 
 .content {
-  padding: 0px 0 0 50px;
+    padding: 0px 0 0 50px;
 }
 
 .item {
-  position: relative;
-  margin-top: 10px;
-  margin-left: 15px;
-  font-family: "Poppins", sans-serif;
-  font-size: 1.4rem;
-  font-style: normal;
-  font-weight: 400;
+    position: relative;
+    margin-top: 10px;
+    margin-left: 15px;
+    font-family: "Poppins", sans-serif;
+    font-size: 1.4rem;
+    font-style: normal;
+    font-weight: 400;
 
-  &::before {
-    content: "•";
-    position: absolute;
-    left: -15px;
-  }
+    &::before {
+        content: "•";
+        position: absolute;
+        left: -15px;
+    }
 }
 
 .title {
-  font-family: "Poppins", sans-serif;
-  font-style: normal;
-  font-weight: 700;
+    font-family: "Poppins", sans-serif;
+    font-style: normal;
+    font-weight: 700;
 }
 
 // List Images
 
 .img {
-  width: 325px;
-  height: 250px;
-  float: left;
-  margin: 5px 5px 0 0;
-  border-radius: 14px;
-  position: relative;
-  z-index: 1;
-  padding: 5px;
+    width: 325px;
+    height: 250px;
+    float: left;
+    margin: 5px 5px 0 0;
+    border-radius: 14px;
+    position: relative;
+    z-index: 1;
+    padding: 5px;
 }
 
 .large-image {
-  width: 750px;
-  height: 505px;
-  border-radius: 14px;
+    width: 750px;
+    height: 505px;
+    border-radius: 14px;
 }
 
 .hidden {
-  display: none;
+    display: none;
 }
 
 // Project Detail
 
 .list-img {
-  // padding: 50px 0 0 100px;
-  content: "";
-  display: table;
-  clear: both;
+    // padding: 50px 0 0 100px;
+    content: "";
+    display: table;
+    clear: both;
 }
 
 // Info Detail
 
 .info-detail {
-  margin-top: 30px;
+    margin-top: 30px;
 
-  .top-content {
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
+    .top-content {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
 
-    .location {
-      margin-top: 10px;
-      display: inline-flex;
-      align-items: center;
-      column-gap: 8px;
-      font-family: "Inter", sans-serif;
-      font-size: 1.8rem;
-  
-      .icon {
-        width: 20px;
-        height: 20px;
-      }
+        .location {
+            margin-top: 10px;
+            display: inline-flex;
+            align-items: center;
+            column-gap: 8px;
+            font-family: "Inter", sans-serif;
+            font-size: 1.8rem;
+
+            .icon {
+                width: 20px;
+                height: 20px;
+            }
+        }
     }
-  
-  }
 
-  .desc {
-    margin-top: 25px;
-    font-family: "Poppins", sans-serif;
-    font-size: 1.8rem;
-    font-style: normal;
-    font-weight: 400;
-  }
-
-  .rate {
-    margin-top: 10px;
-    display: flex;
-
-    .rating {
-      font-family: "Poppins", sans-serif;
-      font-size: 1.9rem;
-      font-style: normal;
-      font-weight: 500;
-      align-self: center;
-      padding: 0 5px 0 5px;
-      background: #44bdd9;
-      margin-right: 10px;
-      border-radius: 5px;
-    }
-  }
-
-  .sub-title {
-    font-family: "Poppins", sans-serif;
-    font-weight: 500;
-  }
-
-  .amenities {
-    margin-top: 35px;
-
-    .row {
-      display: flex;
-      align-items: center;
-      gap: 20px;
-
-      .text-wrapper {
-        position: relative;
-        color: #000;
+    .desc {
+        width: 95%;
+        margin-top: 25px;
         font-family: "Poppins", sans-serif;
-        font-size: 1.4rem;
+        font-size: 1.8rem;
         font-style: normal;
-        font-weight: 300;
-        display: inline-block;
-        text-align: center;
-
-        &::after {
-          position: absolute;
-          bottom: 0px;
-          left: 0;
-          content: "";
-          width: 0;
-          height: 2px;
-          background-color: #235784;
-          transition: all 0.5s;
-        }
-        &:hover::after {
-          width: 100%;
-        }
-      }
+        font-weight: 400;
     }
 
-    .list-amenities {
-      margin-top: 15px;
-      display: flex;
-      gap: 80px;
+    .rate {
+        margin-top: 10px;
+        display: flex;
+
+        .rating {
+            font-family: "Poppins", sans-serif;
+            font-size: 1.9rem;
+            font-style: normal;
+            font-weight: 500;
+            align-self: center;
+            padding: 0 5px 0 5px;
+            background: #44bdd9;
+            margin-right: 10px;
+            border-radius: 5px;
+        }
     }
-  }
+
+    .sub-title {
+        font-family: "Poppins", sans-serif;
+        font-weight: 500;
+    }
+
+    .amenities {
+        margin-top: 35px;
+
+        .row {
+            display: flex;
+            align-items: center;
+            gap: 20px;
+
+            .text-wrapper {
+                position: relative;
+                color: #000;
+                font-family: "Poppins", sans-serif;
+                font-size: 1.4rem;
+                font-style: normal;
+                font-weight: 300;
+                display: inline-block;
+                text-align: center;
+
+                &::after {
+                    position: absolute;
+                    bottom: 0px;
+                    left: 0;
+                    content: "";
+                    width: 0;
+                    height: 2px;
+                    background-color: #235784;
+                    transition: all 0.5s;
+                }
+                &:hover::after {
+                    width: 100%;
+                }
+            }
+        }
+
+        .list-amenities {
+            margin-top: 15px;
+            display: flex;
+            gap: 80px;
+        }
+    }
 }
 .all-room-type {
-  margin-top: 50px;
+    margin-top: 50px;
+}
+
+// Timeshare Rental btn
+.btn-wrapper {
+    margin-top: 20px;
+    border: #b1aaaa solid 1px;
+    border-radius: 10px;
+    width: 90%;
+
+    .header {
+        border-radius: 10px 10px 0 0;
+        padding: 15px;
+        font-family: "Poppins", sans-serif;
+        font-size: 2rem;
+        font-weight: 600;
+        background: #4183c439;
+    }
+    .content {
+        padding: 20px;
+        display: flex;
+        justify-content: space-between;
+
+        .left-content {
+            display: flex;
+            gap: 20px;
+            align-items: center;
+            .avatar {
+                border-radius: 50%;
+                width: 50px;
+                height: 50px;
+            }
+
+            .text {
+                font-family: "Poppins", sans-serif;
+                font-size: 1.5rem;
+                font-weight: 400;
+            }
+        }
+        .right-content {
+            .rental-link {
+                .rental-btn {
+                    color: #000;
+                    padding: 10px 15px;
+                    // border: #000 solid 1px;
+                    border-radius: 10px;
+                    font-family: "Poppins", sans-serif;
+                    font-size: 1.5rem;
+                    font-weight: 300;
+                    cursor: pointer;
+                    background: #44bdd9;
+
+                    &:hover {
+                        opacity: 0.9;
+                    }
+                }
+            }
+        }
+    }
 }
 
 // Resort Amenities
 .resort-amenities-wrapper {
-  margin-top: 50px;
+    margin-top: 50px;
 
-  #resort-amenities {
-  }
-
-  .resort-amenities-list {
-    margin-top: 10px;
-    display: grid;
-    grid-template-columns: 1fr 1fr 1fr 1fr;
-    row-gap: 10px;
-    .item {
-      font-size: 1.8rem;
+    #resort-amenities {
     }
-  }
+
+    .resort-amenities-list {
+        margin-top: 10px;
+        display: grid;
+        grid-template-columns: 1fr 1fr 1fr 1fr;
+        row-gap: 10px;
+        .item {
+            font-size: 1.8rem;
+        }
+    }
 }
 // Header ==========
 .header {
-  .navigation {
-    padding: 33px var(--home-padding) 0;
-  }
+    .navigation {
+        padding: 33px var(--home-padding) 0;
+    }
 }
 
 // Reservaiton
 .reservation {
-  padding-right: 80px;
-  text-align: right;
+    padding-right: 80px;
+    text-align: right;
 
-  .action {
-    display: inline-block;
-    font-family: "Inter", sans-serif;
-    padding: 20px 30px;
+    .action {
+        display: inline-block;
+        font-family: "Inter", sans-serif;
+        padding: 20px 30px;
 
-    font-size: 1.7rem;
-    background-color: #605DEC;
-    color: #fff;
-    cursor: pointer;
-    user-select: none;
-    border-radius: 8px;
+        font-size: 1.7rem;
+        background-color: #44bdd9;
+        color: #fff;
+        cursor: pointer;
+        user-select: none;
+        border-radius: 8px;
 
-    &:hover {
-      color: #fff;
-      opacity: 0.9;
+        &:hover {
+            color: #fff;
+            opacity: 0.9;
+        }
     }
-  }
 }
 
 .title-reservation {
-  font-family: "Inter", sans-serif;
-  font-size: 1.8rem;
+    font-family: "Inter", sans-serif;
+    font-size: 1.8rem;
 }
 
 .desc-reservation {
-  font-family: "Inter", sans-serif;
-  font-size: 1.6rem;
+    font-family: "Inter", sans-serif;
+    font-size: 1.6rem;
 }
