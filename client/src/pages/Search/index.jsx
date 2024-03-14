@@ -4,6 +4,7 @@ import Navigations from "~/components/Layouts/Navigations";
 import ProjectResult from "~/components/ProjectResult";
 import ExpandList from "~/components/ExpandList";
 import SearchPage from "~/components/SearchPage";
+import { Rating, Stack, Pagination } from "@mui/material";
 
 import { Link, useParams } from "react-router-dom";
 import { getAllProjects } from "~/controllers/project";

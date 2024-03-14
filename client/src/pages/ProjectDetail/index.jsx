@@ -12,18 +12,18 @@ import { getProjectDetailById } from "~/controllers/project";
 import { useDispatch, useSelector } from "react-redux";
 import createAxios from "~/configs/axios";
 import {
-  Backdrop,
-  Button,
-  CircularProgress,
-  Dialog,
-  DialogActions,
-  DialogContent,
-  DialogContentText,
-  DialogTitle,
+    Backdrop,
+    Button,
+    CircularProgress,
+    Dialog,
+    DialogActions,
+    DialogContent,
+    DialogContentText,
+    DialogTitle,
 } from "@mui/material";
 import {
-  createTicket,
-  paymentReservaion,
+    createTicket,
+    paymentReservaion,
 } from "~/controllers/reservationTicket";
 import { Toaster, toast } from "sonner";
 import ToastNotify from "~/components/ToastNotify";
@@ -31,23 +31,23 @@ import ToastNotify from "~/components/ToastNotify";
 const cx = classNames.bind(styles);
 
 function ProjectDetail() {
-  const [projectData, setProjectData] = useState({});
-  const [typeRooms, setTypeRooms] = useState([]);
-  const [listImage, setListImage] = useState([]);
-  const [status, setStatus] = useState(0);
-  const dispatch = useDispatch();
-  const currentUser = useSelector((state) => state.auth.login.user);
-  const axiosInstance = createAxios(dispatch, currentUser);
+    const [projectData, setProjectData] = useState({});
+    const [typeRooms, setTypeRooms] = useState([]);
+    const [listImage, setListImage] = useState([]);
+    const [status, setStatus] = useState(0);
+    const dispatch = useDispatch();
+    const currentUser = useSelector((state) => state.auth.login.user);
+    const axiosInstance = createAxios(dispatch, currentUser);
 
-  const [isLoading, setIsLoading] = useState(false);
+    const [isLoading, setIsLoading] = useState(false);
 
   const { id } = useParams();
   const [openReservaion, setOpenReservaion] = useState(false);
   const [notify, setNotify] = useState({});
 
-  const handleOpenReservaion = () => {
-    setOpenReservaion(true);
-  };
+    const handleOpenReservaion = () => {
+        setOpenReservaion(true);
+    };
 
   const handleCloseReservaion = () => {
     setOpenReservaion(false);
@@ -72,38 +72,39 @@ function ProjectDetail() {
     }
   };
 
-  useEffect(() => {
-    window.scrollTo(0, 0);
-    const projectDetail = async () => {
-      const res = await getProjectDetailById(axiosInstance, id);
-      if (res?.err === 0) {
-        setProjectData(res.data.Project);
-        setTypeRooms(res.data.TypeRoom);
-        setListImage(
-          res.data.Project.images.map((item) => {
-            return {
-              largeURL: item.pathUrl,
-              thumbnailURL: item.pathUrl,
-              width: 974,
-              height: 641,
-            };
-          })
-        );
-        setStatus(res.data.Project.status);
-        setIsLoading(true);
-      }
-    };
-    projectDetail();
-  }, []);
+    useEffect(() => {
+        window.scrollTo(0, 0);
+        const projectDetail = async () => {
+            const res = await getProjectDetailById(axiosInstance, id);
+            if (res?.err === 0) {
+                setProjectData(res.data.Project);
+                setTypeRooms(res.data.TypeRoom);
+                setListImage(
+                    res.data.Project.images.map((item) => {
+                        return {
+                            largeURL: item.pathUrl,
+                            thumbnailURL: item.pathUrl,
+                            width: 974,
+                            height: 641,
+                        };
+                    })
+                );
+                setStatus(res.data.Project.status);
+                setIsLoading(true);
+            }
+        };
+        projectDetail();
+    }, []);
 
-  const [scrollToResortAmenities, setScrollToResortAmenities] = useState(false);
-  useEffect(() => {
-    if (scrollToResortAmenities) {
-      const resortAmenitiesElement =
-        document.getElementById("resort-amenities");
-      if (resortAmenitiesElement) {
-        resortAmenitiesElement.scrollIntoView({ behavior: "smooth" });
-      }
+    const [scrollToResortAmenities, setScrollToResortAmenities] =
+        useState(false);
+    useEffect(() => {
+        if (scrollToResortAmenities) {
+            const resortAmenitiesElement =
+                document.getElementById("resort-amenities");
+            if (resortAmenitiesElement) {
+                resortAmenitiesElement.scrollIntoView({ behavior: "smooth" });
+            }
 
       setScrollToResortAmenities(false);
     }
@@ -123,13 +124,15 @@ function ProjectDetail() {
     }
   }, [notify]);
 
-  const handleSeeAllClick = () => {
-    setScrollToResortAmenities(true);
-  };
+    const handleSeeAllClick = () => {
+        setScrollToResortAmenities(true);
+    };
 
-  const renderTypeRoom = () => {
-    return typeRooms.map((item, index) => <RoomType key={index} data={item} />);
-  };
+    const renderTypeRoom = () => {
+        return typeRooms.map((item, index) => (
+            <RoomType key={index} data={item} />
+        ));
+    };
 
   console.log(status);
   return (
@@ -152,30 +155,32 @@ function ProjectDetail() {
             </div>
           </div>
 
-          <div className={cx("content")}>
-            <div className={cx("info-detail")}>
-              <div className={cx("top-content")}>
-                <div className={cx("left")}>
-                  <h1 className={cx("title")}>
-                    {/* The Rivus Project from Thu Duc district, Ho Chi Minh */}
-                    {projectData?.name}
-                  </h1>
+                    <div className={cx("content")}>
+                        <div className={cx("info-detail")}>
+                            <div className={cx("top-content")}>
+                                <div className={cx("left")}>
+                                    <h1 className={cx("title")}>
+                                        {/* The Rivus Project from Thu Duc district, Ho Chi Minh */}
+                                        {projectData?.name}
+                                    </h1>
 
-                  <div className={cx("location")}>
-                    <svg
-                      className={cx("icon")}
-                      xmlns="http://www.w3.org/2000/svg"
-                      width="16"
-                      height="16"
-                      fill="currentColor"
-                      viewBox="0 0 16 16"
-                    >
-                      <path d="M8 16s6-5.686 6-10A6 6 0 0 0 2 6c0 4.314 6 10 6 10m0-7a3 3 0 1 1 0-6 3 3 0 0 1 0 6" />
-                    </svg>
+                                    <div className={cx("location")}>
+                                        <svg
+                                            className={cx("icon")}
+                                            xmlns="http://www.w3.org/2000/svg"
+                                            width="16"
+                                            height="16"
+                                            fill="currentColor"
+                                            viewBox="0 0 16 16"
+                                        >
+                                            <path d="M8 16s6-5.686 6-10A6 6 0 0 0 2 6c0 4.314 6 10 6 10m0-7a3 3 0 1 1 0-6 3 3 0 0 1 0 6" />
+                                        </svg>
 
-                    <span className={cx("text")}>{projectData?.location}</span>
-                  </div>
-                </div>
+                                        <span className={cx("text")}>
+                                            {projectData?.location}
+                                        </span>
+                                    </div>
+                                </div>
 
                 {/* Reservation */}
                 {status === 1 && (
@@ -226,104 +231,162 @@ function ProjectDetail() {
                 )}
               </div>
 
-              <div className={cx("desc")}>{projectData?.description}</div>
+                            <div className={cx("desc")}>
+                                {projectData?.description}
+                            </div>
 
-              <div className={cx("rate")}>
-                <div className={cx("rating")}>4.5</div>
-                <h2 className={cx("sub-title")}>Excellent Value</h2>
-              </div>
+                            <div className={cx("rate")}>
+                                <div className={cx("rating")}>4.5</div>
+                                <h2 className={cx("sub-title")}>
+                                    Excellent Value
+                                </h2>
+                            </div>
 
-              <div className={cx("amenities")}>
-                <div className={cx("row")}>
-                  <h2 className={cx("sub-title")}>Popular amenities</h2>
-                  <Link
-                    to="#resort-amenities"
-                    className={cx("text-wrapper")}
-                    onClick={handleSeeAllClick}
-                  >
-                    See All
-                  </Link>
-                </div>
+                            <div className={cx("amenities")}>
+                                <div className={cx("row")}>
+                                    <h2 className={cx("sub-title")}>
+                                        Popular amenities
+                                    </h2>
+                                    <Link
+                                        to="#resort-amenities"
+                                        className={cx("text-wrapper")}
+                                        onClick={handleSeeAllClick}
+                                    >
+                                        See All
+                                    </Link>
+                                </div>
 
-                {/* List Amenities */}
-                <div className={cx("list-amenities")}>
-                  <div className={cx("left-list")}>
-                    {projectData?.features?.slice(0, 3).map((item, index) => {
-                      return (
-                        <div key={index} className={cx("item")}>
-                          {item}
+                                {/* List Amenities */}
+                                <div className={cx("list-amenities")}>
+                                    <div className={cx("left-list")}>
+                                        {projectData?.features
+                                            ?.slice(0, 3)
+                                            .map((item, index) => {
+                                                return (
+                                                    <div
+                                                        key={index}
+                                                        className={cx("item")}
+                                                    >
+                                                        {item}
+                                                    </div>
+                                                );
+                                            })}
+                                    </div>
+
+                                    <div className={cx("right-list")}>
+                                        {projectData?.features
+                                            ?.slice(3, 6)
+                                            .map((item, index) => {
+                                                return (
+                                                    <div
+                                                        key={index}
+                                                        className={cx("item")}
+                                                    >
+                                                        {item}
+                                                    </div>
+                                                );
+                                            })}
+                                    </div>
+                                </div>
+                            </div>
                         </div>
-                      );
-                    })}
-                  </div>
 
-                  <div className={cx("right-list")}>
-                    {projectData?.features?.slice(3, 6).map((item, index) => {
-                      return (
-                        <div key={index} className={cx("item")}>
-                          {item}
+                        {/* Room Type */}
+                        <div className={cx("all-room-type")}>
+                            <h1 className={cx("title")}>Room Type</h1>
+                            <div>{renderTypeRoom()}</div>
                         </div>
-                      );
-                    })}
-                  </div>
+
+                        {/* Timeshare Rental Button */}
+                        <div className={cx("btn-wrapper")}>
+                            <div className={cx("header")}>Timeshare rental</div>
+                            <div className={cx("content")}>
+                                {/* left content */}
+                                <div className={cx("left-content")}>
+                                    <img
+                                        src={images.unknown}
+                                        alt="avatar"
+                                        className={cx("avatar")}
+                                    />
+                                    <div className={cx("text")}>
+                                        Do you want to view all timeshare
+                                        rentals ?
+                                    </div>
+                                </div>
+
+                                {/* right content */}
+                                <div className={cx("right-content")}>
+                                    <Link
+                                        to="/timesharerentals"
+                                        className={cx("rental-link")}
+                                    >
+                                        <div className={cx("rental-btn")}>
+                                            Timeshare Rental
+                                        </div>
+                                    </Link>
+                                </div>
+                            </div>
+                        </div>
+
+                        {/* Resort Amenities */}
+                        <div className={cx("resort-amenities-wrapper")}>
+                            <h1
+                                id={cx("resort-amenities")}
+                                className={cx("title")}
+                            >
+                                Resort Amenities
+                            </h1>
+                            <div className={cx("resort-amenities-list")}>
+                                {projectData?.features?.map((item, index) => {
+                                    return (
+                                        <div key={index} className={cx("item")}>
+                                            {item}
+                                        </div>
+                                    );
+                                })}
+                            </div>
+                        </div>
+                        {/* Attractions */}
+                        <div className={cx("resort-amenities-wrapper")}>
+                            <h1
+                                id={cx("resort-amenities")}
+                                className={cx("title")}
+                            >
+                                Nearby Attractions
+                            </h1>
+                            <div className={cx("resort-amenities-list")}>
+                                {projectData?.attractions?.map(
+                                    (item, index) => {
+                                        return (
+                                            <div
+                                                key={index}
+                                                className={cx("item")}
+                                            >
+                                                {item}
+                                            </div>
+                                        );
+                                    }
+                                )}
+                            </div>
+                        </div>
+                    </div>
+                    {/* Footer */}
+                    <footer className={cx("footer")}>
+                        <Footer />
+                    </footer>
                 </div>
-              </div>
-            </div>
-
-            {/* Room Type */}
-            <div className={cx("all-room-type")}>
-              <h1 className={cx("title")}>Room Type</h1>
-              <div>{renderTypeRoom()}</div>
-            </div>
-
-            {/* Resort Amenities */}
-            <div className={cx("resort-amenities-wrapper")}>
-              <h1 id={cx("resort-amenities")} className={cx("title")}>
-                Resort Amenities
-              </h1>
-              <div className={cx("resort-amenities-list")}>
-                {projectData?.features?.map((item, index) => {
-                  return (
-                    <div key={index} className={cx("item")}>
-                      {item}
-                    </div>
-                  );
-                })}
-              </div>
-            </div>
-            {/* Attractions */}
-            <div className={cx("resort-amenities-wrapper")}>
-              <h1 id={cx("resort-amenities")} className={cx("title")}>
-                Nearby Attractions
-              </h1>
-              <div className={cx("resort-amenities-list")}>
-                {projectData?.attractions?.map((item, index) => {
-                  return (
-                    <div key={index} className={cx("item")}>
-                      {item}
-                    </div>
-                  );
-                })}
-              </div>
-            </div>
-          </div>
-          {/* Footer */}
-          <footer className={cx("footer")}>
-            <Footer />
-          </footer>
+            )}
+            <Backdrop
+                sx={{
+                    color: "#fff",
+                    zIndex: (theme) => theme.zIndex.drawer + 1,
+                }}
+                open={!isLoading}
+            >
+                <CircularProgress color="inherit" />
+            </Backdrop>
         </div>
-      )}
-      <Backdrop
-        sx={{
-          color: "#fff",
-          zIndex: (theme) => theme.zIndex.drawer + 1,
-        }}
-        open={!isLoading}
-      >
-        <CircularProgress color="inherit" />
-      </Backdrop>
-    </div>
-  );
+    );
 }
 
 export default ProjectDetail;

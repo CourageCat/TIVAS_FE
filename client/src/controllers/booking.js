@@ -1,8 +1,8 @@
 import * as services from "~/services";
 
-export const compleateBooking = async (axiosInstance, form) => {
+export const completeBooking = async (axiosInstance, form) => {
   try {
-    const res = await services.compleateBooking(axiosInstance, form);
+    const res = await services.completeBooking(axiosInstance, form);
     return res;
   } catch (err) {
     console.log(err);

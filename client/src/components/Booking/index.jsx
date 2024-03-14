@@ -7,7 +7,6 @@ import createAxios from "~/configs/axios";
 import { Link, useParams } from "react-router-dom";
 
 import images from "~/assets/images";
-// import { Link } from "react-router-dom";
 
 const cx = classNames.bind(styles);
 
