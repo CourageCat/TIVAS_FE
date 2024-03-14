@@ -116,3 +116,13 @@ export const closeBookingDate = async (axiosInstance, id) => {
     console.log(err);
   }
 };
+
+
+export const searchNameAndLocation = async (axiosInstance, form) => {
+  try {
+    const res = await services.searchNameAndLocation(axiosInstance, form);
+    return res;
+  } catch (err) {
+    console.log(err);
+  }
+};

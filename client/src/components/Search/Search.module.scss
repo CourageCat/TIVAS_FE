@@ -1,5 +1,5 @@
 :root {
-    --width-search: 500px;
+  --width-search: 500px;
 }
 
 // .search-wrapper {
@@ -7,56 +7,177 @@
 
 // Search
 .search {
-    width: var(--width-search);
-    height: 48px;
-    display: flex;
-    align-items: center;
-    position: relative;
+  width: var(--width-search);
+  height: 48px;
+  display: flex;
+  align-items: center;
+  position: relative;
 
-    // Input
-    .search-input {
-        width: 100%;
-        padding: 10px 48px;
-        background: rgba(210, 210, 210, 0.41);
-        backdrop-filter: blur(3.94110369682312px);
-        border-radius: 14px;
-        color: #3d3d3d;
-        font-family: "Poppins", sans-serif;
-        font-size: 1.7rem;
-        font-weight: 400;
-        transition: all 0.2s;
-        border: 0.5px solid rgba(210, 210, 210, 0.41);
-        outline: none;
+  // Input
+  .search-input {
+    width: 100%;
+    padding: 10px 48px;
+    background: rgba(210, 210, 210, 0.41);
+    backdrop-filter: blur(3.94110369682312px);
+    border-radius: 14px;
+    color: #3d3d3d;
+    font-family: "Inter", sans-serif;
+    font-size: 1.7rem;
+    font-weight: 400;
+    transition: all 0.2s;
+    border: 2px solid rgba(210, 210, 210, 0.41);
+    outline: none;
 
-        &:hover {
-            border-color: rgba(210, 210, 210, 0.8);
-        }
-
-        &:focus + .icon-search {
-            opacity: 1;
-        }
+    &:hover {
+      border-color: rgba(210, 210, 210, 0.8);
     }
-    // Icon search
-    .icon-search {
-        position: absolute;
-        top: 50%;
-        left: 19px;
-        transform: translateY(-50%);
-        width: 18px;
-        height: 18px;
-        object-fit: cover;
-        opacity: 0.6;
-        transition: all 0.2s;
+
+    &.open_search {
+      border: 2px solid #000;
     }
+
+    &.active {
+      color: #000;
+      & ~ .icon-search {
+        opacity: 1;
+      }
+    }
+  }
+
+  // Icon search
+  .icon-search {
+    position: absolute;
+    top: 50%;
+    left: 19px;
+    transform: translateY(-50%);
+    width: 28px;
+    height: 28px;
+    object-fit: cover;
+    opacity: 0.6;
+    transition: all 0.2s;
+  }
 }
 
 // Search-result
 .search-result {
-    width: var(--width-search);
-    max-height: min((100vh - 96px) - 60px, 734px);
-    min-height: 30px;
-    padding: 8px 20px;
-    border-radius: 8px;
-    background: rgb(255, 255, 255);
-    box-shadow: rgb(0 0 0 / 12%) 0px 2px 12px;
+  width: var(--width-search);
+  max-height: min((100vh - 96px) - 60px, 734px);
+  min-height: 30px;
+  padding: 14px 20px;
+  border-radius: 8px;
+  background: rgb(255, 255, 255);
+  box-shadow: rgba(0, 0, 0, 0.2) 0px 12px 28px 0px,
+    rgba(0, 0, 0, 0.1) 0px 2px 4px 0px,
+    rgba(255, 255, 255, 0.05) 0px 0px 0px 1px inset;
+}
+
+// ===============Header search
+.header-search {
+  position: relative;
+  padding-left: 30px;
+  .heading {
+    font-family: "Inter", sans-serif;
+    font-size: 1.4rem;
+    font-weight: 400;
+    color: #8e8e8e;
+  }
+}
+
+.loading {
+  animation: spinner 0.8s linear infinite;
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  left: 0;
+}
+
+.search_icon {
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  left: 0;
+  font-weight: 600;
+  color: #727272;
+}
+
+// ========== Main result
+.main-result {
+  margin-top: 14px;
+}
+
+.box-search {
+  margin-top: 10px;
+
+  .box-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    border-bottom: 1px solid rgba(0,0,0,.05);
+
+  }
+
+  .title {
+    font-family: "Inter", sans-serif;
+    font-size: 1.4rem;
+    font-weight: 600;
+    text-transform: uppercase;
+    color: #0b0b0b;
+  }
+  .brow {
+    font-family: "Inter", sans-serif;
+    font-size: 1.4rem;
+    font-weight: 400;
+    color: #0000008a;
+    cursor: pointer;
+
+    &:hover {
+      color: #f47425;
+    }
+  }
+
+  .list-box {
+    margin-top: 13px;
+    display: flex;
+    flex-direction: column;
+    row-gap: 15px;
+  }
+
+  .box-item {
+    display: flex;
+    align-items: flex-start;
+    column-gap: 5px;
+    .image {
+      width: 60px;
+      height: 60px;
+    }
+  }
+
+  .content {
+    .name_project {
+      font-family: "Inter", sans-serif;
+      font-size: 1.8rem;
+      font-weight: 500;
+    }
+    .location {
+      display: inline-flex;
+      align-items: center;
+      column-gap: 5px;
+      .icon {
+        display: inline-block;
+      }
+      .position {
+        font-family: "Inter", sans-serif;
+        font-size: 1.5rem;
+      }
+    }
+  }
+}
+
+@keyframes spinner {
+  from {
+    transform: translateY(-50%) rotate(0);
+  }
+  to {
+    transform: translateY(-50%) rotate(360deg);
+  }
 }

@@ -53,7 +53,8 @@ function Navigations() {
     const currentUser = useSelector((state) => state.auth.login.user);
     const [imgAvatar, setImgAvatar] = useState("");
 
-    const statusRegister = useSelector((state) => state.auth.register);
+  const statusRegister = useSelector((state) => state.auth.register);
+  const axiosInstance = createAxios(dispatch, currentUser);
 
     useEffect(() => {
         const fetchGetAvatarUser = async () => {
@@ -113,22 +114,21 @@ function Navigations() {
         setMenu(false);
     };
 
-    useEffect(() => {
-        if (statusRegister?.success) {
-            handleCloseRegister();
-            toast.custom(
-                () => (
-                    <ToastNotify
-                        type="success"
-                        title="Success"
-                        desc={"Your account registered successfully"}
-                    />
-                ),
-                { duration: 2000 }
-            );
-        }
-    }, [dispatch, handleCloseRegister, statusRegister?.success]);
-    const axiosInstance = createAxios(dispatch, currentUser);
+  useEffect(() => {
+    if (statusRegister?.success) {
+      handleCloseRegister();
+      toast.custom(
+        () => (
+          <ToastNotify
+            type="success"
+            title="Success"
+            desc={"Your account registered successfully"}
+          />
+        ),
+        { duration: 2000 }
+      );
+    }
+  }, [dispatch, handleCloseRegister, statusRegister?.success]);
 
     const renderNavbar = () => {
         return LIST_NAV.map((item, index) => {

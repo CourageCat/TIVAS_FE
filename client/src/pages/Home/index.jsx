@@ -390,7 +390,7 @@ function Home() {
               ))}
             </div>
             <div className={cx("list-two")}>
-              {listLocation.slice(2).map((item, index) => (
+              {listLocation.slice(2, 5).map((item, index) => (
                 <div key={index} className={cx("box")}>
                   <img
                     src={item?.imagePathUrl}
