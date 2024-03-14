@@ -67,9 +67,6 @@ const FEATURED_RESORT = [
     price: " $285/night",
   },
 ];
-const blog_link = {
-  link: "/blog",
-};
 
 function CustomNextArrow(props) {
   const { onClick } = props;
@@ -150,7 +147,7 @@ function ListingDetails() {
 
   const [input, setInput] = useState("");
   const [featuredResort, setFeaturedResort] = useState(FEATURED_RESORT);
-  const [listingResort, setListingResort] = useState([]);
+  const [listingResort, setListingResort] = useState(null);
   const [countPage, setCountPage] = useState(1);
   const [page, setPage] = useState(1);
 
@@ -224,7 +221,7 @@ function ListingDetails() {
       {/* Main */}
       <main className={cx("main")}>
         {/* Content */}
-        <section className={cx("body")}>
+       {listingResort && <section className={cx("body")}>
           <div className={cx("top-resort")}>
             {/* List box */}
             <div className={cx("top-resort-header")}>
@@ -344,7 +341,7 @@ function ListingDetails() {
               </table>
             </div>
           </div>
-        </section>
+        </section>}
       </main>
       <Footer />
     </div>
