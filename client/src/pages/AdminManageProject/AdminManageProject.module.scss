@@ -14,6 +14,10 @@
 }
 
 .title {
+    white-space: nowrap;
+}
+
+.heading {
     font-family: "Inter", sans-serif;
     font-size: 3rem;
     font-weight: 600;
@@ -91,10 +95,11 @@
         width: 300px;
 
         .text {
+            width: 150px;
         }
         .infor {
             display: flex;
-            align-items: center;
+            // align-items: center;
             column-gap: 10px;
         }
         .image {
@@ -150,8 +155,20 @@
             color: #000;
         }
     }
+    .status {
+        width: 170px;
+        .text {
+        }
+        .name {
+            font-family: "Inter", sans-serif;
+            font-size: 1.5rem;
+            font-weight: 500;
+            color: #000;
+        }
+    }
 
     .sleep {
+        width: 150px;
         .name {
             font-family: "Inter", sans-serif;
             font-size: 1.5rem;
@@ -161,6 +178,7 @@
     }
 
     .date {
+        width: 170px;
         .name {
             width: 10px;
             font-family: "Inter", sans-serif;
