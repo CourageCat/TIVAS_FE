@@ -17,64 +17,6 @@ import createAxios from "~/configs/axios";
 
 const cx = classNames.bind(styles);
 
-const FAVORITE_DESTINATIONS = [
-  {
-    link: "#!",
-    image: images.timeshareResort,
-    name: "Da Nang City",
-    description: "Marriot's Desert Springs Villa",
-    price: "from $2300 night",
-  },
-  {
-    link: "#!",
-    image: images.timeshareResort,
-    name: "Ho Chi Minh city",
-    description: "Marriot's Desert Springs Villa",
-    price: "from $2300 night",
-  },
-  {
-    link: "#!",
-    image: images.timeshareResort,
-    name: "Da Lat city",
-    description: "CarIsbad Seapointe by Hilton Grand Vacation",
-    price: "from $2300 night",
-  },
-  {
-    link: "#!",
-    image: images.timeshareResort,
-    name: "Da Nang City",
-    description: "Club Wyndham Vino Bello Resort",
-    price: "from $2300 night",
-  },
-  {
-    link: "#!",
-    image: images.timeshareResort,
-    name: "Ho Chi Minh city",
-    description: "Marriot's Desert Springs Villa",
-    price: "from $2300 night",
-  },
-  {
-    link: "#!",
-    image: images.timeshareResort,
-    name: "Da Lat city",
-    description: "CarIsbad Seapointe by Hilton Grand Vacation",
-    price: "from $2300 night",
-  },
-  {
-    link: "#!",
-    image: images.timeshareResort,
-    name: "Da Lat city",
-    description: "CarIsbad Seapointe by Hilton Grand Vacation",
-    price: "from $2300 night",
-  },
-  {
-    link: "#!",
-    image: images.timeshareResort,
-    name: "Da Nang City",
-    description: "Club Wyndham Vino Bello Resort",
-    price: "from $2300 night",
-  },
-];
 const FEATURED_RESORT = [
   {
     link: "#!",
@@ -123,116 +65,6 @@ const FEATURED_RESORT = [
     time: "May 4 - May 11, 2024",
     available: "Hilton Vacation Club Kaanapali Beach",
     price: " $285/night",
-  },
-];
-
-const TOP_RESORT = [
-  {
-    link: "#!",
-    image: images.resort,
-    name: "Lahaina, Hawaii",
-    available: "Hilton Vacation Club Kaanapali Beach",
-    price: "from $125 night",
-  },
-  {
-    link: "#!",
-    image: images.resort,
-    name: "Lahaina, Hawaii",
-    available: "Hilton Vacation Club Kaanapali Beach",
-    price: "from $125 night",
-  },
-  {
-    link: "#!",
-    image: images.resort,
-    name: "Lahaina, Hawaii",
-    available: "Hilton Vacation Club Kaanapali Beach",
-    price: "from $125 night",
-  },
-];
-const RESORT_DETAIL = [
-  {
-    link: "#!",
-    image: images.koala,
-    name: "Gatlinburg, Tennessee",
-    address: "Westgate Smoky Mountain Resor",
-    unit: "5 Bedrooms Villa",
-    room: "20",
-    date: "June 30 - Jul 7 2024",
-    night: "7",
-    price: "$875 night",
-    host: images.koala_myles,
-  },
-  {
-    link: "#!",
-    image: images.koala,
-    name: "Gatlinburg, Tennessee",
-    address: "Westgate Smoky Mountain Resor",
-    unit: "5 Bedrooms Villa",
-    room: "20",
-    date: "June 30 - Jul 7 2024",
-    night: "7",
-    price: "$875 night",
-    host: images.koala_myles,
-  },
-  {
-    link: "#!",
-    image: images.koala,
-    name: "Gatlinburg, Tennessee",
-    address: "Westgate Smoky Mountain Resor",
-    unit: "5 Bedrooms Villa",
-    room: "20",
-    date: "June 30 - Jul 7 2024",
-    night: "7",
-    price: "$875 night",
-    host: images.koala_myles,
-  },
-  {
-    link: "#!",
-    image: images.koala,
-    name: "Gatlinburg, Tennessee",
-    address: "Westgate Smoky Mountain Resor",
-    unit: "5 Bedrooms Villa",
-    room: "20",
-    date: "June 30 - Jul 7 2024",
-    night: "7",
-    price: "$875 night",
-    host: images.koala_myles,
-  },
-  {
-    link: "#!",
-    image: images.koala,
-    name: "Gatlinburg, Tennessee",
-    address: "Westgate Smoky Mountain Resor",
-    unit: "5 Bedrooms Villa",
-    room: "20",
-    date: "June 30 - Jul 7 2024",
-    night: "7",
-    price: "$875 night",
-    host: images.koala_myles,
-  },
-  {
-    link: "#!",
-    image: images.koala,
-    name: "Gatlinburg, Tennessee",
-    address: "Westgate Smoky Mountain Resor",
-    unit: "5 Bedrooms Villa",
-    room: "20",
-    date: "June 30 - Jul 7 2024",
-    night: "7",
-    price: "$875 night",
-    host: images.koala_myles,
-  },
-  {
-    link: "#!",
-    image: images.koala,
-    name: "Gatlinburg, Tennessee",
-    address: "Westgate Smoky Mountain Resor",
-    unit: "5 Bedrooms Villa",
-    room: "20",
-    date: "June 30 - Jul 7 2024",
-    night: "7",
-    price: "$875 night",
-    host: images.koala_myles,
   },
 ];
 const blog_link = {
@@ -317,10 +149,8 @@ function ListingDetails() {
   const axiosInstance = createAxios(dispatch, currentUser);
 
   const [input, setInput] = useState("");
-  const [topResort, setTopResort] = useState(TOP_RESORT);
   const [featuredResort, setFeaturedResort] = useState(FEATURED_RESORT);
-  const [favList, setFavList] = useState(FAVORITE_DESTINATIONS);
-  const [listingResort, setListingResort] = useState(RESORT_DETAIL);
+  const [listingResort, setListingResort] = useState([]);
   const [countPage, setCountPage] = useState(1);
   const [page, setPage] = useState(1);
 

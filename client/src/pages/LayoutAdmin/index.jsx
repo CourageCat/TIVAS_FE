@@ -4,10 +4,16 @@ import styles from "./LayoutAdmin.module.scss";
 import images from "~/assets/images";
 import AdminSidebar from "~/components/Layouts/AdminSidebar";
 import AdminHeader from "~/components/Layouts/AdminHeader";
+import { useDispatch, useSelector } from "react-redux";
+import createAxios from "~/configs/axios";
 
 const cx = classNames.bind(styles);
 
-function LayoutAdmin({children}) {
+function LayoutAdmin({ children }) {
+  const dispatch = useDispatch();
+  const currentUser = useSelector((state) => state.auth.login.user);
+  const axiosInstance = createAxios(dispatch, currentUser);
+
   return (
     <div className={cx("admin-wrapper")}>
       {/* Sidebar */}

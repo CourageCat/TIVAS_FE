@@ -25,6 +25,8 @@ import {
   createTicket,
   paymentReservaion,
 } from "~/controllers/reservationTicket";
+import { Toaster, toast } from "sonner";
+import ToastNotify from "~/components/ToastNotify";
 
 const cx = classNames.bind(styles);
 
@@ -41,6 +43,7 @@ function ProjectDetail() {
 
   const { id } = useParams();
   const [openReservaion, setOpenReservaion] = useState(false);
+  const [notify, setNotify] = useState({});
 
   const handleOpenReservaion = () => {
     setOpenReservaion(true);
@@ -51,22 +54,19 @@ function ProjectDetail() {
   };
   const handlePaymentReservaion = async () => {
     try {
+      handleCloseReservaion();
       const response = await paymentReservaion(axiosInstance, {
         amount: projectData?.reservationPrice,
         username: currentUser?.data?.username,
       });
       if (response.err === 0) {
-        alert("Success reservation");
         await createTicket(axiosInstance, {
           userID: currentUser?.data?.id,
           projectID: projectData.id,
         });
-        handleCloseReservaion();
-      } else {
-        alert("Fail reservation");
-        handleCloseReservaion();
       }
-      console.log(response);
+      // console.log(response);
+      setNotify(response);
     } catch (err) {
       console.log(err);
     }
@@ -109,6 +109,20 @@ function ProjectDetail() {
     }
   }, [scrollToResortAmenities]);
 
+  useEffect(() => {
+    if (notify?.err === 1) {
+      toast.custom(() => (
+        <ToastNotify type="error" title="Error" desc={notify?.mess} />
+      ));
+      setNotify({});
+    } else if (notify?.err === 0) {
+      toast.custom(() => (
+        <ToastNotify type="success" title="Success" desc={notify?.mess} />
+      ));
+      setNotify({});
+    }
+  }, [notify]);
+
   const handleSeeAllClick = () => {
     setScrollToResortAmenities(true);
   };
@@ -120,6 +134,8 @@ function ProjectDetail() {
   console.log(status);
   return (
     <div className={cx("project-detail-wrapper")}>
+      <Toaster position="top-right" richColors expand={true} />
+
       {isLoading === true && (
         <div>
           {/* Header */}
@@ -184,13 +200,10 @@ function ProjectDetail() {
                       <DialogContent>
                         <DialogContentText id="alert-dialog-description">
                           <p className={cx("desc-reservation")}>
-                            {`The average price is ${Intl.NumberFormat(
-                              "en-US",
-                              {
-                                style: "currency",
-                                currency: "USD",
-                              }
-                            ).format(projectData?.reservationPrice)}`}
+                            {`Price reservation: ${Intl.NumberFormat("en-US", {
+                              style: "currency",
+                              currency: "USD",
+                            }).format(projectData?.reservationPrice)}`}
                           </p>
                         </DialogContentText>
                       </DialogContent>

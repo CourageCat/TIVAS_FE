@@ -54,6 +54,7 @@ function Navigations() {
   const [imgAvatar, setImgAvatar] = useState("");
 
   const statusRegister = useSelector((state) => state.auth.register);
+  const axiosInstance = createAxios(dispatch, currentUser);
 
   useEffect(() => {
     const fetchGetAvatarUser = async () => {
@@ -128,7 +129,6 @@ function Navigations() {
       );
     }
   }, [dispatch, handleCloseRegister, statusRegister?.success]);
-  const axiosInstance = createAxios(dispatch, currentUser);
 
   const renderNavbar = () => {
     return LIST_NAV.map((item, index) => {

@@ -10,9 +10,14 @@ function AdminSidebar() {
   const location = useLocation();
 
   const [user, setUser] = useState(false);
+  const [project, setProject] = useState(false);
 
   const toggleUser = () => {
     setUser((prev) => !prev);
+  };
+
+  const toggleProject = () => {
+    setProject((prev) => !prev);
   };
 
   return (
@@ -23,7 +28,7 @@ function AdminSidebar() {
       </section>
       {/* List options */}
       <section className={cx("list-options")}>
-        {/* Option */}
+        {/* Dashboard */}
         <div className={cx("option")}>
           <div className={cx("parent")}>
             <div
@@ -121,9 +126,9 @@ function AdminSidebar() {
           )}
         </div>
 
-        {/* Manage User */}
+        {/* Manage Project */}
         <div className={cx("option")}>
-          <div className={cx("parent")}>
+          <div className={cx("parent")} onClick={toggleProject}>
             <div
               className={cx("heading", {
                 active: location.pathname.includes("/manageproject"),
@@ -152,27 +157,29 @@ function AdminSidebar() {
               <path d="M1.646 4.646a.5.5 0 0 1 .708 0L8 10.293l5.646-5.647a.5.5 0 0 1 .708.708l-6 6a.5.5 0 0 1-.708 0l-6-6a.5.5 0 0 1 0-.708" />
             </svg>
           </div>
-          <div className={cx("list-child")}>
-            <Link to="/admin/manageproject/listproject">
-              <div
-                className={cx("children", {
-                  active: location.pathname.includes("/listproject"),
-                })}
-              >
-                <svg
-                  className={cx("icon")}
-                  xmlns="http://www.w3.org/2000/svg"
-                  width="16"
-                  height="16"
-                  fill="currentColor"
-                  viewBox="0 0 16 16"
+          {project === true && (
+            <div className={cx("list-child")}>
+              <Link to="/admin/manageproject/listproject">
+                <div
+                  className={cx("children", {
+                    active: location.pathname.includes("/listproject"),
+                  })}
                 >
-                  <path d="M4 8a.5.5 0 0 1 .5-.5h5.793L8.146 5.354a.5.5 0 1 1 .708-.708l3 3a.5.5 0 0 1 0 .708l-3 3a.5.5 0 0 1-.708-.708L10.293 8.5H4.5A.5.5 0 0 1 4 8" />
-                </svg>
-                <h4 className={cx("text")}>List project</h4>
-              </div>
-            </Link>
-          </div>
+                  <svg
+                    className={cx("icon")}
+                    xmlns="http://www.w3.org/2000/svg"
+                    width="16"
+                    height="16"
+                    fill="currentColor"
+                    viewBox="0 0 16 16"
+                  >
+                    <path d="M4 8a.5.5 0 0 1 .5-.5h5.793L8.146 5.354a.5.5 0 1 1 .708-.708l3 3a.5.5 0 0 1 0 .708l-3 3a.5.5 0 0 1-.708-.708L10.293 8.5H4.5A.5.5 0 0 1 4 8" />
+                  </svg>
+                  <h4 className={cx("text")}>List project</h4>
+                </div>
+              </Link>
+            </div>
+          )}
         </div>
       </section>
     </div>

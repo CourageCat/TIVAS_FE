@@ -13,9 +13,9 @@ import { getAllUsers } from "~/controllers/user";
 import { Toaster, toast } from "sonner";
 import ToastNotify from "~/components/ToastNotify";
 import {
-    getAllProject,
-    getAllProjects,
-    getAllWithType,
+  getAllProject,
+  getAllProjects,
+  getAllWithType,
 } from "~/controllers/project";
 import ActionProject from "~/components/ActionProject";
 const cx = classNames.bind(styles);
@@ -23,44 +23,44 @@ const cx = classNames.bind(styles);
 const limit = 5;
 
 function convertToDate(inputDate) {
-    const date = new Date(inputDate);
+  const date = new Date(inputDate);
 
-    const monthNames = [
-        "January",
-        "February",
-        "March",
-        "April",
-        "May",
-        "June",
-        "July",
-        "August",
-        "September",
-        "October",
-        "November",
-        "December",
-    ];
+  const monthNames = [
+    "January",
+    "February",
+    "March",
+    "April",
+    "May",
+    "June",
+    "July",
+    "August",
+    "September",
+    "October",
+    "November",
+    "December",
+  ];
 
-    const month = date.getMonth();
-    const day = date.getDate();
-    const year = date.getFullYear();
+  const month = date.getMonth();
+  const day = date.getDate();
+  const year = date.getFullYear();
 
-    const result = monthNames[month] + " " + day + " " + year;
-    return result;
+  const result = monthNames[month] + " " + day + " " + year;
+  return result;
 }
 
 function AdminManageProject() {
   const dispatch = useDispatch();
   const navigate = useNavigate();
 
-    const currentUser = useSelector((state) => state.auth.login.user);
-    const axiosInstance = createAxios(dispatch, currentUser);
+  const currentUser = useSelector((state) => state.auth.login.user);
+  const axiosInstance = createAxios(dispatch, currentUser);
 
-    const [listProjects, setListProjects] = useState([]);
+  const [listProjects, setListProjects] = useState([]);
 
-    const [countPage, setCountPage] = useState(1);
-    const [notify, setNotify] = useState({});
+  const [countPage, setCountPage] = useState(1);
+  const [notify, setNotify] = useState({});
 
-    const [page, setPage] = useState(1);
+  const [page, setPage] = useState(1);
 
   useEffect(() => {
     const fetchUser = async () => {
@@ -80,35 +80,31 @@ function AdminManageProject() {
     window.scrollTo(0, 0);
   }, [page]);
 
-    useEffect(() => {
-        if (notify?.err === 1) {
-            toast.custom(() => (
-                <ToastNotify type="error" title="Error" desc={notify?.mess} />
-            ));
-            setNotify({});
-        } else if (notify?.err === 0) {
-            toast.custom(() => (
-                <ToastNotify
-                    type="success"
-                    title="Success"
-                    desc={notify?.mess}
-                />
-            ));
-            setNotify({});
-        }
-    }, [notify]);
+  useEffect(() => {
+    if (notify?.err === 1) {
+      toast.custom(() => (
+        <ToastNotify type="error" title="Error" desc={notify?.mess} />
+      ));
+      setNotify({});
+    } else if (notify?.err === 0) {
+      toast.custom(() => (
+        <ToastNotify type="success" title="Success" desc={notify?.mess} />
+      ));
+      setNotify({});
+    }
+  }, [notify]);
 
-    const handlePageChange = (event, value) => {
-        setPage(value);
-    };
+  const handlePageChange = (event, value) => {
+    setPage(value);
+  };
 
-    const handleNavigate = (id) => {
-        navigate(`/timesharedetail/${id}`);
-    };
+  const handleNavigate = (id) => {
+    navigate(`/timesharedetail/${id}`);
+  };
 
-    return (
-        <div className={cx("wrapper")}>
-            <Toaster position="top-right" richColors expand={true} />
+  return (
+    <div className={cx("wrapper")}>
+      <Toaster position="top-right" richColors expand={true} />
 
       <h1 className={cx("title")}> Manage projects</h1>
       <div className={cx("content")}>
