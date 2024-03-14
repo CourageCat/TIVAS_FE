@@ -1,208 +1,219 @@
 .header {
-  .navigation {
-    padding: 33px var(--home-padding) 0;
-  }
+    .navigation {
+        padding: 33px var(--home-padding) 0;
+    }
 }
 
 .main-title {
-  font-family: "Poppins", sans-serif;
-  font-weight: 500;
+    font-family: "Poppins", sans-serif;
+    font-weight: 500;
 }
 
 .content {
-  padding: 50px;
+    padding: 50px;
 }
 
 .icon {
-  width: 20px;
-  height: 20px;
-  margin-right: 5px;
+    width: 20px;
+    height: 20px;
+    margin-right: 5px;
 }
 
 .row {
-  display: flex;
+    display: flex;
 }
 
 .text {
-  font-family: "Poppins", sans-serif;
-  font-size: 1.4rem;
-  font-weight: 400;
+    font-family: "Poppins", sans-serif;
+    font-size: 1.4rem;
+    font-weight: 400;
 }
 
 .title {
-  font-family: "Poppins", sans-serif;
-  font-weight: 400;
+    font-family: "Poppins", sans-serif;
+    font-weight: 400;
 }
 
 .list-img {
-  // padding: 50px 0 0 100px;
-  content: "";
-  display: table;
-  clear: both;
+    // padding: 50px 0 0 100px;
+    content: "";
+    display: table;
+    clear: both;
 }
 
 .img {
-  width: 325px;
-  height: 250px;
-  float: left;
-  margin: 5px 5px 0 0;
-  border-radius: 14px;
-  position: relative;
-  z-index: 1;
-  padding: 5px;
+    width: 325px;
+    height: 250px;
+    float: left;
+    margin: 5px 5px 0 0;
+    border-radius: 14px;
+    position: relative;
+    z-index: 1;
+    padding: 5px;
 }
 .content-info {
-  display: flex;
-  gap: 100px;
-  margin-top: 20px;
-  padding: 0 20px 0 10px;
+    display: flex;
+    gap: 100px;
+    margin-top: 20px;
+    padding: 0 20px 0 10px;
 
-  .left-content {
-    flex: 3;
-    // padding: 20px;
-    .bedroom-detail {
-      padding-top: 10px;
+    .left-content {
+        flex: 3;
+        // padding: 20px;
+        .bedroom-detail {
+            padding-top: 10px;
 
-      .type-name {
-        font-family: "Poppins", sans-serif;
-        font-style: normal;
-        font-weight: 400;
-      }
+            .type-name {
+                font-family: "Poppins", sans-serif;
+                font-style: normal;
+                font-weight: 400;
+            }
 
-      .row-wrapper {
+            .row-wrapper {
+                padding-top: 10px;
+                display: grid;
+                width: 400px;
+                grid-template-columns: repeat(2, 1fr);
+                row-gap: 10px;
+            }
+
+            &::after {
+                display: block;
+                content: "";
+                margin-top: 10px;
+                width: 100%;
+                height: 0.5px;
+                background-color: rgba(163, 163, 159, 0.512);
+            }
+        }
+    }
+
+    .row-booking {
+        display: flex;
+        justify-content: space-between;
+        margin-top: 20px;
+        align-items: center;
+    }
+
+    .right-content {
+        flex: 2;
+        border: #c9c9c7 solid 1px;
+        border-radius: 20px;
+
+        .booking-info {
+            padding: 20px;
+
+            .price {
+                // font-family: "Poppins", sans-serif;
+                font-style: normal;
+                font-size: 3rem;
+                font-weight: 700;
+
+                .text {
+                    font-style: normal;
+                    font-size: 2rem;
+                    font-weight: 500;
+                }
+            }
+
+            .dates {
+                margin-top: 10px;
+
+                .text-dates {
+                    font-family: "Poppins", sans-serif;
+
+                    color: #9a9a9a;
+                    font-size: 2rem;
+                    line-height: 1.6;
+                }
+
+                .dates-detail {
+                    font-family: "Inter", sans-serif;
+                    margin-top: 5px;
+                    font-size: 1.5rem;
+                }
+            }
+
+            .total {
+                padding-bottom: 20px;
+                border-bottom: #c9c9c7 solid 1px;
+                .text {
+                    font-size: 2rem;
+                    font-weight: 700;
+                }
+
+                .price {
+                    font-family: "Poppins", sans-serif;
+
+                    font-size: 2rem;
+                    font-weight: 700;
+                }
+            }
+        }
+
+        .note {
+            margin-top: 10px;
+            .bold {
+                display: inline-block;
+                font-family: "Inter", sans-serif;
+                font-size: 1.5rem;
+                color: #2ac0e1;
+                font-weight: 600;
+            }
+            .text {
+                display: inline-block;
+                font-family: "Inter", sans-serif;
+                font-size: 1.5rem;
+                font-weight: 400;
+            }
+        }
+
+        .booking-btn {
+            margin-top: 20px;
+            padding: 10px 0;
+            width: 100%;
+            border-radius: 20px;
+
+            &:hover {
+                background: #44bdd9;
+                color: #fff;
+            }
+        }
+    }
+}
+
+.amenities {
+    padding-top: 30px;
+
+    .list-amenities {
         padding-top: 10px;
-        display: grid;
-        width: 400px;
-        grid-template-columns: repeat(2, 1fr);
-        row-gap: 10px;
-      }
+        display: flex;
+        gap: 50px;
 
-      &::after {
+        .item {
+            padding-top: 5px;
+            font-family: "Poppins", sans-serif;
+            font-size: 1.4rem;
+            font-weight: 300;
+        }
+    }
+    &::after {
         display: block;
         content: "";
         margin-top: 10px;
         width: 100%;
         height: 0.5px;
         background-color: rgba(163, 163, 159, 0.512);
-      }
     }
-  }
-
-  .row-booking {
-    display: flex;
-    justify-content: space-between;
-    margin-top: 20px;
-    align-items: center;
-  }
-
-  .right-content {
-    flex: 2;
-    border: #c9c9c7 solid 1px;
-    border-radius: 20px;
-
-    .booking-info {
-      padding: 20px;
-
-      .price {
-        font-family: "Poppins", sans-serif;
-        font-style: normal;
-        font-size: 3rem;
-        font-weight: 700;
-
-        .text {
-          font-family: "Poppins", sans-serif;
-          font-style: normal;
-          font-size: 2rem;
-          font-weight: 500;
-        }
-      }
-
-      .dates {
-        margin-top: 10px;
-
-        .text-dates {
-          color: #9a9a9a;
-        }
-      }
-
-      .total {
-        padding-bottom: 50px;
-        border-bottom: #c9c9c7 solid 1px;
-        .text {
-          font-size: 2rem;
-          font-weight: 700;
-        }
-
-        .price {
-          font-size: 2rem;
-          font-weight: 700;
-        }
-      }
-    }
-
-    .note {
-      margin-top: 10px;
-      .bold {
-        display: inline-block;
-        font-family: "Inter", sans-serif;
-        font-size: 1.5rem;
-        color: #2ac0e1;
-        font-weight: 600;
-      }
-      .text {
-        display: inline-block;
-        font-family: "Inter", sans-serif;
-        font-size: 1.5rem;
-        font-weight: 400;
-      }
-    }
-
-    .booking-btn {
-      margin-top: 20px;
-      padding: 10px 0;
-      width: 100%;
-      border-radius: 20px;
-
-      &:hover {
-        background: #44bdd9;
-        color: #fff;
-      }
-    }
-  }
-}
-
-.amenities {
-  padding-top: 30px;
-
-  .list-amenities {
-    padding-top: 10px;
-    display: flex;
-    gap: 50px;
-
-    .item {
-      padding-top: 5px;
-      font-family: "Poppins", sans-serif;
-      font-size: 1.4rem;
-      font-weight: 300;
-    }
-  }
-  &::after {
-    display: block;
-    content: "";
-    margin-top: 10px;
-    width: 100%;
-    height: 0.5px;
-    background-color: rgba(163, 163, 159, 0.512);
-  }
 }
 
 .unit-desc {
-  padding-top: 30px;
+    padding-top: 30px;
 
-  .desc {
-    padding-top: 5px;
-    font-family: "Poppins", sans-serif;
-    font-weight: 300;
-    font-size: 1.4rem;
-  }
+    .desc {
+        padding-top: 5px;
+        font-family: "Poppins", sans-serif;
+        font-weight: 300;
+        font-size: 1.4rem;
+    }
 }

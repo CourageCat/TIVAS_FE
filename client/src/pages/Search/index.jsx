@@ -4,6 +4,7 @@ import Navigations from "~/components/Layouts/Navigations";
 import ProjectResult from "~/components/ProjectResult";
 import ExpandList from "~/components/ExpandList";
 import SearchPage from "~/components/SearchPage";
+import { Rating, Stack, Pagination } from "@mui/material";
 
 import { Link, useParams } from "react-router-dom";
 import { getAllProjects } from "~/controllers/project";
@@ -25,6 +26,8 @@ function Search({}) {
     const [login, setLogin] = useState(false);
     const [projectData, setProjectData] = useState([]);
     const [locationData, setLocationData] = useState([]);
+    const [countPage, setCountPage] = useState(1);
+    const [page, setPage] = useState(1);
 
     const dispatch = useDispatch();
     const currentUser = useSelector((state) => state.auth.login.user);
@@ -39,9 +42,10 @@ function Search({}) {
 
             if (res?.err === 0) {
                 setProjectData(res.data);
-                setLocationData(resLocation.data);
-                console.log(locationData);
                 // console.log(locationData?.name);
+            }
+            if (resLocation?.err === 0) {
+                setLocationData(resLocation.data);
             }
         };
         fetchData();
@@ -59,6 +63,9 @@ function Search({}) {
         } catch (err) {
             console.log("Error");
         }
+    };
+    const handlePageChange = (event, value) => {
+        setPage(value);
     };
 
     return (
@@ -151,22 +158,20 @@ function Search({}) {
                                     />
                                 );
                             })}
-
-                            {/* Pagination */}
-                            <div className={cx("pagination")}>
-                                <img
-                                    src={images.rightArrow}
-                                    alt="Right Arrow"
-                                />
-                                <span>1</span>
-                                <span>2</span>
-                                <span>3</span>
-                                <span>4</span>
-                                <img
-                                    src={images.rightArrow}
-                                    alt="Right Arrow"
-                                />
-                            </div>
+                            <tfoot className={cx("tfoot")}>
+                                <tr className={cx("trow")}>
+                                    <Stack spacing={2}>
+                                        <Pagination
+                                            count={countPage}
+                                            page={page}
+                                            variant="outlined"
+                                            shape="rounded"
+                                            onChange={handlePageChange}
+                                            className={cx("pagination")}
+                                        />
+                                    </Stack>
+                                </tr>
+                            </tfoot>
                         </div>
                         {/* Right content */}
                         <div className={cx("right-content")}>

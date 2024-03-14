@@ -29,3 +29,12 @@ export const banUser = (axiosInstance, form) => {
 export const unBanUser = (axiosInstance, form) => {
     return axiosInstance.post("/api/v1/user/unbanuser", form);
 };
+
+export const viewWishlist = (axiosInstance, form) => {
+    const id = form.id;
+    const limit = form.limit;
+    const page = form.page;
+    return axiosInstance.get(
+        `/api/v1/user/viewwishlist?id=${id}&page=${page}&limit=${limit}`
+    );
+};
