@@ -1,4 +1,4 @@
-export const compleateBooking = (axiosInstance, form) => {
+export const completeBooking = (axiosInstance, form) => {
   return axiosInstance.put("/api/v1/booking/completeBooking", form);
 };
 
