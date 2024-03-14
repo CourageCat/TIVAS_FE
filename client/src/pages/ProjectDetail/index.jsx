@@ -27,6 +27,7 @@ import {
 } from "~/controllers/reservationTicket";
 import { Toaster, toast } from "sonner";
 import ToastNotify from "~/components/ToastNotify";
+import images from "~/assets/images";
 
 const cx = classNames.bind(styles);
 

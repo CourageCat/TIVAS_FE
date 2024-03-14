@@ -53,7 +53,7 @@ function TimeshareRentals() {
   const currentUser = useSelector((state) => state.auth.login.user);
   const axiosInstance = createAxios(dispatch, currentUser);
 
-  const [listingResort, setListingResort] = useState([]);
+  const [listingResort, setListingResort] = useState(null);
 
   const [countPage, setCountPage] = useState(1);
   const [page, setPage] = useState(1);
@@ -73,9 +73,9 @@ function TimeshareRentals() {
       const res = await getTimeshareByProjectID(axiosInstance, 10, {
         page: page,
       });
-      setListingResort(res.data);
+      setListingResort(res?.data);
       console.log(res.data);
-      setCountPage(res.countPages);
+      setCountPage(res?.countPages);
     };
     fetchListing();
   }, [page]);
@@ -100,128 +100,130 @@ function TimeshareRentals() {
         </div>
       </section>
       {/* Main */}
-      <main className={cx("main")}>
-        <div className={cx("project")}>
-          <img
-            src={
-              listingResort[0]?.TypeRoom?.TypeOfProject?.Project
-                ?.thumbnailPathUrl
-            }
-            alt="img"
-            className={cx("image")}
-          />
-          <div>
-            <h3 className={cx("name")}>
-              {listingResort[0]?.TypeRoom?.TypeOfProject?.Project?.name}
-            </h3>
-            <div className={cx("location")}>
-              <svg
-                className={cx("icon")}
-                xmlns="http://www.w3.org/2000/svg"
-                width="16"
-                height="16"
-                fill="currentColor"
-                viewBox="0 0 16 16"
-              >
-                <path d="M8 16s6-5.686 6-10A6 6 0 0 0 2 6c0 4.314 6 10 6 10m0-7a3 3 0 1 1 0-6 3 3 0 0 1 0 6" />
-              </svg>
-              <span className={cx("position")}>
-                {
-                  listingResort[0]?.TypeRoom?.TypeOfProject?.Project?.Location
-                    ?.name
-                }
-              </span>
+      {listingResort && (
+        <main className={cx("main")}>
+          <div className={cx("project")}>
+            <img
+              src={
+                listingResort[0]?.TypeRoom?.TypeOfProject?.Project
+                  ?.thumbnailPathUrl
+              }
+              alt="img"
+              className={cx("image")}
+            />
+            <div>
+              <h3 className={cx("name")}>
+                {listingResort[0]?.TypeRoom?.TypeOfProject?.Project?.name}
+              </h3>
+              <div className={cx("location")}>
+                <svg
+                  className={cx("icon")}
+                  xmlns="http://www.w3.org/2000/svg"
+                  width="16"
+                  height="16"
+                  fill="currentColor"
+                  viewBox="0 0 16 16"
+                >
+                  <path d="M8 16s6-5.686 6-10A6 6 0 0 0 2 6c0 4.314 6 10 6 10m0-7a3 3 0 1 1 0-6 3 3 0 0 1 0 6" />
+                </svg>
+                <span className={cx("position")}>
+                  {
+                    listingResort[0]?.TypeRoom?.TypeOfProject?.Project?.Location
+                      ?.name
+                  }
+                </span>
+              </div>
             </div>
           </div>
-        </div>
-        {/*Listing Details */}
-        <div className={cx("list-listing")}>
-          <table className={cx("table")}>
-            <thead className={cx("thead")}>
-              <tr>
-                <th className={cx("date", "column")}>
-                  <h4 className={cx("title")}>DATES</h4>
-                </th>
-                <th className={cx("price", "column")}>
-                  <h4 className={cx("title")}>PRICE</h4>
-                </th>
-                <th className={cx("unit", "column")}>
-                  <h4 className={cx("title")}>UNIT</h4>
-                </th>
-                <th className={cx("sleep", "column")}>
-                  <h4 className={cx("title")}>SLEEPS</h4>
-                </th>
-                <th className={cx("sleep", "column")}>
-                  <h4 className={cx("title")}></h4>
-                </th>
-              </tr>
-            </thead>
-            <tbody className={cx("tbody")}>
-              {listingResort?.map((item, index) => {
-                return (
-                  <tr
-                    key={index}
-                    className={cx("trow")}
-                    // onClick={() => handleNavigate(item.id)}
-                  >
-                    <td className={cx("date", "column")}>
-                      <span className={cx("name")}>
-                        {`${convertToDate(item?.startDate)} - ${convertToDate(
-                          item?.endDate
-                        )}`}
-                      </span>
-                    </td>
-                    <td className={cx("price", "column")}>
-                      <span className={cx("name")}>
-                        {`${Intl.NumberFormat("en-US", {
-                          style: "currency",
-                          currency: "USD",
-                          minimumFractionDigits: 0,
-                          maximumFractionDigits: 0,
-                        }).format(item?.price)}`}
-                      </span>
-                    </td>
-                    <td className={cx("unit", "column")}>
-                      <span className={cx("name", "text")}>
-                        {item?.TypeRoom?.name}
-                      </span>
-                    </td>
-                    <td className={cx("sleep", "column")}>
-                      <span className={cx("name")}>
-                        {item?.TypeRoom?.persons}
-                      </span>
-                    </td>
-                    <td className={cx("sleep", "column")}>
-                      <div
-                        className={cx("btn")}
-                        onClick={() =>
-                          handleNavigate("view_book", item?.TypeRoom?.id)
-                        }
-                      >
-                        VIEW BOOK
-                      </div>
-                    </td>
-                  </tr>
-                );
-              })}
-            </tbody>
-            <tfoot className={cx("tfoot")}>
-              <tr className={cx("trow")}>
-                <Stack spacing={2}>
-                  <Pagination
-                    count={countPage}
-                    page={page}
-                    variant="outlined"
-                    shape="rounded"
-                    onChange={handlePageChange}
-                    className={cx("pagination")}
-                  />
-                </Stack>
-              </tr>
-            </tfoot>
-          </table>
-        </div>
-      </main>
+          {/*Listing Details */}
+          <div className={cx("list-listing")}>
+            <table className={cx("table")}>
+              <thead className={cx("thead")}>
+                <tr>
+                  <th className={cx("date", "column")}>
+                    <h4 className={cx("title")}>DATES</h4>
+                  </th>
+                  <th className={cx("price", "column")}>
+                    <h4 className={cx("title")}>PRICE</h4>
+                  </th>
+                  <th className={cx("unit", "column")}>
+                    <h4 className={cx("title")}>UNIT</h4>
+                  </th>
+                  <th className={cx("sleep", "column")}>
+                    <h4 className={cx("title")}>SLEEPS</h4>
+                  </th>
+                  <th className={cx("sleep", "column")}>
+                    {/* <h4 className={cx("title")}></h4> */}
+                  </th>
+                </tr>
+              </thead>
+              <tbody className={cx("tbody")}>
+                {listingResort?.map((item, index) => {
+                  return (
+                    <tr
+                      key={index}
+                      className={cx("trow")}
+                      // onClick={() => handleNavigate(item.id)}
+                    >
+                      <td className={cx("date", "column")}>
+                        <span className={cx("name")}>
+                          {`${convertToDate(item?.startDate)} - ${convertToDate(
+                            item?.endDate
+                          )}`}
+                        </span>
+                      </td>
+                      <td className={cx("price", "column")}>
+                        <span className={cx("name")}>
+                          {`${Intl.NumberFormat("en-US", {
+                            style: "currency",
+                            currency: "USD",
+                            minimumFractionDigits: 0,
+                            maximumFractionDigits: 0,
+                          }).format(item?.price)}`}
+                        </span>
+                      </td>
+                      <td className={cx("unit", "column")}>
+                        <span className={cx("name", "text")}>
+                          {item?.TypeRoom?.name}
+                        </span>
+                      </td>
+                      <td className={cx("sleep", "column")}>
+                        <span className={cx("name")}>
+                          {item?.TypeRoom?.persons}
+                        </span>
+                      </td>
+                      <td className={cx("sleep", "column")}>
+                        <div
+                          className={cx("btn")}
+                          onClick={() =>
+                            handleNavigate("view_book", item?.TypeRoom?.id)
+                          }
+                        >
+                          VIEW BOOK
+                        </div>
+                      </td>
+                    </tr>
+                  );
+                })}
+              </tbody>
+              <tfoot className={cx("tfoot")}>
+                <tr className={cx("trow")}>
+                  <Stack spacing={2}>
+                    <Pagination
+                      count={countPage}
+                      page={page}
+                      variant="outlined"
+                      shape="rounded"
+                      onChange={handlePageChange}
+                      className={cx("pagination")}
+                    />
+                  </Stack>
+                </tr>
+              </tfoot>
+            </table>
+          </div>
+        </main>
+      )}
       <Footer />
     </div>
   );
