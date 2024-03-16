@@ -4,30 +4,12 @@ import Navigations from "~/components/Layouts/Navigations";
 import RoomType from "~/components/RoomType";
 import SimpleGallery from "./simplegallery";
 import "photoswipe/style.css";
-import { Link, useNavigate, useParams } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 
 import Footer from "~/components/Layouts/Footer";
 import { useState, useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import createAxios from "~/configs/axios";
-import {
-    Backdrop,
-    Button,
-    CircularProgress,
-    Dialog,
-    DialogActions,
-    DialogContent,
-    DialogContentText,
-    DialogTitle,
-} from "@mui/material";
-import {
-    createTicket,
-    paymentReservaion,
-} from "~/controllers/reservationTicket";
-import { Toaster, toast } from "sonner";
-import ToastNotify from "~/components/ToastNotify";
-import images from "~/assets/images";
-
 const cx = classNames.bind(styles);
 
 function ReviewProjectDetail() {
