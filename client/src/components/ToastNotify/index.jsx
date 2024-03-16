@@ -4,6 +4,7 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import {
   faCheckCircle,
   faExclamationCircle,
+  faWarning,
 } from "@fortawesome/free-solid-svg-icons";
 
 const cx = classNames.bind(styles);
@@ -11,6 +12,7 @@ const cx = classNames.bind(styles);
 const ICON = {
   success: <FontAwesomeIcon icon={faCheckCircle} />,
   error: <FontAwesomeIcon icon={faExclamationCircle} />,
+  warning: <FontAwesomeIcon icon={faWarning} />,
 };
 
 function ToastNotify({ type, title, desc }) {
@@ -19,6 +21,7 @@ function ToastNotify({ type, title, desc }) {
       className={cx("alert-wrapper", {
         success: type === "success",
         error: type === "error",
+        warning: type === "warning",
       })}
     >
       <div className={cx("icon")}>{ICON[type]}</div>

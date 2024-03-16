@@ -47,7 +47,20 @@ function ProjectDetail() {
     const [notify, setNotify] = useState({});
 
     const handleOpenReservaion = () => {
-        setOpenReservaion(true);
+        if (!currentUser) {
+            toast.custom(
+                () => (
+                    <ToastNotify
+                        type="warning"
+                        title="Warning"
+                        desc="Please log in before booking"
+                    />
+                ),
+                { duration: 2000 }
+            );
+        } else {
+            setOpenReservaion(true);
+        }
     };
 
     const handleCloseReservaion = () => {
@@ -139,7 +152,6 @@ function ProjectDetail() {
         ));
     };
 
-    console.log(status);
     return (
         <div className={cx("project-detail-wrapper")}>
             <Toaster position="top-right" richColors expand={true} />

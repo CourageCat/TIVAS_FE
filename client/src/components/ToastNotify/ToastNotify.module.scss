@@ -3,10 +3,11 @@
   --icon-success: #47d864;
   --border-error: #ff623d;
   --icon-error: #ff623d;
+  --border-warning: #ffcc00;
+  --icon-warning: #ffcc00;
 }
 
 .alert-wrapper {
-
   display: flex;
   align-items: center;
   background-color: #fff;
@@ -29,6 +30,14 @@
 
     .icon {
       color: var(--icon-error);
+    }
+  }
+
+  &.warning {
+    border-color: var(--border-warning);
+
+    .icon {
+      color: var(--icon-warning);
     }
   }
 }

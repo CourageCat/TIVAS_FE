@@ -10,6 +10,8 @@ import { useDispatch, useSelector } from "react-redux";
 import createAxios from "~/configs/axios";
 import { createNewProject } from "~/controllers/project";
 import { Backdrop, CircularProgress } from "@mui/material";
+import TippyHeadless from "@tippyjs/react/headless";
+import RickTextEditor from "~/components/RickTextEditor";
 
 const cx = classNames.bind(styles);
 
@@ -28,13 +30,19 @@ function AdminCreateProject() {
 
   const [projectName, setProjectName] = useState("");
   const [buildStatus, setBuildStatus] = useState(1);
-  const [typeOfProject, setTypeOfProject] = useState(1);
-  const [features, setFeatures] = useState("");
-  const [attractions, setAttractions] = useState("");
+  const [typeOfProject, setTypeOfProject] = useState("Villa");
+  const [features, setFeatures] = useState(null);
+  const [attractions, setAttractions] = useState(null);
   const [location, setLocation] = useState(1);
   const [desc, setDesc] = useState("");
   const [notify, setNotify] = useState({});
   const [isLoading, setIsLoading] = useState(false);
+
+  const [popupFeature, setPopupFeature] = useState(false);
+  const [popupAttraction, setPopupAttraction] = useState(false);
+
+  const [feature, setFeature] = useState("");
+  const [attraction, setAttraction] = useState("");
 
   const onFileChange = (files) => {
     setListImage(files);
@@ -107,6 +115,28 @@ function AdminCreateProject() {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
+    if (
+      listImage?.length === 0 ||
+      !thumbNail ||
+      projectName === "" ||
+      typeOfProject === "" ||
+      buildStatus === "" ||
+      desc === "" ||
+      location === "" ||
+      features?.length === 0 ||
+      attractions?.length === 0
+    ) {
+      return toast.custom(
+        () => (
+          <ToastNotify
+            type="error"
+            title="Error"
+            desc={"Please fill in all information"}
+          />
+        ),
+        { duration: 2000 }
+      );
+    }
     const formData = new FormData();
     setIsLoading(true);
     formData.append("thumbnail", thumbNail);
@@ -116,8 +146,8 @@ function AdminCreateProject() {
     formData.append("buildingStatus", buildStatus);
     formData.append("location", location);
     formData.append("type", typeOfProject);
-    formData.append("features", features);
-    formData.append("attractions", attractions);
+    formData.append("features", features?.join(","));
+    formData.append("attractions", attractions?.join(","));
 
     const res = await createNewProject(axiosInstance, formData);
     if (res) {
@@ -131,13 +161,70 @@ function AdminCreateProject() {
     setBuildStatus("");
     setLocation("");
     setTypeOfProject("");
-    setFeatures("");
-    setAttractions("");
+    setFeatures(null);
+    setAttractions(null);
+    setFeature("");
+    setAttraction("");
+  };
+
+  const handleOpenFeature = () => {
+    setPopupFeature(true);
+  };
+
+  const handleClosePopupFeature = () => {
+    setPopupFeature(false);
+  };
+
+  const handleAddFeature = () => {
+    if (feature === "") {
+      return toast.custom(() => (
+        <ToastNotify type="warning" title="Warning" desc="Can not be empty" />
+      ));
+    }
+    if (features) {
+      setFeatures((prev) => [...prev, feature]);
+    } else {
+      setFeatures([feature]);
+    }
+  };
+
+  const handleDeleteFeatures = (index) => {
+    const newFeatures = features.filter((item, pos) => pos !== index);
+    setFeatures(newFeatures);
+  };
+
+  const handleOpenAttraction = () => {
+    setPopupAttraction(true);
+  };
+
+  const handleClosePopupAttraction = () => {
+    setPopupAttraction(false);
+  };
+
+  const handleAddAttraction = () => {
+    if (attraction === "") {
+      return toast.custom(() => (
+        <ToastNotify type="warning" title="Warning" desc="Can not be empty" />
+      ));
+    }
+    if (attractions) {
+      setAttractions((prev) => [...prev, attraction]);
+    } else {
+      setAttractions([attraction]);
+    }
+  };
+
+  const handleDeleteAttraction = (index) => {
+    const newAttractions = attractions.filter((item, pos) => pos !== index);
+    setAttractions(newAttractions);
+  };
+
+  const handleReviewPage = () => {
+    
   };
 
   return (
     <div className={cx("wrapper")}>
-
       <Toaster position="top-right" richColors expand={true} />
       <h2 className={cx("heading")}>Create new project</h2>
 
@@ -248,51 +335,181 @@ function AdminCreateProject() {
           </div>
           <div className={cx("row")}>
             <div className={cx("input_compo")}>
-              <label htmlFor="Features" className={cx("label")}>
-                Features
-              </label>
-              <input
-                type="text"
+              <div className={cx("row")}>
+                <label htmlFor="Features" className={cx("label")}>
+                  Features
+                </label>
+                <TippyHeadless
+                  visible={popupFeature === true}
+                  placement="right-end"
+                  interactive
+                  render={(attrs) => (
+                    <div
+                      className={cx("box", "tippy-box")}
+                      tabIndex="-1"
+                      {...attrs}
+                    >
+                      <div className={cx("input_todo")}>
+                        <input
+                          type="text"
+                          className={cx("input")}
+                          value={feature}
+                          onChange={(e) => setFeature(e.target.value)}
+                        />
+                        <div className={cx("btn")} onClick={handleAddFeature}>
+                          Add
+                        </div>
+                      </div>
+                    </div>
+                  )}
+                  onClickOutside={handleClosePopupFeature}
+                >
+                  <svg
+                    className={cx("icon")}
+                    onClick={handleOpenFeature}
+                    xmlns="http://www.w3.org/2000/svg"
+                    width="16"
+                    height="16"
+                    fill="currentColor"
+                    viewBox="0 0 16 16"
+                  >
+                    <path d="M8 4a.5.5 0 0 1 .5.5v3h3a.5.5 0 0 1 0 1h-3v3a.5.5 0 0 1-1 0v-3h-3a.5.5 0 0 1 0-1h3v-3A.5.5 0 0 1 8 4" />
+                  </svg>
+                </TippyHeadless>
+              </div>
+              <div
                 id="Features"
-                value={features}
-                onChange={(e) => setFeatures(e.target.value)}
-                className={cx("input")}
-                placeholder="Enter features"
-              />
+                className={cx("input", "todo-list")}
+                placeholder="Please add features"
+              >
+                {features?.length > 0 ? (
+                  <>
+                    {features.map((item, index) => {
+                      return (
+                        <div key={index} className={cx("todo-item")}>
+                          <span className={cx("title")}>{item}</span>
+                          <svg
+                            className={cx("icon_delete")}
+                            onClick={() => handleDeleteFeatures(index)}
+                            xmlns="http://www.w3.org/2000/svg"
+                            width="16"
+                            height="16"
+                            fill="currentColor"
+                            viewBox="0 0 16 16"
+                          >
+                            <path d="M4.646 4.646a.5.5 0 0 1 .708 0L8 7.293l2.646-2.647a.5.5 0 0 1 .708.708L8.707 8l2.647 2.646a.5.5 0 0 1-.708.708L8 8.707l-2.646 2.647a.5.5 0 0 1-.708-.708L7.293 8 4.646 5.354a.5.5 0 0 1 0-.708" />
+                          </svg>
+                        </div>
+                      );
+                    })}
+                  </>
+                ) : (
+                  <span className={cx("placeholder")}>
+                    Click the + icon to add features
+                  </span>
+                )}
+              </div>
             </div>
             <div className={cx("input_compo")}>
-              <label htmlFor="Attractions" className={cx("label")}>
-                Attractions
-              </label>
-              <input
-                type="text"
-                id="Attractions"
-                className={cx("input")}
-                value={attractions}
-                onChange={(e) => setAttractions(e.target.value)}
-                placeholder="Enter atrractions"
-              />
+              <div className={cx("row")}>
+                <label htmlFor="attractions" className={cx("label")}>
+                  Attractions
+                </label>
+                <TippyHeadless
+                  visible={popupAttraction === true}
+                  placement="right-end"
+                  interactive
+                  render={(attrs) => (
+                    <div
+                      className={cx("box", "tippy-box")}
+                      tabIndex="-1"
+                      {...attrs}
+                    >
+                      <div className={cx("input_todo")}>
+                        <input
+                          type="text"
+                          className={cx("input")}
+                          value={attraction}
+                          onChange={(e) => setAttraction(e.target.value)}
+                        />
+                        <div
+                          className={cx("btn")}
+                          onClick={handleAddAttraction}
+                        >
+                          Add
+                        </div>
+                      </div>
+                    </div>
+                  )}
+                  onClickOutside={handleClosePopupAttraction}
+                >
+                  <svg
+                    className={cx("icon")}
+                    onClick={handleOpenAttraction}
+                    xmlns="http://www.w3.org/2000/svg"
+                    width="16"
+                    height="16"
+                    fill="currentColor"
+                    viewBox="0 0 16 16"
+                  >
+                    <path d="M8 4a.5.5 0 0 1 .5.5v3h3a.5.5 0 0 1 0 1h-3v3a.5.5 0 0 1-1 0v-3h-3a.5.5 0 0 1 0-1h3v-3A.5.5 0 0 1 8 4" />
+                  </svg>
+                </TippyHeadless>
+              </div>
+              <div
+                id="Features"
+                className={cx("input", "todo-list")}
+                placeholder="Please add features"
+              >
+                {attractions?.length > 0 ? (
+                  <>
+                    {attractions.map((item, index) => {
+                      return (
+                        <div key={index} className={cx("todo-item")}>
+                          <span className={cx("title")}>{item}</span>
+                          <svg
+                            className={cx("icon_delete")}
+                            onClick={() => handleDeleteAttraction(index)}
+                            xmlns="http://www.w3.org/2000/svg"
+                            width="16"
+                            height="16"
+                            fill="currentColor"
+                            viewBox="0 0 16 16"
+                          >
+                            <path d="M4.646 4.646a.5.5 0 0 1 .708 0L8 7.293l2.646-2.647a.5.5 0 0 1 .708.708L8.707 8l2.647 2.646a.5.5 0 0 1-.708.708L8 8.707l-2.646 2.647a.5.5 0 0 1-.708-.708L7.293 8 4.646 5.354a.5.5 0 0 1 0-.708" />
+                          </svg>
+                        </div>
+                      );
+                    })}
+                  </>
+                ) : (
+                  <span className={cx("placeholder")}>
+                    Click the + icon to add atrractions
+                  </span>
+                )}
+              </div>
             </div>
           </div>
+          {/* ========= */}
           <div className={cx("desc", "input_compo")}>
             <label htmlFor="desc" className={cx("label")}>
               Description
             </label>
-            <textarea
-              id="desc"
-              cols="30"
-              rows="10"
-              value={desc}
-              onChange={(e) => setDesc(e.target.value)}
-              placeholder="Description"
-              className={cx("text-area")}
-            />
+            <RickTextEditor value={desc} setValue={setDesc} />
           </div>
         </div>
-
-        <button type="submit" className={cx("action")}>
-          Submit
-        </button>
+        <div className={cx("list-actions")}>
+          <button
+            type="button"
+            onClick={handleReviewPage}
+            className={cx("action")}
+          >
+            Review
+          </button>
+          <button type="submit" className={cx("action")}>
+            Submit
+          </button>
+        </div>
       </form>
       <Backdrop
         sx={{ color: "#fff", zIndex: (theme) => theme.zIndex.drawer + 1 }}
