@@ -103,6 +103,7 @@ function ProjectDetail() {
                         };
                     })
                 );
+
                 setStatus(res.data.Project.status);
                 setIsLoading(true);
             }

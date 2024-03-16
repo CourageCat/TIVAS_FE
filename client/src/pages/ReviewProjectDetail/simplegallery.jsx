@@ -3,6 +3,7 @@ import PhotoSwipeLightbox from "photoswipe/lightbox";
 import styles from "./ProjectDetail.module.scss";
 import "photoswipe/style.css";
 import classNames from "classnames/bind";
+import { LocalGasStation } from "@mui/icons-material";
 
 const cx = classNames.bind(styles);
 function SimpleGallery(props) {
@@ -24,7 +25,7 @@ function SimpleGallery(props) {
         <div className="pswp-gallery" id={props.galleryID}>
             {props.images?.map((image, index) => (
                 <a
-                    href={image.largeURL}
+                    href={image?.largeURL}
                     data-pswp-width={image.width}
                     data-pswp-height={image.height}
                     key={props.galleryID + "-" + index}
@@ -32,7 +33,7 @@ function SimpleGallery(props) {
                     rel="noreferrer"
                 >
                     <img
-                        src={image.thumbnailURL}
+                        src={image?.thumbnailURL}
                         alt=""
                         className={cx("img", {
                             "large-image": index === 0,
