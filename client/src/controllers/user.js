@@ -94,3 +94,12 @@ export const viewWishlist = async (axiosInstance, form) => {
         console.log(err);
     }
 };
+
+export const deleteWishlist = async (axiosInstance, form) => {
+    try {
+        const res = services.deleteWishlist(axiosInstance, form);
+        return res;
+    } catch (err) {
+        console.log(err);
+    }
+};
