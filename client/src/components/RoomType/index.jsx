@@ -90,10 +90,11 @@ function RoomType({ data }) {
                                             src={images.bedIcon}
                                             alt="Locate Icon"
                                         />
-                                        <div className={cx("text")}>
+                                        <div className={cx("text", "dif")}>
                                             {data.bedTypes}
                                         </div>
                                     </div>
+
                                     <div className={cx("bath", "row")}>
                                         <img
                                             className={cx("icon")}

@@ -1,10 +1,15 @@
 .row {
     display: flex;
+    align-items: center;
 }
 
 .icon {
     width: 16px;
     height: 16px;
+}
+
+.space {
+    margin-right: 10px;
 }
 
 .room-type-wrapper {
@@ -55,6 +60,10 @@
                     align-items: center;
 
                     .sub-title {
+                        width: 360px;
+                        white-space: nowrap;
+                        overflow: hidden;
+                        text-overflow: ellipsis;
                         font-family: "Poppins", sans-serif;
                         font-weight: 500;
                         margin-right: 15px;
@@ -63,6 +72,15 @@
 
                 .second-list {
                     display: flex;
+                    align-items: center;
+
+                    .type-bed {
+                        width: 180px;
+                        white-space: nowrap;
+                        overflow: hidden;
+                        text-overflow: ellipsis;
+                        margin-right: 10px;
+                    }
 
                     .text.bold {
                         font-weight: 500;
