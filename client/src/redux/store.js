@@ -14,12 +14,13 @@ import authReducer from "./authSlice";
 import FormRegisterReducer from "./formRegisterSlice";
 import forgotPasswordReducer from "./forgotPasswordSlice";
 import userReducer from "./userSlice";
+import reviewProjectReducer from "./reviewProjectDetail";
 
 const persistConfig = {
   key: "root",
   version: 1,
   storage,
-  whitelist: ["auth"],
+  whitelist: ["auth", "reviewProjectDetail"],
   blacklist: ["formRegister", "forgotPassword", "user"],
 };
 
@@ -28,6 +29,7 @@ const rootReducer = combineReducers({
   user: userReducer,
   formRegister: FormRegisterReducer,
   forgotPassword: forgotPasswordReducer,
+  reviewProjectDetail: reviewProjectReducer,
 });
 
 const persistedReducer = persistReducer(persistConfig, rootReducer);
