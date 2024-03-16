@@ -1,6 +1,7 @@
 import React, { useEffect } from "react";
 import PhotoSwipeLightbox from "photoswipe/lightbox";
 import styles from "./ProjectDetail.module.scss";
+
 import "photoswipe/style.css";
 import classNames from "classnames/bind";
 

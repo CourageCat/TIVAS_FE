@@ -2,7 +2,7 @@ import classNames from "classnames/bind";
 import styles from "./ProjectDetail.module.scss";
 import Navigations from "~/components/Layouts/Navigations";
 import RoomType from "~/components/RoomType";
-import SimpleGallery from "./simplegallery";
+import SimpleGallery from "../ProjectDetail/simplegallery";
 import "photoswipe/style.css";
 import { Link, useParams } from "react-router-dom";
 
@@ -42,36 +42,36 @@ function ProjectDetail() {
 
     const [isLoading, setIsLoading] = useState(false);
 
-  const { id } = useParams();
-  const [openReservaion, setOpenReservaion] = useState(false);
-  const [notify, setNotify] = useState({});
+    const { id } = useParams();
+    const [openReservaion, setOpenReservaion] = useState(false);
+    const [notify, setNotify] = useState({});
 
     const handleOpenReservaion = () => {
         setOpenReservaion(true);
     };
 
-  const handleCloseReservaion = () => {
-    setOpenReservaion(false);
-  };
-  const handlePaymentReservaion = async () => {
-    try {
-      handleCloseReservaion();
-      const response = await paymentReservaion(axiosInstance, {
-        amount: projectData?.reservationPrice,
-        username: currentUser?.data?.username,
-      });
-      if (response.err === 0) {
-        await createTicket(axiosInstance, {
-          userID: currentUser?.data?.id,
-          projectID: projectData.id,
-        });
-      }
-      // console.log(response);
-      setNotify(response);
-    } catch (err) {
-      console.log(err);
-    }
-  };
+    const handleCloseReservaion = () => {
+        setOpenReservaion(false);
+    };
+    const handlePaymentReservaion = async () => {
+        try {
+            handleCloseReservaion();
+            const response = await paymentReservaion(axiosInstance, {
+                amount: projectData?.reservationPrice,
+                username: currentUser?.data?.username,
+            });
+            if (response.err === 0) {
+                await createTicket(axiosInstance, {
+                    userID: currentUser?.data?.id,
+                    projectID: projectData.id,
+                });
+            }
+            // console.log(response);
+            setNotify(response);
+        } catch (err) {
+            console.log(err);
+        }
+    };
 
     useEffect(() => {
         window.scrollTo(0, 0);
@@ -107,23 +107,27 @@ function ProjectDetail() {
                 resortAmenitiesElement.scrollIntoView({ behavior: "smooth" });
             }
 
-      setScrollToResortAmenities(false);
-    }
-  }, [scrollToResortAmenities]);
+            setScrollToResortAmenities(false);
+        }
+    }, [scrollToResortAmenities]);
 
-  useEffect(() => {
-    if (notify?.err === 1) {
-      toast.custom(() => (
-        <ToastNotify type="error" title="Error" desc={notify?.mess} />
-      ));
-      setNotify({});
-    } else if (notify?.err === 0) {
-      toast.custom(() => (
-        <ToastNotify type="success" title="Success" desc={notify?.mess} />
-      ));
-      setNotify({});
-    }
-  }, [notify]);
+    useEffect(() => {
+        if (notify?.err === 1) {
+            toast.custom(() => (
+                <ToastNotify type="error" title="Error" desc={notify?.mess} />
+            ));
+            setNotify({});
+        } else if (notify?.err === 0) {
+            toast.custom(() => (
+                <ToastNotify
+                    type="success"
+                    title="Success"
+                    desc={notify?.mess}
+                />
+            ));
+            setNotify({});
+        }
+    }, [notify]);
 
     const handleSeeAllClick = () => {
         setScrollToResortAmenities(true);
@@ -135,26 +139,29 @@ function ProjectDetail() {
         ));
     };
 
-  console.log(status);
-  return (
-    <div className={cx("project-detail-wrapper")}>
-      <Toaster position="top-right" richColors expand={true} />
+    console.log(status);
+    return (
+        <div className={cx("project-detail-wrapper")}>
+            <Toaster position="top-right" richColors expand={true} />
 
-      {isLoading === true && (
-        <div>
-          {/* Header */}
-          <header className={cx("header")}>
-            {/* Navigations */}
-            <section className={cx("navigation")}>
-              <Navigations />
-            </section>
-          </header>
-          {/* List Image */}
-          <div className={cx("content")}>
-            <div className={cx("list-img")}>
-              <SimpleGallery galleryID="my-test-gallery" images={listImage} />
-            </div>
-          </div>
+            {isLoading === true && (
+                <div>
+                    {/* Header */}
+                    <header className={cx("header")}>
+                        {/* Navigations */}
+                        <section className={cx("navigation")}>
+                            <Navigations />
+                        </section>
+                    </header>
+                    {/* List Image */}
+                    <div className={cx("content")}>
+                        <div className={cx("list-img")}>
+                            <SimpleGallery
+                                galleryID="my-test-gallery"
+                                images={listImage}
+                            />
+                        </div>
+                    </div>
 
                     <div className={cx("content")}>
                         <div className={cx("info-detail")}>
@@ -183,54 +190,75 @@ function ProjectDetail() {
                                     </div>
                                 </div>
 
-                {/* Reservation */}
-                {status === 1 && (
-                  <div className={cx("reservation")}>
-                    <div
-                      className={cx("action")}
-                      onClick={handleOpenReservaion}
-                    >
-                      Reservation
-                    </div>
-                    <Dialog
-                      open={openReservaion}
-                      onClose={handleCloseReservaion}
-                      aria-labelledby="alert-dialog-title"
-                      aria-describedby="alert-dialog-description"
-                    >
-                      <DialogTitle>
-                        <h3 className={cx("title-reservation")}>
-                          {`Are you sure you want to reserve project ${projectData?.name}?`}
-                        </h3>
-                      </DialogTitle>
-                      <DialogContent>
-                        <DialogContentText id="alert-dialog-description">
-                          <p className={cx("desc-reservation")}>
-                            {`Price reservation: ${Intl.NumberFormat("en-US", {
-                              style: "currency",
-                              currency: "USD",
-                            }).format(projectData?.reservationPrice)}`}
-                          </p>
-                        </DialogContentText>
-                      </DialogContent>
-                      <DialogActions>
-                        <Button
-                          style={{ fontSize: "1.2rem" }}
-                          onClick={handleCloseReservaion}
-                        >
-                          Disagree
-                        </Button>
-                        <Button
-                          style={{ fontSize: "1.2rem" }}
-                          onClick={handlePaymentReservaion}
-                        >
-                          Agree
-                        </Button>
-                      </DialogActions>
-                    </Dialog>
-                  </div>
-                )}
-              </div>
+                                {/* Reservation */}
+                                {status === 1 && (
+                                    <div className={cx("reservation")}>
+                                        <div
+                                            className={cx("action")}
+                                            onClick={handleOpenReservaion}
+                                        >
+                                            Reservation
+                                        </div>
+                                        <Dialog
+                                            open={openReservaion}
+                                            onClose={handleCloseReservaion}
+                                            aria-labelledby="alert-dialog-title"
+                                            aria-describedby="alert-dialog-description"
+                                        >
+                                            <DialogTitle>
+                                                <h3
+                                                    className={cx(
+                                                        "title-reservation"
+                                                    )}
+                                                >
+                                                    {`Are you sure you want to reserve project ${projectData?.name}?`}
+                                                </h3>
+                                            </DialogTitle>
+                                            <DialogContent>
+                                                <DialogContentText id="alert-dialog-description">
+                                                    <p
+                                                        className={cx(
+                                                            "desc-reservation"
+                                                        )}
+                                                    >
+                                                        {`Price reservation: ${Intl.NumberFormat(
+                                                            "en-US",
+                                                            {
+                                                                style: "currency",
+                                                                currency: "USD",
+                                                            }
+                                                        ).format(
+                                                            projectData?.reservationPrice
+                                                        )}`}
+                                                    </p>
+                                                </DialogContentText>
+                                            </DialogContent>
+                                            <DialogActions>
+                                                <Button
+                                                    style={{
+                                                        fontSize: "1.2rem",
+                                                    }}
+                                                    onClick={
+                                                        handleCloseReservaion
+                                                    }
+                                                >
+                                                    Disagree
+                                                </Button>
+                                                <Button
+                                                    style={{
+                                                        fontSize: "1.2rem",
+                                                    }}
+                                                    onClick={
+                                                        handlePaymentReservaion
+                                                    }
+                                                >
+                                                    Agree
+                                                </Button>
+                                            </DialogActions>
+                                        </Dialog>
+                                    </div>
+                                )}
+                            </div>
 
                             <div className={cx("desc")}>
                                 {projectData?.description}
