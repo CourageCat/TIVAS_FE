@@ -38,3 +38,11 @@ export const viewWishlist = (axiosInstance, form) => {
         `/api/v1/user/viewwishlist?id=${id}&page=${page}&limit=${limit}`
     );
 };
+
+export const deleteWishlist = (axiosInstance, form) => {
+    const userId = form.userId;
+    const projectId = form.projectId;
+    return axiosInstance.get(
+        `/api/v1/user/deletewishlist?id=${userId}&projectID=${projectId}`
+    );
+};

@@ -7,6 +7,8 @@ import { Link, useNavigate } from "react-router-dom";
 import { useState, useEffect } from "react";
 import { Rating, Stack, Pagination } from "@mui/material";
 import { viewWishlist } from "~/controllers/user";
+import { deleteWishlist } from "~/controllers/user";
+
 import Tippy from "@tippyjs/react";
 import Button from "@mui/material/Button";
 import Menu from "@mui/material/Menu";
@@ -18,7 +20,7 @@ const cx = classNames.bind(styles);
 
 const limit = 5;
 
-function WishList() {
+function WishList({ setNotify }) {
     const [countPage, setCountPage] = useState(1);
     const [page, setPage] = useState(1);
     const [anchorEl, setAnchorEl] = useState(null);
@@ -45,8 +47,20 @@ function WishList() {
         };
         fetchData();
     }, []);
-
     console.log(wishlistData);
+
+    const handleDelete = async () => {
+        const res = await deleteWishlist(axiosInstance, {
+            // userId: currentUser?.data?.id,
+            userId: 10,
+            projectId: wishlistData?.id,
+        });
+        setNotify({
+            ...res,
+            mess: res?.message,
+        });
+        handleClose();
+    };
 
     const open = Boolean(anchorEl);
     const handleClick = (event) => {
@@ -265,44 +279,10 @@ function WishList() {
                                                             <MenuItem
                                                                 className={cx(
                                                                     "text-item",
-                                                                    "add"
-                                                                )}
-                                                                onClick={
-                                                                    handleClose
-                                                                }
-                                                            >
-                                                                <div
-                                                                    className={cx(
-                                                                        "row",
-                                                                        "add"
-                                                                    )}
-                                                                >
-                                                                    <img
-                                                                        src={
-                                                                            images.blackPlus
-                                                                        }
-                                                                        alt="plus-icon"
-                                                                        className={cx(
-                                                                            "icon"
-                                                                        )}
-                                                                    />
-                                                                    <div
-                                                                        className={cx(
-                                                                            "text"
-                                                                        )}
-                                                                    >
-                                                                        Add to
-                                                                        card
-                                                                    </div>
-                                                                </div>
-                                                            </MenuItem>
-                                                            <MenuItem
-                                                                className={cx(
-                                                                    "text-item",
                                                                     "remove"
                                                                 )}
                                                                 onClick={
-                                                                    handleClose
+                                                                    handleDelete
                                                                 }
                                                             >
                                                                 <div
