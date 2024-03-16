@@ -93,13 +93,26 @@ function Profile() {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    const formData = new FormData();
-    formData.append("username", username);
-    formData.append("fullName", fullName);
-    formData.append("numberPhone", numberPhone);
-    formData.append("avatar", avatar);
+    if (fullName === "" || numberPhone === "") {
+      return toast.custom(
+        () => (
+          <ToastNotify
+            type="error"
+            title="Error"
+            desc={"Please fill in all information"}
+          />
+        ),
+        { duration: 2000 }
+      );
+    } else {
+      const formData = new FormData();
+      formData.append("username", username);
+      formData.append("fullName", fullName);
+      formData.append("numberPhone", numberPhone);
+      formData.append("avatar", avatar);
 
-    await editMyUser(dispatch, axiosInstance, formData);
+      await editMyUser(dispatch, axiosInstance, formData);
+    }
   };
 
   return (

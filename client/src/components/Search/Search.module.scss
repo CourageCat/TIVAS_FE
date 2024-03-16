@@ -146,6 +146,7 @@
     display: flex;
     align-items: flex-start;
     column-gap: 5px;
+    cursor: pointer;
     .image {
       width: 60px;
       height: 60px;
@@ -157,11 +158,13 @@
       font-family: "Inter", sans-serif;
       font-size: 1.8rem;
       font-weight: 500;
+      color: #0b0b0b;
     }
     .location {
       display: inline-flex;
       align-items: center;
       column-gap: 5px;
+      color: #2b2b2b;
       .icon {
         display: inline-block;
       }

@@ -9,6 +9,7 @@ import { useDebounce } from "../../hooks";
 import { searchNameAndLocation } from "~/controllers/project";
 import { useDispatch, useSelector } from "react-redux";
 import createAxios from "~/configs/axios";
+import { Link } from "react-router-dom";
 
 const cx = classNames.bind(styles);
 
@@ -103,31 +104,33 @@ function Search() {
                     </div>
                     <div className={cx("list-box")}>
                       {searchResult?.bestMatch?.map((item, index) => (
-                        <div key={index} className={cx("box-item")}>
-                          <img
-                            src={item?.thumbnailPathUrl}
-                            alt="image_image"
-                            className={cx("image")}
-                          />
-                          <div className={cx("content")}>
-                            <h4 className={cx("name_project")}>{item?.name}</h4>
-                            <div className={cx("location")}>
-                              <svg
-                                className={cx("icon")}
-                                xmlns="http://www.w3.org/2000/svg"
-                                width="16"
-                                height="16"
-                                fill="currentColor"
-                                viewBox="0 0 16 16"
-                              >
-                                <path d="M8 16s6-5.686 6-10A6 6 0 0 0 2 6c0 4.314 6 10 6 10m0-7a3 3 0 1 1 0-6 3 3 0 0 1 0 6" />
-                              </svg>
-                              <span className={cx("position", "text")}>
-                                {item?.Location?.name}
-                              </span>
+                        <Link to={`projectdetail/${item?.id}`}>
+                          <div key={index} className={cx("box-item")}>
+                            <img
+                              src={item?.thumbnailPathUrl}
+                              alt="image_image"
+                              className={cx("image")}
+                            />
+                            <div className={cx("content")}>
+                              <h4 className={cx("name_project")}>{item?.name}</h4>
+                              <div className={cx("location")}>
+                                <svg
+                                  className={cx("icon")}
+                                  xmlns="http://www.w3.org/2000/svg"
+                                  width="16"
+                                  height="16"
+                                  fill="currentColor"
+                                  viewBox="0 0 16 16"
+                                >
+                                  <path d="M8 16s6-5.686 6-10A6 6 0 0 0 2 6c0 4.314 6 10 6 10m0-7a3 3 0 1 1 0-6 3 3 0 0 1 0 6" />
+                                </svg>
+                                <span className={cx("position", "text")}>
+                                  {item?.Location?.name}
+                                </span>
+                              </div>
                             </div>
                           </div>
-                        </div>
+                        </Link>
                       ))}
                     </div>
                   </div>
@@ -141,31 +144,33 @@ function Search() {
                     </div>
                     <div className={cx("list-box")}>
                       {searchResult?.ProjectLocation?.map((item, index) => (
-                        <div key={index} className={cx("box-item")}>
-                          <img
-                            src={item?.thumbnailPathUrl}
-                            alt="image_image"
-                            className={cx("image")}
-                          />
-                          <div className={cx("content")}>
-                            <h4 className={cx("name_project")}>{item?.name}</h4>
-                            <div className={cx("location")}>
-                              <svg
-                                className={cx("icon")}
-                                xmlns="http://www.w3.org/2000/svg"
-                                width="16"
-                                height="16"
-                                fill="currentColor"
-                                viewBox="0 0 16 16"
-                              >
-                                <path d="M8 16s6-5.686 6-10A6 6 0 0 0 2 6c0 4.314 6 10 6 10m0-7a3 3 0 1 1 0-6 3 3 0 0 1 0 6" />
-                              </svg>
-                              <span className={cx("position", "text")}>
-                                {item?.Location?.name}
-                              </span>
+                        <Link to={`projectdetail/${item?.id}`}>
+                          <div key={index} className={cx("box-item")}>
+                            <img
+                              src={item?.thumbnailPathUrl}
+                              alt="image_image"
+                              className={cx("image")}
+                            />
+                            <div className={cx("content")}>
+                              <h4 className={cx("name_project")}>{item?.name}</h4>
+                              <div className={cx("location")}>
+                                <svg
+                                  className={cx("icon")}
+                                  xmlns="http://www.w3.org/2000/svg"
+                                  width="16"
+                                  height="16"
+                                  fill="currentColor"
+                                  viewBox="0 0 16 16"
+                                >
+                                  <path d="M8 16s6-5.686 6-10A6 6 0 0 0 2 6c0 4.314 6 10 6 10m0-7a3 3 0 1 1 0-6 3 3 0 0 1 0 6" />
+                                </svg>
+                                <span className={cx("position", "text")}>
+                                  {item?.Location?.name}
+                                </span>
+                              </div>
                             </div>
                           </div>
-                        </div>
+                        </Link>
                       ))}
                     </div>
                   </div>
@@ -179,31 +184,33 @@ function Search() {
                     </div>
                     <div className={cx("list-box")}>
                       {searchResult?.ProjectName?.map((item, index) => (
-                        <div key={index} className={cx("box-item")}>
-                          <img
-                            src={item?.thumbnailPathUrl}
-                            alt="image_image"
-                            className={cx("image")}
-                          />
-                          <div className={cx("content")}>
-                            <h4 className={cx("name_project")}>{item?.name}</h4>
-                            <div className={cx("location")}>
-                              <svg
-                                className={cx("icon")}
-                                xmlns="http://www.w3.org/2000/svg"
-                                width="16"
-                                height="16"
-                                fill="currentColor"
-                                viewBox="0 0 16 16"
-                              >
-                                <path d="M8 16s6-5.686 6-10A6 6 0 0 0 2 6c0 4.314 6 10 6 10m0-7a3 3 0 1 1 0-6 3 3 0 0 1 0 6" />
-                              </svg>
-                              <span className={cx("position", "text")}>
-                                {item?.Location?.name}
-                              </span>
+                        <Link to={`projectdetail/${item?.id}`}>
+                          <div key={index} className={cx("box-item")}>
+                            <img
+                              src={item?.thumbnailPathUrl}
+                              alt="image_image"
+                              className={cx("image")}
+                            />
+                            <div className={cx("content")}>
+                              <h4 className={cx("name_project")}>{item?.name}</h4>
+                              <div className={cx("location")}>
+                                <svg
+                                  className={cx("icon")}
+                                  xmlns="http://www.w3.org/2000/svg"
+                                  width="16"
+                                  height="16"
+                                  fill="currentColor"
+                                  viewBox="0 0 16 16"
+                                >
+                                  <path d="M8 16s6-5.686 6-10A6 6 0 0 0 2 6c0 4.314 6 10 6 10m0-7a3 3 0 1 1 0-6 3 3 0 0 1 0 6" />
+                                </svg>
+                                <span className={cx("position", "text")}>
+                                  {item?.Location?.name}
+                                </span>
+                              </div>
                             </div>
                           </div>
-                        </div>
+                        </Link>
                       ))}
                     </div>
                   </div>
