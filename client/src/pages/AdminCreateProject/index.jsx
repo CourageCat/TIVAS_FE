@@ -12,11 +12,14 @@ import { createNewProject } from "~/controllers/project";
 import { Backdrop, CircularProgress } from "@mui/material";
 import TippyHeadless from "@tippyjs/react/headless";
 import RickTextEditor from "~/components/RickTextEditor";
+import { getDataSuccess } from "~/redux/reviewProjectDetail";
+import { useNavigate } from "react-router-dom";
 
 const cx = classNames.bind(styles);
 
 function AdminCreateProject() {
   const dispatch = useDispatch();
+  const navigate = useNavigate();
 
   const currentUser = useSelector((state) => state.auth.login.user);
   const axiosInstance = createAxios(dispatch, currentUser);
@@ -173,6 +176,7 @@ function AdminCreateProject() {
 
   const handleClosePopupFeature = () => {
     setPopupFeature(false);
+    setFeature("");
   };
 
   const handleAddFeature = () => {
@@ -199,6 +203,7 @@ function AdminCreateProject() {
 
   const handleClosePopupAttraction = () => {
     setPopupAttraction(false);
+    setAttraction("");
   };
 
   const handleAddAttraction = () => {
@@ -220,7 +225,43 @@ function AdminCreateProject() {
   };
 
   const handleReviewPage = () => {
-    
+    if (
+      listImage?.length === 0 ||
+      !thumbNail ||
+      projectName === "" ||
+      typeOfProject === "" ||
+      buildStatus === "" ||
+      desc === "" ||
+      location === "" ||
+      features?.length === 0 ||
+      attractions?.length === 0
+    ) {
+      return toast.custom(
+        () => (
+          <ToastNotify
+            type="error"
+            title="Error"
+            desc={"Please fill in all information"}
+          />
+        ),
+        { duration: 2000 }
+      );
+    }
+    const form = {
+      listImage,
+      thumbNail,
+      projectName,
+      location,
+      features,
+      attractions,
+      desc,
+    };
+    dispatch(
+      getDataSuccess({
+        form,
+      })
+    );
+    window.open('/admin/createproject/reviewprojectdetail', '_blank');
   };
 
   return (
