@@ -4,91 +4,123 @@
 @import "slick-carousel/slick/slick-theme.css";
 
 * {
-    margin: 0;
-    padding: 0;
-    box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
 }
 
 :root {
-    --home-padding: 13px;
-    --footer-bg: #2e2100;
-    --error-color: #a50016;
-    --admin-sidebar-bg: #fff;
+  --home-padding: 13px;
+  --footer-bg: #2e2100;
+  --error-color: #a50016;
+  --admin-sidebar-bg: #fff;
 }
 
 html {
-    font-size: 62.5%;
+  font-size: 62.5%;
 }
 
 body {
-    font-family: var(--font-family);
-    font-size: 1.6rem;
-    line-height: 1.5;
-    text-rendering: optimizespeed;
-    color: var(--text-color);
-    overflow-y: overlay;
-    // background-color: #f1f1f1;
-    background-color: #fff;
+  font-family: var(--font-family);
+  font-size: 1.6rem;
+  line-height: 1.5;
+  text-rendering: optimizespeed;
+  color: var(--text-color);
+  overflow-y: overlay;
+  // background-color: #f1f1f1;
+  background-color: #fff;
 }
 
 a {
-    text-decoration: none;
+  text-decoration: none;
 }
 
 ul li {
-    list-style: none;
+  list-style: none;
 }
 
 body::-webkit-scrollbar {
-    width: 11px;
+  width: 11px;
 }
 
 body::-webkit-scrollbar-track {
-    background-color: #fafafa;
+  background-color: #fafafa;
 }
 
 body::-webkit-scrollbar-thumb {
-    background: #a8d8ea;
+  background: #a8d8ea;
 }
 
 body {
-    .StripeElement {
-        background: #fff;
-        border: 1px solid #ababab;
-        padding: 18px 30px;
-        font-family: "Inter", sans-serif;
-    }
+  .StripeElement {
+    background: #fff;
+    border: 1px solid #ababab;
+    padding: 18px 30px;
+    font-family: "Inter", sans-serif;
+  }
 
-    .StripeElement--focus {
-        border: 1px solid #000;
-    }
+  .StripeElement--focus {
+    border: 1px solid #000;
+  }
 
-    .StripeElement--invalid {
-        border-color: red;
-    }
+  .StripeElement--invalid {
+    border-color: red;
+  }
 
-    .StripeElement--webkit-autofill {
-        background-color: #fefde5 !important;
-    }
+  .StripeElement--webkit-autofill {
+    background-color: #fefde5 !important;
+  }
 
-    .StripeElement ::placeholder {
-        color: #aab7c4;
-    }
+  .StripeElement ::placeholder {
+    color: #aab7c4;
+  }
 
-    .StripeElement .InputElement {
-        display: block;
-        margin-top: 10px;
-        font-size: 16px;
-        color: #495057;
-    }
+  .StripeElement .InputElement {
+    display: block;
+    margin-top: 10px;
+    font-size: 16px;
+    color: #495057;
+  }
 
-    .StripeElement .StripeElement--invalid .ErrorMessage {
-        color: #fa755a;
-    }
+  .StripeElement .StripeElement--invalid .ErrorMessage {
+    color: #fa755a;
+  }
 
-    .CardTypeIcon {
-        width: 30px;
-        height: 20px;
-        margin-top: 10px;
-    }
+  .CardTypeIcon {
+    width: 30px;
+    height: 20px;
+    margin-top: 10px;
+  }
+}
+
+.ql-picker.ql-font .ql-picker-label[data-value="Inter"]::before,
+.ql-picker.ql-font .ql-picker-item[data-value="Inter"]::before {
+  font-family: "Inter", cursive;
+  content: "Inter";
+}
+.ql-picker.ql-font .ql-picker-label[data-value="Poppins"]::before,
+.ql-picker.ql-font .ql-picker-item[data-value="Poppins"]::before {
+  font-family: "Poppins", cursive;
+  content: "Poppins";
+}
+/* Set content font-families */
+.ql-font-Inter {
+  font-family: "Inter", sans-serif;
+}
+.ql-font-Poppins {
+  font-family: "Poppins", sans-serif;
+}
+
+.ql-size-small {
+  font-size: 12px;
+}
+
+.ql-size-medium {
+  font-size: 20px;
+}
+
+
+
+.ql-size-large {
+  font-size: 30px;
 }
