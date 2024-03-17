@@ -33,8 +33,7 @@ import {
 import { Toaster, toast } from "sonner";
 import ToastNotify from "~/components/ToastNotify";
 import images from "~/assets/images";
-import { addWishList, checkWishLish, viewWishlist } from "~/controllers/user";
-import { deleteWishlist } from "~/services";
+import { addWishList, checkWishLish,deleteWishlist } from "~/controllers/user";
 
 const label = { inputProps: { "aria-label": "Checkbox demo" } };
 
@@ -130,7 +129,7 @@ function ProjectDetail() {
       }
     };
     projectDetail();
-  }, []);
+  }, [currentUser]);
 
   const [scrollToResortAmenities, setScrollToResortAmenities] = useState(false);
   useEffect(() => {
@@ -179,13 +178,13 @@ function ProjectDetail() {
       projectID: id,
     };
     if (event.target.checked === true) {
-      addWishList(axiosInstance, form);
+      await addWishList(axiosInstance, form);
 
       toast.custom(() => (
         <ToastNotify type="success" title="success" desc="Added to wishlist" />
       ));
     } else {
-      deleteWishlist(axiosInstance, form);
+      await deleteWishlist(axiosInstance, form);
 
       toast.custom(() => (
         <ToastNotify
