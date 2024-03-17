@@ -500,7 +500,7 @@ function AdminCreateProject() {
               <div
                 id="Features"
                 className={cx("input", "todo-list")}
-                placeholder="Please add features"
+                placeholder="Please add attractions"
               >
                 {attractions?.length > 0 ? (
                   <>

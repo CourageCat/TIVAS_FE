@@ -6,7 +6,7 @@ import Footer from "~/components/Layouts/Footer";
 import images from "~/assets/images";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faChevronRight } from "@fortawesome/free-solid-svg-icons";
-import { Link, useNavigate } from "react-router-dom";
+import { Link, useNavigate, useParams } from "react-router-dom";
 import SearchPage from "~/components/SearchPage";
 import Slider from "react-slick";
 import Search from "~/components/Search";
@@ -53,6 +53,8 @@ function TimeshareRentals() {
     const currentUser = useSelector((state) => state.auth.login.user);
     const axiosInstance = createAxios(dispatch, currentUser);
 
+    const { id } = useParams();
+
     const [listingResort, setListingResort] = useState(null);
 
     const [countPage, setCountPage] = useState(1);
@@ -74,7 +76,7 @@ function TimeshareRentals() {
 
     useEffect(() => {
         const fetchListing = async () => {
-            const res = await getTimeshareByProjectID(axiosInstance, 10, {
+            const res = await getTimeshareByProjectID(axiosInstance, id, {
                 page: page,
             });
             setListingResort(res?.data);

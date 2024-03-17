@@ -12,6 +12,9 @@ import { createNewProject, getAllTypeOfProject } from "~/controllers/project";
 import { Backdrop, CircularProgress } from "@mui/material";
 import { useParams } from "react-router-dom";
 import { createNewTypeRoom } from "~/controllers/typeRoom";
+import TippyHeadless from "@tippyjs/react/headless";
+import RickTextEditor from "~/components/RickTextEditor";
+
 
 const cx = classNames.bind(styles);
 
@@ -35,11 +38,14 @@ function AdminCreateTypeRoom() {
   const [roomSize, setRoomSize] = useState(0);
   const [numberOfBathRooms, setNumberOfBathRooms] = useState(0);
   const [quantity, setQuantity] = useState(0);
-  const [amenities, setAmenities] = useState("");
+  const [amenities, setAmenities] = useState(null);
   const [bedType, setBedType] = useState("");
   const [desc, setDesc] = useState("");
   const [notify, setNotify] = useState({});
   const [isLoading, setIsLoading] = useState(false);
+
+  const [popupAmenitie, setPopupAmenitie] = useState(false);
+  const [amenitie, setAmenitie] = useState("");
 
   const onFileChange = (files) => {
     setListImage(files);
@@ -95,7 +101,7 @@ function AdminCreateTypeRoom() {
     formData.append("type", typeOfProject);
     formData.append("quantity", quantity);
     formData.append("bathrooms", numberOfBathRooms);
-    formData.append("amenities", amenities);
+    formData.append("amenities", amenities?.join(","));
     formData.append("description", desc);
     setIsLoading(true);
 
@@ -112,9 +118,36 @@ function AdminCreateTypeRoom() {
     setRoomSize(0);
     setNumberOfBathRooms(0);
     setQuantity(0);
-    setAmenities("");
+    setAmenities(null);
     setBedType("");
     setDesc("");
+  };
+
+  const handleOpenAmenitie = () => {
+    setPopupAmenitie(true);
+  };
+
+  const handleClosePopupAmenitie = () => {
+    setPopupAmenitie(false);
+    setAmenitie("");
+  };
+
+  const handleAddAmenitie = () => {
+    if (amenitie === "") {
+      return toast.custom(() => (
+        <ToastNotify type="warning" title="Warning" desc="Can not be empty" />
+      ));
+    }
+    if (amenities) {
+      setAmenities((prev) => [...prev, amenitie]);
+    } else {
+      setAmenities([amenitie]);
+    }
+  };
+
+  const handleDeleteAmenitie = (index) => {
+    const newAmenities = amenities.filter((item, pos) => pos !== index);
+    setAmenities(newAmenities);
   };
 
   return (
@@ -173,6 +206,7 @@ function AdminCreateTypeRoom() {
                 type="number"
                 id="number_of_bedrooms"
                 className={cx("input")}
+                min="0"
                 value={numberOfBedRooms}
                 onChange={(e) => setNumberOfBedRooms(e.target.value)}
                 placeholder="Enter number of bedrooms"
@@ -235,17 +269,80 @@ function AdminCreateTypeRoom() {
               />
             </div>
             <div className={cx("input_compo")}>
-              <label htmlFor="bath_rooms" className={cx("label")}>
-                Enter amenities
-              </label>
-              <input
-                type="text"
-                id="amenities"
-                value={amenities}
-                onChange={(e) => setAmenities(e.target.value)}
-                className={cx("input")}
-                placeholder="Enter amenities"
-              />
+              <div className={cx("row")}>
+                <label htmlFor="bath_rooms" className={cx("label")}>
+                  Enter amenities
+                </label>
+                <TippyHeadless
+                  visible={popupAmenitie === true}
+                  placement="right-end"
+                  interactive
+                  render={(attrs) => (
+                    <div
+                      className={cx("box", "tippy-box")}
+                      tabIndex="-1"
+                      {...attrs}
+                    >
+                      <div className={cx("input_todo")}>
+                        <input
+                          type="text"
+                          className={cx("input")}
+                          value={amenitie}
+                          onChange={(e) => setAmenitie(e.target.value)}
+                        />
+                        <div className={cx("btn")} onClick={handleAddAmenitie}>
+                          Add
+                        </div>
+                      </div>
+                    </div>
+                  )}
+                  onClickOutside={handleClosePopupAmenitie}
+                >
+                  <svg
+                    className={cx("icon")}
+                    onClick={handleOpenAmenitie}
+                    xmlns="http://www.w3.org/2000/svg"
+                    width="16"
+                    height="16"
+                    fill="currentColor"
+                    viewBox="0 0 16 16"
+                  >
+                    <path d="M8 4a.5.5 0 0 1 .5.5v3h3a.5.5 0 0 1 0 1h-3v3a.5.5 0 0 1-1 0v-3h-3a.5.5 0 0 1 0-1h3v-3A.5.5 0 0 1 8 4" />
+                  </svg>
+                </TippyHeadless>
+              </div>
+              <div
+                id="Features"
+                className={cx("input", "todo-list")}
+                placeholder="Please add amenities"
+              >
+                {amenities?.length > 0 ? (
+                  <>
+                    {amenities.map((item, index) => {
+                      return (
+                        <div key={index} className={cx("todo-item")}>
+                          <span className={cx("title")}>{item}</span>
+                          <svg
+                            className={cx("icon_delete")}
+                            onClick={() => handleDeleteAmenitie(index)}
+                            xmlns="http://www.w3.org/2000/svg"
+                            width="16"
+                            height="16"
+                            fill="currentColor"
+                            viewBox="0 0 16 16"
+                          >
+                            <path d="M4.646 4.646a.5.5 0 0 1 .708 0L8 7.293l2.646-2.647a.5.5 0 0 1 .708.708L8.707 8l2.647 2.646a.5.5 0 0 1-.708.708L8 8.707l-2.646 2.647a.5.5 0 0 1-.708-.708L7.293 8 4.646 5.354a.5.5 0 0 1 0-.708" />
+                          </svg>
+                        </div>
+                      );
+                    })}
+                  </>
+                ) : (
+                  <span className={cx("placeholder")}>
+                    Click the + icon to add amenitie
+                  </span>
+                )}
+              </div>
             </div>
           </div>
           <div className={cx("row")}>
@@ -263,19 +360,12 @@ function AdminCreateTypeRoom() {
               />
             </div>
           </div>
+          {/* ========= */}
           <div className={cx("desc", "input_compo")}>
             <label htmlFor="desc" className={cx("label")}>
               Description
             </label>
-            <textarea
-              id="desc"
-              cols="30"
-              rows="10"
-              value={desc}
-              onChange={(e) => setDesc(e.target.value)}
-              placeholder="Description"
-              className={cx("text-area")}
-            />
+            <RickTextEditor value={desc} setValue={setDesc} />
           </div>
         </div>
 
