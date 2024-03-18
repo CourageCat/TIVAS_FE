@@ -2,7 +2,7 @@ import classNames from "classnames/bind";
 import styles from "./ExpandList.module.scss";
 
 import { useEffect, useState } from "react";
-import { getAllLocation } from "~/controllers/location";
+import { getAllLocations } from "~/controllers/location";
 import createAxios from "~/configs/axios";
 
 import { useDispatch, useSelector } from "react-redux";
@@ -22,7 +22,7 @@ function ExpandList({ locationDetail }) {
 
     // useEffect(() => {
     //     const fetchData = async () => {
-    //         const resLocation = await getAllLocation(axiosInstance);
+    //         const resLocation = await getAllLocations(axiosInstance);
 
     //         if (resLocation?.err === 0) {
     //             setLocationData(resLocation.data);
@@ -32,7 +32,6 @@ function ExpandList({ locationDetail }) {
     //     fetchData();
     // }, []);
 
-    console.log(locationDetail);
     return (
         <div className={cx("expand-list-wrapper")}>
             <div className={cx("content")}>
@@ -52,7 +51,10 @@ function ExpandList({ locationDetail }) {
                     <div className={cx("list-content")}>
                         <div className={cx("scroll-content")}>
                             {locationDetail?.map((item, index) => (
-                                <Link to={`/locate/${index}`} key={index}>
+                                <Link
+                                    to={`/search/type=location&value=${item?.name}`}
+                                    key={index}
+                                >
                                     <span className={cx("desc")}>
                                         {item?.name}
                                     </span>
