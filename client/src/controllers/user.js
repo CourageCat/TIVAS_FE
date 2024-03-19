@@ -121,3 +121,12 @@ export const deleteWishlist = async (axiosInstance, form) => {
         console.log(err);
     }
 };
+
+export const getHistory = async (axiosInstance, form) => {
+    try {
+        const res = await services.getHistory(axiosInstance, form);
+        return res;
+    } catch (err) {
+        console.log(err);
+    }
+};

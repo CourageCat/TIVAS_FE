@@ -25,6 +25,7 @@ import AdminCreateTypeRoom from "~/pages/AdminCreateTypeRoom";
 import AdminManageTimeshare from "~/pages/AdminManageTimeshare";
 import WishList from "~/pages/WishList";
 import ReviewProjectDetail from "~/pages/ReviewProjectDetail";
+import UserHistory from "~/components/UserHistory";
 
 const routes = [
     {
@@ -33,7 +34,7 @@ const routes = [
         layout: null,
     },
     {
-        path: "/search/:id",
+        path: "/search/:type",
         component: Search,
         layout: null,
     },
@@ -52,6 +53,12 @@ const routes = [
     {
         path: "/user/account/purchase/:status",
         component: Purchase,
+        layout: ProfileLayout,
+    },
+
+    {
+        path: "/user/account/history",
+        component: UserHistory,
         layout: ProfileLayout,
     },
 
@@ -78,12 +85,6 @@ const routes = [
     },
 
     {
-        path: "/timesharedetail",
-        component: TimeshareDetail,
-        layout: null,
-    },
-
-    {
         path: "/user/account/changepassword",
         component: ChangePassword,
         layout: ProfileLayout,
@@ -102,7 +103,7 @@ const routes = [
     },
 
     {
-        path: "/timesharedetail/:id",
+        path: "/timesharedetail",
         component: TimeshareDetail,
         layout: null,
     },

@@ -7,11 +7,12 @@ import images from "~/assets/images";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faChevronRight } from "@fortawesome/free-solid-svg-icons";
 import { Link, useNavigate, useParams } from "react-router-dom";
-import SearchPage from "~/components/SearchPage";
 import Slider from "react-slick";
 import Search from "~/components/Search";
 import { Pagination, Stack } from "@mui/material";
 import {
+  getAllTimeshare,
+  getTimeshareByProjectID,
   getAllTimeshare,
   getTimeshareByProjectID,
 } from "~/controllers/timeshare";
@@ -22,7 +23,22 @@ const cx = classNames.bind(styles);
 
 function convertToDate(inputDate) {
   const date = new Date(inputDate);
+  const date = new Date(inputDate);
 
+  const monthNames = [
+    "January",
+    "February",
+    "March",
+    "April",
+    "May",
+    "June",
+    "July",
+    "August",
+    "September",
+    "October",
+    "November",
+    "December",
+  ];
   const monthNames = [
     "January",
     "February",
@@ -41,22 +57,35 @@ function convertToDate(inputDate) {
   const month = date.getMonth();
   const day = date.getDate();
   const year = date.getFullYear();
+  const month = date.getMonth();
+  const day = date.getDate();
+  const year = date.getFullYear();
 
+  const result = monthNames[month] + " " + day + " " + year;
+  return result;
   const result = monthNames[month] + " " + day + " " + year;
   return result;
 }
 
 function TimeshareRentals() {
   const navigate = useNavigate();
+  const navigate = useNavigate();
 
+  const dispatch = useDispatch();
+  const currentUser = useSelector((state) => state.auth.login.user);
+  const axiosInstance = createAxios(dispatch, currentUser);
   const dispatch = useDispatch();
   const currentUser = useSelector((state) => state.auth.login.user);
   const axiosInstance = createAxios(dispatch, currentUser);
 
   const { id } = useParams();
+  const { id } = useParams();
 
   const [listingResort, setListingResort] = useState(null);
+  const [listingResort, setListingResort] = useState(null);
 
+  const [countPage, setCountPage] = useState(1);
+  const [page, setPage] = useState(1);
   const [countPage, setCountPage] = useState(1);
   const [page, setPage] = useState(1);
 
@@ -64,6 +93,9 @@ function TimeshareRentals() {
     setPage(value);
   };
 
+  useEffect(() => {
+    window.scrollTo(0, 0);
+  }, []);
   useEffect(() => {
     window.scrollTo(0, 0);
   }, []);

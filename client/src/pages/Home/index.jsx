@@ -297,7 +297,7 @@ function Home() {
       return (
         <div key={index}>
           <div className={cx("box")}>
-            <Link to={`projectdetail/${item.id}`}>
+            <Link to={`/projectdetail/${item.id}`}>
               <img
                 src={item.thumbnailPathUrl}
                 alt={item.name}
@@ -377,28 +377,36 @@ function Home() {
           <div className={cx("wrapper")}>
             <div className={cx("list-one")}>
               {listLocation.slice(0, 2).map((item, index) => (
-                <div key={index} className={cx("box")}>
-                  {console.log(item)}
-
-                  <img
-                    src={item?.imagePathUrl}
-                    alt="image_one"
-                    className={cx("image")}
-                  />
-                  <span className={cx("text")}>{item?.name}</span>
-                </div>
+                <Link
+                  to={`/search/type=location&value=${item?.name}`}
+                  key={index}
+                >
+                  <div className={cx("box")}>
+                    <img
+                      src={item?.imagePathUrl}
+                      alt="image_one"
+                      className={cx("image")}
+                    />
+                    <span className={cx("text")}>{item?.name}</span>
+                  </div>
+                </Link>
               ))}
             </div>
             <div className={cx("list-two")}>
               {listLocation.slice(2, 5).map((item, index) => (
-                <div key={index} className={cx("box")}>
-                  <img
-                    src={item?.imagePathUrl}
-                    alt="image_one"
-                    className={cx("image")}
-                  />
-                  <span className={cx("text")}>{item?.name}</span>
-                </div>
+                <Link
+                  to={`/search/type=location&value=${item?.name}`}
+                  key={index}
+                >
+                  <div className={cx("box")}>
+                    <img
+                      src={item?.imagePathUrl}
+                      alt="image_one"
+                      className={cx("image")}
+                    />
+                    <span className={cx("text")}>{item?.name}</span>
+                  </div>
+                </Link>
               ))}
             </div>
           </div>
