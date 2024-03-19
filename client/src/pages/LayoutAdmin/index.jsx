@@ -6,13 +6,23 @@ import AdminSidebar from "~/components/Layouts/AdminSidebar";
 import AdminHeader from "~/components/Layouts/AdminHeader";
 import { useDispatch, useSelector } from "react-redux";
 import createAxios from "~/configs/axios";
+import { useEffect } from "react";
+import { useNavigate } from "react-router-dom";
 
 const cx = classNames.bind(styles);
 
 function LayoutAdmin({ children }) {
+  const navigate = useNavigate();
+
   const dispatch = useDispatch();
   const currentUser = useSelector((state) => state.auth.login.user);
   const axiosInstance = createAxios(dispatch, currentUser);
+
+  useEffect(() => {
+    if (!currentUser || currentUser?.data?.roleID === 3) {
+      navigate("/");
+    }
+  }, [currentUser]);
 
   return (
     <div className={cx("admin-wrapper")}>

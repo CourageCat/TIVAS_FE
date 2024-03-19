@@ -6,57 +6,58 @@ import { banUserById, getAllUsers, unBanUserById } from "~/controllers/user";
 import { useDispatch, useSelector } from "react-redux";
 import createAxios from "~/configs/axios";
 import {
-    Button,
-    Dialog,
-    DialogActions,
-    DialogContent,
-    DialogTitle,
+  Button,
+  Dialog,
+  DialogActions,
+  DialogContent,
+  DialogTitle,
 } from "@mui/material";
 
 const cx = classNames.bind(styles);
 
-function ActionUser({ id, username, banStatus, setNotify }) {
-    const dispatch = useDispatch();
+function ActionUser({id, username, banStatus, setNotify, fetchUser }) {
+  const dispatch = useDispatch();
 
-    const currentUser = useSelector((state) => state.auth.login.user);
-    const axiosInstance = createAxios(dispatch, currentUser);
+  const currentUser = useSelector((state) => state.auth.login.user);
+  const axiosInstance = createAxios(dispatch, currentUser);
 
-    const [open, setOpen] = useState(false);
+  const [open, setOpen] = useState(false);
 
-    const [openPopup, setOpenPopup] = useState(false);
-    const [banUser, setBanUser] = useState("");
+  const [openPopup, setOpenPopup] = useState(false);
+  const [banUser, setBanUser] = useState("");
 
-    const handleOpen = () => {
-        setOpen(true);
-    };
-    const handleClose = () => {
-        setOpen(false);
-        setBanUser("");
-    };
-    const toggleOpen = () => {
-        setOpen((prev) => !prev);
-    };
+  const handleOpen = () => {
+    setOpen(true);
+  };
+  const handleClose = () => {
+    setOpen(false);
+    setBanUser("");
+  };
+  const toggleOpen = () => {
+    setOpen((prev) => !prev);
+  };
 
-    const handleOpenPopup = () => {
-        handleClose();
-        setOpenPopup(true);
-    };
-    const handleClosePopup = () => {
-        setOpenPopup(false);
-    };
+  const handleOpenPopup = () => {
+    handleClose();
+    setOpenPopup(true);
+  };
+  const handleClosePopup = () => {
+    setOpenPopup(false);
+  };
 
-    const handleSubmitBanUser = async (e) => {
-        e.preventDefault();
-        handleClosePopup();
-        const res = await banUserById(axiosInstance, {
-            id: id,
-            reasonBan: banUser,
-        });
-        if (res) {
-            setNotify(res);
-        }
-        // console.log(res);
-    };
+  const handleSubmitBanUser = async (e) => {
+    e.preventDefault();
+    handleClosePopup();
+    const res = await banUserById(axiosInstance, {
+      id: id,
+      reasonBan: banUser,
+    });
+    if (res) {
+      setNotify(res);
+      fetchUser();
+    }
+    // console.log(res);
+  };
 
   const handleClickUnban = async () => {
     handleClose();
@@ -65,9 +66,10 @@ function ActionUser({ id, username, banStatus, setNotify }) {
     });
     if (res) {
       setNotify(res);
+      fetchUser();
     }
   };
- 
+
   return (
     <div>
       <TippyHeadless

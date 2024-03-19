@@ -18,6 +18,7 @@ import {
   closeBookingDate,
   openReservaion,
   putOpenBooking,
+  updateBooking,
   updateReservation,
 } from "~/controllers/project";
 import { refundMoneyTimeshare } from "~/controllers/reservationTicket";
@@ -43,6 +44,16 @@ function convertDateTimeToDate() {
   return `${year}-${month}-${day}`;
 }
 
+function compareDates(date_one, date_two) {
+  const dateOne = new Date(date_one);
+  const dateTwo = new Date(date_two);
+
+  if (dateOne < dateTwo) {
+    return false;
+  }
+  return true;
+}
+
 function ActionProject({
   id,
   status,
@@ -50,15 +61,17 @@ function ActionProject({
   setNotify,
   resDate,
   resPrice,
+  fetchData,
 }) {
   const navigate = useNavigate();
   const dispatch = useDispatch();
-
   const currentUser = useSelector((state) => state.auth.login.user);
   const axiosInstance = createAxios(dispatch, currentUser);
 
   const [open, setOpen] = useState(false);
   const [openReservation, setOpenReservaion] = useState(false);
+
+  const [openBookingForm, setOpenBookingForm] = useState(false);
 
   const [reservationPrice, setReservationPrice] = useState("");
   const [reservationDate, setReservationDate] = useState("");
@@ -77,13 +90,13 @@ function ActionProject({
 
   const handleOpenReservation = () => {
     setOpenReservaion(true);
+    setReservationDate(() => (resDate ? convertDateTimeToDate(resDate) : ""));
+    setReservationPrice(() => (resPrice ? resPrice : ""));
   };
   const handleCloseReservation = () => {
     setOpenReservaion(false);
     setReservationPrice("");
     setReservationDate("");
-    setOpenDate("");
-    setCloseDate("");
   };
 
   const handleNavigate = (value, id) => {
@@ -105,42 +118,98 @@ function ActionProject({
     handleOpenReservation();
   };
 
-  const handleSubmitUpdateReservation = async (e) => {
+  const handleSubmitOpenDateReservation = async (e) => {
     e.preventDefault();
 
     const form = {
       reservationPrice: status === 0 ? +reservationPrice : resPrice,
-      reservationDate: status === 0 ? convertDate(reservationDate) : resDate,
-      openDate: convertDate(openDate),
-      closeDate: convertDate(closeDate),
+      reservationDate:
+        status === 0
+          ? reservationDate !== ""
+            ? convertDate(reservationDate)
+            : null
+          : resDate,
     };
+    if (!form.reservationPrice || !form.reservationDate) {
+      return setNotify({
+        err: 1,
+        mess: "Please fill in all information",
+      });
+    }
 
     const res = await updateReservation(axiosInstance, id, form);
-    if (res)
+    console.log(res);
+    if (res) {
       setNotify({
         ...res,
-        message: res?.message,
+        mess: res?.message,
       });
+    }
+    fetchData();
     handleCloseReservation();
   };
 
-  const handleOpenReservationDate = async () => {
-    const res = await openReservaion(axiosInstance, id);
-    setNotify(res);
+  const handleOpenReservationDate = () => {
+    if (!resPrice || !resDate) {
+      handleClose();
+      return setNotify({
+        err: 1,
+        mess: "Please set reservation date before opening reservation",
+      });
+    }
+
+    setOpenBookingForm(true);
     handleClose();
+  };
+
+  const handleCloseReservaionDate = () => {
+    setOpenBookingForm(false);
+    setOpenDate("");
+    setCloseDate("");
   };
 
   const handleOpenBookingDate = async () => {
     const res = await putOpenBooking(axiosInstance, id);
     setNotify(res);
+    fetchData();
     handleClose();
   };
 
   const handleCloseBookingDate = async () => {
     const res = await closeBookingDate(axiosInstance, id);
     setNotify(res);
-    const res_one = await refundMoneyTimeshare(axiosInstance, id);
+    fetchData();
+    // const res_one = await refundMoneyTimeshare(axiosInstance, id);
     handleClose();
+  };
+
+  const handleSubmitOpenBookingReservation = async (e) => {
+    e.preventDefault();
+    const form = {
+      openDate: openDate !== "" ? convertDate(openDate) : null,
+      closeDate: closeDate !== "" ? convertDate(closeDate) : null,
+    };
+    if (!form.openDate || !form.closeDate) {
+      return setNotify({
+        err: 1,
+        mess: "Please fill in all information",
+      });
+    }
+
+    if (!compareDates(closeDate, openDate)) {
+      return setNotify({
+        err: 1,
+        mess: "The booking close date must be greater than or equal to the booking opening date",
+      });
+    }
+
+    const res = await updateBooking(axiosInstance, id, form);
+    const res_one = await openReservaion(axiosInstance, id);
+    setNotify({
+      ...res_one,
+    });
+    fetchData();
+    handleCloseReservaionDate();
   };
 
   return (
@@ -213,22 +282,42 @@ function ActionProject({
                   </svg>
                   <span className={cx("title")}>Manage timeshare</span>
                 </div> */}
-                <div
-                  className={cx("item", "update_reservation")}
-                  onClick={handleUpdateReservation}
-                >
-                  <svg
-                    xmlns="http://www.w3.org/2000/svg"
-                    width="16"
-                    height="16"
-                    fill="currentColor"
-                    viewBox="0 0 16 16"
+                {status === 0 && !resDate && (
+                  <div
+                    className={cx("item", "update_reservation")}
+                    onClick={handleUpdateReservation}
                   >
-                    <path d="M8.5 10c-.276 0-.5-.448-.5-1s.224-1 .5-1 .5.448.5 1-.224 1-.5 1" />
-                    <path d="M10.828.122A.5.5 0 0 1 11 .5V1h.5A1.5 1.5 0 0 1 13 2.5V15h1.5a.5.5 0 0 1 0 1h-13a.5.5 0 0 1 0-1H3V1.5a.5.5 0 0 1 .43-.495l7-1a.5.5 0 0 1 .398.117M11.5 2H11v13h1V2.5a.5.5 0 0 0-.5-.5M4 1.934V15h6V1.077z" />
-                  </svg>
-                  <span className={cx("title")}>Update reservation</span>
-                </div>
+                    <svg
+                      xmlns="http://www.w3.org/2000/svg"
+                      width="16"
+                      height="16"
+                      fill="currentColor"
+                      viewBox="0 0 16 16"
+                    >
+                      <path d="M8.5 10c-.276 0-.5-.448-.5-1s.224-1 .5-1 .5.448.5 1-.224 1-.5 1" />
+                      <path d="M10.828.122A.5.5 0 0 1 11 .5V1h.5A1.5 1.5 0 0 1 13 2.5V15h1.5a.5.5 0 0 1 0 1h-13a.5.5 0 0 1 0-1H3V1.5a.5.5 0 0 1 .43-.495l7-1a.5.5 0 0 1 .398.117M11.5 2H11v13h1V2.5a.5.5 0 0 0-.5-.5M4 1.934V15h6V1.077z" />
+                    </svg>
+                    <span className={cx("title")}>Open date reservation</span>
+                  </div>
+                )}
+                {status === 0 && resDate && (
+                  <div
+                    className={cx("item", "update_reservation")}
+                    onClick={handleUpdateReservation}
+                  >
+                    <svg
+                      xmlns="http://www.w3.org/2000/svg"
+                      width="16"
+                      height="16"
+                      fill="currentColor"
+                      viewBox="0 0 16 16"
+                    >
+                      <path d="M8.5 10c-.276 0-.5-.448-.5-1s.224-1 .5-1 .5.448.5 1-.224 1-.5 1" />
+                      <path d="M10.828.122A.5.5 0 0 1 11 .5V1h.5A1.5 1.5 0 0 1 13 2.5V15h1.5a.5.5 0 0 1 0 1h-13a.5.5 0 0 1 0-1H3V1.5a.5.5 0 0 1 .43-.495l7-1a.5.5 0 0 1 .398.117M11.5 2H11v13h1V2.5a.5.5 0 0 0-.5-.5M4 1.934V15h6V1.077z" />
+                    </svg>
+                    <span className={cx("title")}>Edit date reservation</span>
+                  </div>
+                )}
                 {status === 0 && (
                   <div
                     className={cx("item", "open_reservation")}
@@ -342,7 +431,10 @@ function ActionProject({
           }}
         >
           <DialogTitle>
-            <h2 className={cx("heading_popup")}>Update reservation</h2>
+            <h2 className={cx("heading_popup")}>
+              {status === 0 && !resDate && "Open date reservation"}
+              {status === 0 && resDate && "Edit date reservation"}
+            </h2>
           </DialogTitle>
           <DialogContent>
             <DialogContentText>
@@ -355,68 +447,25 @@ function ActionProject({
                 <label htmlFor="reservationPrice" className={cx("label")}>
                   Reservation price
                 </label>
-                {status === 0 && (
-                  <input
-                    type="number"
-                    className={cx("input")}
-                    value={reservationPrice}
-                    onChange={(e) => setReservationPrice(e.target.value)}
-                    id="reservationPrice"
-                  />
-                )}
-                {status === 1 && (
-                  <input
-                    type="number"
-                    className={cx("input")}
-                    value={resPrice}
-                    id="reservationPrice"
-                  />
-                )}
+                <input
+                  type="number"
+                  placeholder="Currency(USD)"
+                  className={cx("input")}
+                  value={reservationPrice}
+                  onChange={(e) => setReservationPrice(e.target.value)}
+                  id="reservationPrice"
+                />
               </div>
               <div className={cx("input_popup")}>
                 <label htmlFor="reservationDate" className={cx("label")}>
                   Reservation date
                 </label>
-                {status === 0 && (
-                  <input
-                    type="date"
-                    className={cx("input")}
-                    value={reservationDate}
-                    onChange={(e) => setReservationDate(e.target.value)}
-                    id="reservationDate"
-                  />
-                )}
-                {status === 1 && (
-                  <input
-                    type="date"
-                    className={cx("input")}
-                    value={convertDateTimeToDate(resDate)}
-                    id="reservationDate"
-                  />
-                )}
-              </div>
-              <div className={cx("input_popup")}>
-                <label htmlFor="openDate" className={cx("label")}>
-                  Open date booking
-                </label>
                 <input
                   type="date"
                   className={cx("input")}
-                  id="openDate"
-                  value={openDate}
-                  onChange={(e) => setOpenDate(e.target.value)}
-                />
-              </div>
-              <div className={cx("input_popup")}>
-                <label htmlFor="closeDate" className={cx("label")}>
-                  Close date booking
-                </label>
-                <input
-                  type="date"
-                  className={cx("input")}
-                  id="closeDate"
-                  value={closeDate}
-                  onChange={(e) => setCloseDate(e.target.value)}
+                  value={reservationDate}
+                  onChange={(e) => setReservationDate(e.target.value)}
+                  id="reservationDate"
                 />
               </div>
             </div>
@@ -431,7 +480,77 @@ function ActionProject({
             <Button
               style={{ fontSize: "1.4rem" }}
               type="submit"
-              onClick={handleSubmitUpdateReservation}
+              onClick={handleSubmitOpenDateReservation}
+            >
+              Submit
+            </Button>
+          </DialogActions>
+        </Dialog>
+
+        <Dialog
+          open={openBookingForm}
+          onClose={handleCloseReservaionDate}
+          PaperProps={{
+            component: "form",
+            onSubmit: (event) => {
+              event.preventDefault();
+              const formData = new FormData(event.currentTarget);
+              const formJson = Object.fromEntries(formData.entries());
+              const email = formJson.email;
+              console.log(email);
+              handleCloseReservation();
+            },
+          }}
+        >
+          <DialogTitle>
+            <h2 className={cx("heading_popup")}>
+              {status === 0 && resDate && "Open booking"}
+            </h2>
+          </DialogTitle>
+          <DialogContent>
+            <DialogContentText>
+              <p className={cx("desc_popup")}>
+                Please fill in the information below
+              </p>
+            </DialogContentText>
+            <div className={cx("list-popup")}>
+              <div className={cx("input_popup")}>
+                <label htmlFor="openDate" className={cx("label")}>
+                  Open Booking date
+                </label>
+                <input
+                  type="date"
+                  className={cx("input")}
+                  value={openDate}
+                  onChange={(e) => setOpenDate(e.target.value)}
+                  id="openDate"
+                />
+              </div>
+              <div className={cx("input_popup")}>
+                <label htmlFor="closeDate" className={cx("label")}>
+                  Close Booking date
+                </label>
+                <input
+                  type="date"
+                  className={cx("input")}
+                  value={closeDate}
+                  onChange={(e) => setCloseDate(e.target.value)}
+                  id="closeDate"
+                />
+              </div>
+            </div>
+          </DialogContent>
+          <DialogActions>
+            <Button
+              style={{ fontSize: "1.4rem" }}
+              onClick={handleCloseBookingDate}
+            >
+              Cancel
+            </Button>
+            <Button
+              style={{ fontSize: "1.4rem" }}
+              type="submit"
+              onClick={handleSubmitOpenBookingReservation}
             >
               Submit
             </Button>

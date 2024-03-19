@@ -29,6 +29,21 @@ function AdminManageUser() {
 
   const [page, setPage] = useState(1);
 
+  const fetchUserBan = async () => {
+    const res = await getAllUsers(axiosInstance, {
+      page: page,
+      limit: limit,
+    });
+    setListUsers(res?.data);
+    setCountPage(res?.countPages);
+    setIsLoading(false);
+    if (page < res?.countPages) {
+      setPage(page);
+    } else {
+      setPage(res?.countPages);
+    }
+  };
+
   useEffect(() => {
     const fetchUser = async () => {
       const res = await getAllUsers(axiosInstance, {
@@ -149,7 +164,7 @@ function AdminManageUser() {
                       </td>
                       <td className={cx("action", "column")}>
                         <ActionUser
-                          User
+                          fetchUser={fetchUserBan}
                           id={item?.id}
                           username={item?.username}
                           banStatus={item?.banStatus}
