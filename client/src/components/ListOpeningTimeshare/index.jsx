@@ -357,20 +357,26 @@ function ListOpeningTimeshare() {
                                             );
                                         })}
                                     </tbody>
-                                    <tfoot className={cx("tfoot")}>
-                                        <tr className={cx("trow")}>
-                                            <Stack spacing={2}>
-                                                <Pagination
-                                                    count={countPage}
-                                                    page={page}
-                                                    variant="outlined"
-                                                    shape="rounded"
-                                                    onChange={handlePageChange}
-                                                    className={cx("pagination")}
-                                                />
-                                            </Stack>
-                                        </tr>
-                                    </tfoot>
+                                    {listingResort && (
+                                        <tfoot className={cx("tfoot")}>
+                                            <tr className={cx("trow")}>
+                                                <Stack spacing={2}>
+                                                    <Pagination
+                                                        count={countPage}
+                                                        page={page}
+                                                        variant="outlined"
+                                                        shape="rounded"
+                                                        onChange={
+                                                            handlePageChange
+                                                        }
+                                                        className={cx(
+                                                            "pagination"
+                                                        )}
+                                                    />
+                                                </Stack>
+                                            </tr>
+                                        </tfoot>
+                                    )}
                                 </table>
                             </div>
                         </div>

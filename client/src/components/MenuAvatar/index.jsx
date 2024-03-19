@@ -6,7 +6,7 @@ import { faUser } from "@fortawesome/free-regular-svg-icons";
 import { faArrowRightFromBracket } from "@fortawesome/free-solid-svg-icons";
 import { useDispatch, useSelector } from "react-redux";
 import createAxios from "~/configs/axios";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import FormFeedback from "~/components/FormFeedback";
 
 import Dialog from "@mui/material/Dialog";
@@ -14,6 +14,8 @@ import { DialogTitle, IconButton, DialogContent } from "@mui/material";
 import { styled } from "@mui/material/styles";
 import CloseIcon from "@mui/icons-material/Close";
 
+import { Toaster, toast } from "sonner";
+import ToastNotify from "~/components/ToastNotify";
 const cx = classNames.bind(styles);
 
 function MenuAvatar({ handleLogout, hideMenuAvatar }) {
@@ -21,6 +23,34 @@ function MenuAvatar({ handleLogout, hideMenuAvatar }) {
     const currentUser = useSelector((state) => state.auth.login.user);
     const axiosInstance = createAxios(dispatch, currentUser);
     const [open, setOpen] = useState(false);
+
+    const [message, setMessage] = useState({});
+
+    useEffect(() => {
+        if (message?.err === 1) {
+            toast.custom(
+                () => (
+                    <ToastNotify
+                        type="error"
+                        title="Error"
+                        desc={message?.message}
+                    />
+                ),
+                { duration: 2000 }
+            );
+        } else if (message?.err === 0) {
+            toast.custom(
+                () => (
+                    <ToastNotify
+                        type="success"
+                        title="Success"
+                        desc={message?.message}
+                    />
+                ),
+                { duration: 2000 }
+            );
+        }
+    }, [message]);
 
     const handleClickOpen = () => {
         setOpen(true);
@@ -91,7 +121,10 @@ function MenuAvatar({ handleLogout, hideMenuAvatar }) {
                             handleClose={handleClose}
                             setMessage={setMessage}
                         /> */}
-                        <FormFeedback />
+                        <FormFeedback
+                            handleClose={handleClose}
+                            setMessage={setMessage}
+                        />
                     </DialogContent>
                 </Dialog>
             </>
