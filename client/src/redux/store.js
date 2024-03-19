@@ -21,7 +21,7 @@ const persistConfig = {
   version: 1,
   storage,
   whitelist: ["auth", "reviewProjectDetail"],
-  blacklist: ["formRegister", "forgotPassword", "user"],
+  blacklist: ["formRegister", "forgotPassword", "user", "wishlist"],
 };
 
 const rootReducer = combineReducers({
