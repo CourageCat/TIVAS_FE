@@ -118,6 +118,21 @@ function Sidebar() {
                         <span className={cx("text")}>Purchase order</span>
                     </Link>
                 </div>
+
+                <div
+                    className={cx("option", {
+                        active: location.pathname.includes("history"),
+                    })}
+                >
+                    <img
+                        src={images.historyIcon}
+                        alt="history-icon"
+                        className={cx("icon")}
+                    />
+                    <Link to="/user/account/history">
+                        <span className={cx("text")}>History</span>
+                    </Link>
+                </div>
             </div>
         </div>
     );

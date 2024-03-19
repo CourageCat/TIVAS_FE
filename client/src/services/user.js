@@ -62,3 +62,13 @@ export const checkWishList = (axiosInstance, form) => {
         `/api/v1/user/checkprojectwishlist?id=${id}&projectID=${projectID}`
     );
 };
+
+export const getHistory = (axiosInstance, form) => {
+    const id = form.id;
+    const status = form.status;
+    const page = form.page;
+    const limit = form.limit;
+    return axiosInstance.get(
+        `/api/v1/User/getHistory?id=${id}&status=${status}&page=${page}&limit=${limit}`
+    );
+};
