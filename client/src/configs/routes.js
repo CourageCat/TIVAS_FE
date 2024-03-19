@@ -26,6 +26,9 @@ import AdminManageTimeshare from "~/pages/AdminManageTimeshare";
 import WishList from "~/pages/WishList";
 import ReviewProjectDetail from "~/pages/ReviewProjectDetail";
 import UserHistory from "~/components/UserHistory";
+import AdminManageUserFeedback from "~/pages/AdminManageUserFeedback";
+import AdminHistory from "~/pages/AdminHistory";
+import AdminShowStage from "~/pages/AdminShowStage";
 
 const routes = [
     {
@@ -243,6 +246,24 @@ const routes = [
         path: "/admin/createproject/reviewprojectdetail",
         component: ReviewProjectDetail,
         layout: null,
+    },
+
+    {
+        path: "/admin/manageuser/userfeedbacks",
+        component: AdminManageUserFeedback,
+        layout: LayoutAdmin,
+    },
+
+    {
+        path: "/admin/manageproject/history",
+        component: AdminHistory,
+        layout: LayoutAdmin,
+    },
+
+    {
+        path: "/admin/manageproject/showstage/:id",
+        component: AdminShowStage,
+        layout: LayoutAdmin,
     },
 ];
 
