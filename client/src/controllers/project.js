@@ -152,3 +152,21 @@ export const searchProjects = async (axiosInstance, form) => {
     console.log(err);
   }
 };
+
+export const getAllSold = async (axiosInstance) => {
+    try {
+        const res = await services.getAllSold(axiosInstance);
+        return res;
+    } catch (err) {
+        console.log(err);
+    }
+};
+
+export const getAllSoldReservation = async (axiosInstance, form) => {
+    try {
+        const res = await services.getAllSoldReservation(axiosInstance, form);
+        return res;
+    } catch (err) {
+        console.log(err);
+    }
+};

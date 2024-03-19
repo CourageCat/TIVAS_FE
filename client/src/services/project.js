@@ -101,3 +101,16 @@ export const searchProjects = (axiosInstance, form) => {
     `/api/v1/project/search?page=${page}&limit=${limit}&info=${info}&searchBy=${searchBy}`
   );
 };
+
+export const getAllSold = (axiosInstance) => {
+    return axiosInstance.get(`/api/v1/project/getAllSold`);
+};
+
+export const getAllSoldReservation = (axiosInstance, form) => {
+    const projectID = form.projectID;
+    const page = form.page;
+    const limit = form.limit;
+    return axiosInstance.get(
+        `/api/v1/project/getAllSoldReservationStageOfProject?projectID=${projectID}&page=${page}&limit=${limit}`
+    );
+};

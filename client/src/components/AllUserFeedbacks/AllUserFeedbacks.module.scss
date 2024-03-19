@@ -1,0 +1,122 @@
+.wrapper {
+    // background: red;
+    position: relative;
+    border-radius: 8px;
+    padding: 30px;
+    background-color: #fff;
+    box-shadow: rgba(17, 17, 26, 0.1) 0px 8px 24px,
+        rgba(17, 17, 26, 0.1) 0px 16px 56px, rgba(17, 17, 26, 0.1) 0px 24px 80px;
+    padding-bottom: 30px;
+    min-height: 1000px;
+}
+
+.icon {
+    width: 30px;
+    height: 30px;
+    object-fit: cover;
+}
+
+.row {
+    display: flex;
+    justify-content: space-between;
+}
+
+.title {
+    font-family: "Inter", sans-serif;
+    font-size: 3rem;
+    font-weight: 600;
+}
+
+.content {
+    margin-top: 40px;
+}
+
+.feedback {
+    display: flex;
+    border-bottom: #2ac0e1 solid 1px;
+    width: 80%;
+    .feedback-content {
+        display: flex;
+        padding: 20px;
+        .left-feedback {
+            .user-info {
+                display: flex;
+                gap: 20px;
+                align-items: center;
+                .avatar {
+                    width: 50px;
+                    height: 50px;
+                    object-fit: cover;
+                    border-radius: 50%;
+                }
+
+                .user-name {
+                    font-family: "Inter", sans-serif;
+                    font-size: 2rem;
+                    font-weight: 500;
+                }
+            }
+
+            .text {
+                margin-top: 20px;
+                // display: -webkit-box;
+                // -webkit-line-clamp: 3;
+                // -webkit-box-orient: vertical;
+                // overflow: hidden;
+                // text-overflow: ellipsis;
+                width: 100%;
+                font-family: "Inter", sans-serif;
+                font-size: 1.4rem;
+                font-weight: 300;
+            }
+        }
+
+        .btn-group {
+            margin-top: 20px;
+            display: flex;
+            gap: 20px;
+            .btn {
+                width: 160px;
+                padding: 10px 20px;
+                font-family: "Inter", sans-serif;
+                font-size: 1.3rem;
+                font-weight: 400;
+                border: none;
+                border-radius: 10px;
+                cursor: pointer;
+
+                &:hover {
+                    color: #fff;
+                }
+            }
+
+            .post:hover {
+                background: #2ac0e1;
+            }
+
+            .un-post {
+                background: #eea11b;
+            }
+
+            .delete:hover {
+                background: #be2626;
+            }
+        }
+    }
+}
+
+.empty-img {
+    position: absolute;
+    top: 40%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    background-position: 50%;
+    background-repeat: no-repeat;
+    background-size: contain;
+    height: 200px;
+    width: 200px;
+}
+
+.trow {
+    margin-top: 20px;
+}
