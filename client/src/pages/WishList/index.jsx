@@ -41,14 +41,13 @@ function WishList() {
         id: currentUser?.data?.id,
         page: page,
         limit,
+        orderType:"DESC"
       });
-
-      if (res?.err === 0) {
-        setWishlistData(res?.data);
-      }
+      setWishlistData(res?.data);
+      setCountPage(res?.countPages);
     };
     fetchData();
-  }, []);
+  }, [page]);
 
   useEffect(() => {
     if (notify?.err === 0) {
@@ -69,6 +68,20 @@ function WishList() {
     });
     setNotify(res);
     handleClose();
+
+    const res_one = await viewWishlist(axiosInstance, {
+      id: currentUser?.data?.id,
+      page: page,
+      limit,
+    });
+
+    setWishlistData(res_one?.data);
+    setCountPage(res_one?.countPages);
+    if (page < res_one?.countPages) {
+      setPage(page);
+    } else {
+      setPage(res_one?.countPages);
+    }
   };
 
   const open = Boolean(anchorEl);
@@ -108,7 +121,7 @@ function WishList() {
       </section>
       {/* Main Content */}
 
-      {wishlistData.length === 0 ? (
+      {wishlistData?.length === 0 ? (
         <div className={cx("empty-wrapper")}>
           <img src={images.empty} alt="empty" className={cx("empty-img")} />
         </div>

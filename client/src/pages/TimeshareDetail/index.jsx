@@ -196,7 +196,10 @@ function TimeshareDetail() {
               {/* Unit Desciption */}
               <div className={cx("unit-desc")}>
                 <h3 className={cx("title")}>Unit Description</h3>
-                <div className={cx("desc")}>{typeRoomData.description}</div>
+                <div
+                  className={cx("desc")}
+                  dangerouslySetInnerHTML={{ __html: typeRoomData.description }}
+                ></div>
               </div>
             </div>
             {/* Right Content */}
@@ -220,7 +223,9 @@ function TimeshareDetail() {
                     {Intl.NumberFormat("en-US", {
                       style: "currency",
                       currency: "USD",
-                    }).format(timeshareData?.price)}
+                    })
+                      .format(timeshareData?.price)
+                      .replace(".00", "")}
                   </div>
                 </div>
 

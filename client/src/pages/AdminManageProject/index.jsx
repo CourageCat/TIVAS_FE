@@ -19,6 +19,7 @@ import {
 } from "~/controllers/project";
 import ActionProject from "~/components/ActionProject";
 import { Box, CircularProgress } from "@mui/material";
+import Tippy from "@tippyjs/react";
 const cx = classNames.bind(styles);
 
 const limit = 5;
@@ -49,17 +50,34 @@ function AdminManageProject() {
   const [page, setPage] = useState(1);
   const [isLoading, setIsLoading] = useState(true);
 
+  const fetchDataTmp = async () => {
+    const res = await getAllWithType(axiosInstance, {
+      page: page,
+      limit: limit,
+      orderType: "DESC",
+    });
+    setListProjects(res?.data);
+    setCountPage(res?.countPages);
+    if (page < res?.countPages) {
+      setPage(page);
+    } else {
+      setPage(res?.countPages);
+    }
+    setIsLoading(false);
+  };
+
   useEffect(() => {
-    const fetchUser = async () => {
+    const fetchData = async () => {
       const res = await getAllWithType(axiosInstance, {
         page: page,
         limit: limit,
+        orderType: "DESC",
       });
-      setListProjects(res.data);
-      setCountPage(res.countPages);
+      setListProjects(res?.data);
+      setCountPage(res?.countPages);
       setIsLoading(false);
     };
-    fetchUser();
+    fetchData();
     window.scrollTo(0, 0);
   }, [page]);
 
@@ -141,9 +159,11 @@ function AdminManageProject() {
                             className={cx("image")}
                           />
                           <section className={cx("box")}>
-                            <h3 className={cx("name-project", "text")}>
-                              {item?.name}
-                            </h3>
+                            <Tippy content={item?.name} placement="top">
+                              <h3 className={cx("name-project", "text")}>
+                                {item?.name}
+                              </h3>
+                            </Tippy>
                             <div className={cx("location")}>
                               <svg
                                 className={cx("icon")}
@@ -184,15 +204,11 @@ function AdminManageProject() {
                       </td>
                       <td className={cx("date", "column")}>
                         {item?.reservationDate === null ||
-                        item?.reservationDate === "" ||
-                        item?.openDate === null ||
-                        item?.openDate === "" ? (
+                        item?.reservationDate === "" ? (
                           <span className={cx("name")}>Empty</span>
                         ) : (
                           <span className={cx("name")}>
-                            {`${convertToDate(
-                              item?.reservationDate
-                            )}-${convertToDate(item?.openDate)}`}
+                            {`${convertToDate(item?.reservationDate)}`}
                           </span>
                         )}
                       </td>
@@ -213,10 +229,13 @@ function AdminManageProject() {
                       <td className={cx("action", "column")}>
                         <ActionProject
                           id={item?.id}
+                          fetchData={fetchDataTmp}
                           nameProject={item?.name}
                           status={item?.status}
                           notify={notify}
                           setNotify={setNotify}
+                          resPrice={item?.reservationPrice}
+                          resDate={item?.reservationDate}
                         />
                       </td>
                     </tr>

@@ -51,6 +51,11 @@ body::-webkit-scrollbar-thumb {
   background: #a8d8ea;
 }
 
+.tippy-content {
+  font-family: "Inter", sans-serif;
+  font-size: 1.5rem;
+}
+
 body {
   .StripeElement {
     background: #fff;

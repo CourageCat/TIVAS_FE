@@ -55,6 +55,7 @@ function AllReservation() {
             const res = await getAllTicketByUser(axiosInstance, {
                 page: page,
                 limit,
+                orderType: "DESC",
                 status: status,
                 id: 10,
             });

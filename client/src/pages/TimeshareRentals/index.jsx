@@ -13,8 +13,6 @@ import { Pagination, Stack } from "@mui/material";
 import {
   getAllTimeshare,
   getTimeshareByProjectID,
-  getAllTimeshare,
-  getTimeshareByProjectID,
 } from "~/controllers/timeshare";
 import { useDispatch, useSelector } from "react-redux";
 import createAxios from "~/configs/axios";
@@ -23,22 +21,7 @@ const cx = classNames.bind(styles);
 
 function convertToDate(inputDate) {
   const date = new Date(inputDate);
-  const date = new Date(inputDate);
 
-  const monthNames = [
-    "January",
-    "February",
-    "March",
-    "April",
-    "May",
-    "June",
-    "July",
-    "August",
-    "September",
-    "October",
-    "November",
-    "December",
-  ];
   const monthNames = [
     "January",
     "February",
@@ -57,35 +40,22 @@ function convertToDate(inputDate) {
   const month = date.getMonth();
   const day = date.getDate();
   const year = date.getFullYear();
-  const month = date.getMonth();
-  const day = date.getDate();
-  const year = date.getFullYear();
 
-  const result = monthNames[month] + " " + day + " " + year;
-  return result;
   const result = monthNames[month] + " " + day + " " + year;
   return result;
 }
 
 function TimeshareRentals() {
   const navigate = useNavigate();
-  const navigate = useNavigate();
 
-  const dispatch = useDispatch();
-  const currentUser = useSelector((state) => state.auth.login.user);
-  const axiosInstance = createAxios(dispatch, currentUser);
   const dispatch = useDispatch();
   const currentUser = useSelector((state) => state.auth.login.user);
   const axiosInstance = createAxios(dispatch, currentUser);
 
   const { id } = useParams();
-  const { id } = useParams();
 
   const [listingResort, setListingResort] = useState(null);
-  const [listingResort, setListingResort] = useState(null);
 
-  const [countPage, setCountPage] = useState(1);
-  const [page, setPage] = useState(1);
   const [countPage, setCountPage] = useState(1);
   const [page, setPage] = useState(1);
 
@@ -93,9 +63,6 @@ function TimeshareRentals() {
     setPage(value);
   };
 
-  useEffect(() => {
-    window.scrollTo(0, 0);
-  }, []);
   useEffect(() => {
     window.scrollTo(0, 0);
   }, []);
@@ -126,8 +93,8 @@ function TimeshareRentals() {
       <section className={cx("breadcrumbs")}>
         <h1 className={cx("title")}>List Timeshare</h1>
         <div className={cx("list-nav")}>
-          <Link to="/" className={cx("nav")}>
-            Home
+          <Link to={`/projectdetail/${id}`} className={cx("nav")}>
+            {listingResort?.Project?.name}
           </Link>
           <span className={cx("nav")}> - </span>
           <span className={cx("nav", "text")}>List timeshare</span>
@@ -163,90 +130,94 @@ function TimeshareRentals() {
           </div>
           {/*Listing Details */}
           <div className={cx("list-listing")}>
-            <table className={cx("table")}>
-              <thead className={cx("thead")}>
-                <tr>
-                  <th className={cx("date", "column")}>
-                    <h4 className={cx("title")}>DATES</h4>
-                  </th>
-                  <th className={cx("price", "column")}>
-                    <h4 className={cx("title")}>PRICE</h4>
-                  </th>
-                  <th className={cx("unit", "column")}>
-                    <h4 className={cx("title")}>UNIT</h4>
-                  </th>
-                  <th className={cx("sleep", "column")}>
-                    <h4 className={cx("title")}>SLEEPS</h4>
-                  </th>
-                  <th className={cx("sleep", "column")}>
-                    {/* <h4 className={cx("title")}></h4> */}
-                  </th>
-                </tr>
-              </thead>
-              <tbody className={cx("tbody")}>
-                {listingResort?.list?.map((item, index) => {
-                  return (
-                    <tr
-                      key={index}
-                      className={cx("trow")}
-                      // onClick={() => handleNavigate(item.id)}
-                    >
-                      <td className={cx("date", "column")}>
-                        <span className={cx("name")}>
-                          {`${convertToDate(item?.startDate)} - ${convertToDate(
-                            item?.endDate
-                          )}`}
-                        </span>
-                      </td>
-                      <td className={cx("price", "column")}>
-                        <span className={cx("name")}>
-                          {`${Intl.NumberFormat("en-US", {
-                            style: "currency",
-                            currency: "USD",
-                            minimumFractionDigits: 0,
-                            maximumFractionDigits: 0,
-                          }).format(item?.price)}`}
-                        </span>
-                      </td>
-                      <td className={cx("unit", "column")}>
-                        <span className={cx("name", "text")}>
-                          {item?.TypeRoom?.name}
-                        </span>
-                      </td>
-                      <td className={cx("sleep", "column")}>
-                        <span className={cx("name")}>
-                          {item?.TypeRoom?.persons}
-                        </span>
-                      </td>
-                      <td className={cx("sleep", "column")}>
-                        <div
-                          className={cx("btn")}
-                          // onClick={() =>
-                          //   handleNavigate("view_book", item?.TypeRoom?.id)
-                          // }
-                        >
-                          VIEW BOOK
-                        </div>
-                      </td>
-                    </tr>
-                  );
-                })}
-              </tbody>
-              <tfoot className={cx("tfoot")}>
-                <tr className={cx("trow")}>
-                  <Stack spacing={2}>
-                    <Pagination
-                      count={countPage}
-                      page={page}
-                      variant="outlined"
-                      shape="rounded"
-                      onChange={handlePageChange}
-                      className={cx("pagination")}
-                    />
-                  </Stack>
-                </tr>
-              </tfoot>
-            </table>
+            {listingResort?.list?.length > 0 ? (
+              <table className={cx("table")}>
+                <thead className={cx("thead")}>
+                  <tr>
+                    <th className={cx("date", "column")}>
+                      <h4 className={cx("title")}>DATES</h4>
+                    </th>
+                    <th className={cx("price", "column")}>
+                      <h4 className={cx("title")}>PRICE</h4>
+                    </th>
+                    <th className={cx("unit", "column")}>
+                      <h4 className={cx("title")}>UNIT</h4>
+                    </th>
+                    <th className={cx("sleep", "column")}>
+                      <h4 className={cx("title")}>SLEEPS</h4>
+                    </th>
+                    <th className={cx("sleep", "column")}>
+                      {/* <h4 className={cx("title")}></h4> */}
+                    </th>
+                  </tr>
+                </thead>
+                <tbody className={cx("tbody")}>
+                  {listingResort?.list?.map((item, index) => {
+                    return (
+                      <tr
+                        key={index}
+                        className={cx("trow")}
+                        // onClick={() => handleNavigate(item.id)}
+                      >
+                        <td className={cx("date", "column")}>
+                          <span className={cx("name")}>
+                            {`${convertToDate(
+                              item?.startDate
+                            )} - ${convertToDate(item?.endDate)}`}
+                          </span>
+                        </td>
+                        <td className={cx("price", "column")}>
+                          <span className={cx("name")}>
+                            {`${Intl.NumberFormat("en-US", {
+                              style: "currency",
+                              currency: "USD",
+                              minimumFractionDigits: 0,
+                              maximumFractionDigits: 0,
+                            }).format(item?.price)}`}
+                          </span>
+                        </td>
+                        <td className={cx("unit", "column")}>
+                          <span className={cx("name", "text")}>
+                            {item?.TypeRoom?.name}
+                          </span>
+                        </td>
+                        <td className={cx("sleep", "column")}>
+                          <span className={cx("name")}>
+                            {item?.TypeRoom?.persons}
+                          </span>
+                        </td>
+                        <td className={cx("sleep", "column")}>
+                          <div
+                            className={cx("btn")}
+                            // onClick={() =>
+                            //   handleNavigate("view_book", item?.TypeRoom?.id)
+                            // }
+                          >
+                            VIEW BOOK
+                          </div>
+                        </td>
+                      </tr>
+                    );
+                  })}
+                </tbody>
+                <tfoot className={cx("tfoot")}>
+                  <tr className={cx("trow")}>
+                    <Stack spacing={2}>
+                      <Pagination
+                        count={countPage}
+                        page={page}
+                        variant="outlined"
+                        shape="rounded"
+                        onChange={handlePageChange}
+                        className={cx("pagination")}
+                      />
+                    </Stack>
+                  </tr>
+                </tfoot>
+              </table>
+            ) : (
+              <h4>Empty</h4>
+            )}
           </div>
         </main>
       )}

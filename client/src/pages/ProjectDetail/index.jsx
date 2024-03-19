@@ -234,7 +234,7 @@ function ProjectDetail() {
                           <Checkbox
                             {...label}
                             icon={<FavoriteBorder />}
-                            checked={checked}
+                            checked={currentUser ? checked : false}
                             onChange={handleChangeChecked}
                             checkedIcon={<Favorite />}
                             sx={{
