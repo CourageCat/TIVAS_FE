@@ -248,7 +248,7 @@ function AllUserFeedbacks() {
                                                             )
                                                         }
                                                     >
-                                                        UnPublish
+                                                        Unpublish
                                                     </button>
                                                 )}
 
