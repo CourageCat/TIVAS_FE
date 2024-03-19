@@ -19,10 +19,10 @@ import ToastNotify from "~/components/ToastNotify";
 const cx = classNames.bind(styles);
 
 function MenuAvatar({ handleLogout, hideMenuAvatar }) {
-    const dispatch = useDispatch();
-    const currentUser = useSelector((state) => state.auth.login.user);
-    const axiosInstance = createAxios(dispatch, currentUser);
-    const [open, setOpen] = useState(false);
+  const dispatch = useDispatch();
+  const currentUser = useSelector((state) => state.auth.login.user);
+  const axiosInstance = createAxios(dispatch, currentUser);
+  const [open, setOpen] = useState(false);
 
     const [message, setMessage] = useState({});
 
@@ -60,64 +60,78 @@ function MenuAvatar({ handleLogout, hideMenuAvatar }) {
         setOpen(false);
     };
 
-    return (
-        <div className={cx("wrapper")}>
-            <div className={cx("box")}>
-                <Link
-                    to="/user/account/profile"
-                    className={cx("navigate", "text")}
-                >
-                    <p className={cx("type-one")}>Profile</p>
-                </Link>
-                <Link className={cx("navigate", "text")}>
-                    <p className={cx("type-zero")}>Settings</p>
-                </Link>
-                <Link to="/wishlist" className={cx("navigate", "text")}>
-                    <p className={cx("type-one")}>Wishlist</p>
-                </Link>
-                <Link
-                    className={cx("navigate", "text")}
-                    onClick={handleClickOpen}
-                >
-                    <p className={cx("type-zero")}>Feedback</p>
-                </Link>
-            </div>
+  return (
+    <div className={cx("wrapper")}>
+      {currentUser?.data?.roleID === 3 && (
+        <>
+          <div className={cx("box")}>
+            <Link to="/user/account/profile" className={cx("navigate", "text")}>
+              <p className={cx("type-one")}>Profile</p>
+            </Link>
+            <Link className={cx("navigate", "text")}>
+              <p className={cx("type-zero")}>Settings</p>
+            </Link>
+            <Link to="/wishlist" className={cx("navigate", "text")}>
+              <p className={cx("type-one")}>Wishlist</p>
+            </Link>
+            <Link className={cx("navigate", "text")} onClick={handleClickOpen}>
+              <p className={cx("type-zero")}>Feedback</p>
+            </Link>
+          </div>
 
-            <div className={cx("box")}>
-                <Link className={cx("navigate", "text")}>
-                    <p className={cx("type-one")}>Help</p>
-                </Link>
-                <Link className={cx("navigate", "text")} onClick={handleLogout}>
-                    <p className={cx("type-zero")}>Logout</p>
-                </Link>
-            </div>
-
-            <>
-                <Dialog
-                    onClose={handleClose}
-                    aria-labelledby="customized-dialog-title"
-                    open={open}
-                >
-                    <DialogTitle
-                        sx={{ m: 0, p: 2 }}
-                        id="customized-dialog-title"
-                    >
-                        Form Feedback
-                    </DialogTitle>
-                    <IconButton
-                        aria-label="close"
-                        onClick={handleClose}
-                        sx={{
-                            position: "absolute",
-                            right: 8,
-                            top: 8,
-                            color: (theme) => theme.palette.grey[500],
-                        }}
-                    >
-                        <CloseIcon />
-                    </IconButton>
-                    <DialogContent dividers>
-                        {/* <Booking
+          <div className={cx("box")}>
+            <Link className={cx("navigate", "text")}>
+              <p className={cx("type-one")}>Help</p>
+            </Link>
+            <Link className={cx("navigate", "text")} onClick={handleLogout}>
+              <p className={cx("type-zero")}>Logout</p>
+            </Link>
+          </div>
+        </>
+      )}
+      {currentUser?.data?.roleID === 2 && (
+        <div className={cx("box")}>
+          <Link to="/admin" className={cx("navigate", "text")}>
+            <p className={cx("type-one")}>Staff page</p>
+          </Link>
+          <Link className={cx("navigate", "text")} onClick={handleLogout}>
+            <p className={cx("type-zero")}>Logout</p>
+          </Link>
+        </div>
+      )}
+      {currentUser?.data?.roleID === 1 && (
+        <div className={cx("box")}>
+          <Link to="/admin" className={cx("navigate", "text")}>
+            <p className={cx("type-one")}>Admin page</p>
+          </Link>
+          <Link className={cx("navigate", "text")} onClick={handleLogout}>
+            <p className={cx("type-zero")}>Logout</p>
+          </Link>
+        </div>
+      )}
+      <>
+        <Dialog
+          onClose={handleClose}
+          aria-labelledby="customized-dialog-title"
+          open={open}
+        >
+          <DialogTitle sx={{ m: 0, p: 2 }} id="customized-dialog-title">
+            Form Feedback
+          </DialogTitle>
+          <IconButton
+            aria-label="close"
+            onClick={handleClose}
+            sx={{
+              position: "absolute",
+              right: 8,
+              top: 8,
+              color: (theme) => theme.palette.grey[500],
+            }}
+          >
+            <CloseIcon />
+          </IconButton>
+          <DialogContent dividers>
+            {/* <Booking
                             handleClose={handleClose}
                             setMessage={setMessage}
                         /> */}
