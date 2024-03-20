@@ -147,9 +147,9 @@ export const searchProjects = async (axiosInstance, form) => {
     }
 };
 
-export const getAllSold = async (axiosInstance) => {
+export const getAllSold = async (axiosInstance, form) => {
     try {
-        const res = await services.getAllSold(axiosInstance);
+        const res = await services.getAllSold(axiosInstance, form);
         return res;
     } catch (err) {
         console.log(err);

@@ -1,14 +1,19 @@
 import classNames from "classnames/bind";
-import styles from "./PurchasedSuccess.module.scss";
+import styles from "./AdminBooked.module.scss";
+// import PurchasedProjectInfo from "~/components/PurchasedProjectInfo";
 import images from "~/assets/images";
 import Tippy from "@tippyjs/react";
+
 import { useState, useEffect } from "react";
 import { Link, useNavigate, useParams } from "react-router-dom";
 import { Rating, Stack, Pagination } from "@mui/material";
-import { getHistory } from "~/controllers/user";
+import { getAllTicketByAdmin } from "~/controllers/reservationTicket";
 
 import { useDispatch, useSelector } from "react-redux";
 import createAxios from "~/configs/axios";
+import { completeBooking, rejectBooking } from "~/controllers/booking";
+import ToastNotify from "~/components/ToastNotify";
+import { Toaster, toast } from "sonner";
 
 const cx = classNames.bind(styles);
 
@@ -24,8 +29,8 @@ function formatDate(dateString) {
     });
 }
 
-function HistoryPurchasedSuccess() {
-    const [reservationProject, setReservationProject] = useState([]);
+function AdminBooked() {
+    const [listTicket, setListTicket] = useState([]);
     const [countPage, setCountPage] = useState(1);
     const [page, setPage] = useState(1);
 
@@ -35,26 +40,48 @@ function HistoryPurchasedSuccess() {
     const currentUser = useSelector((state) => state.auth.login.user);
     const axiosInstance = createAxios(dispatch, currentUser);
 
+    const [notify, setNotify] = useState({});
+
     const handlePageChange = (event, value) => {
         setPage(value);
     };
+
     useEffect(() => {
         window.scrollTo(0, 0);
     }, []);
 
     useEffect(() => {
+        if (notify?.err === 1) {
+            toast.custom(() => (
+                <ToastNotify type="error" title="Error" desc={notify?.mess} />
+            ));
+            setNotify({});
+        } else if (notify?.err === 0) {
+            toast.custom(() => (
+                <ToastNotify
+                    type="success"
+                    title="Success"
+                    desc={notify?.mess}
+                />
+            ));
+            setNotify({});
+        }
+    }, [notify]);
+
+    useEffect(() => {
         const fetchListing = async () => {
-            const res = await getHistory(axiosInstance, {
+            const res = await getAllTicketByAdmin(axiosInstance, {
+                status: 3,
                 page: page,
+                id: 10,
                 limit,
-                status: 2,
-                id: currentUser?.data?.id,
             });
+
             if (res?.err === 0) {
-                setReservationProject(res?.data);
-                setCountPage(res.countPages);
+                setListTicket(res?.data);
+                setCountPage(res?.countPages);
             } else {
-                setReservationProject([]);
+                setListTicket([]);
                 setCountPage(1);
             }
         };
@@ -63,8 +90,10 @@ function HistoryPurchasedSuccess() {
 
     return (
         <div className={cx("wrapper")}>
+            <Toaster position="top-right" richColors expand={true} />
+
             <div className={cx("row")}>
-                <h1 className={cx("title")}>Purchased Success</h1>
+                <h1 className={cx("title")}>Booking Success</h1>
 
                 <Tippy
                     content="Show all timeshare you purchased success"
@@ -77,7 +106,7 @@ function HistoryPurchasedSuccess() {
                     />
                 </Tippy>
             </div>
-            {reservationProject.length === 0 ? (
+            {listTicket.length === 0 ? (
                 <div className={cx("empty-wrapper")}>
                     <img
                         src={images.empty}
@@ -100,11 +129,6 @@ function HistoryPurchasedSuccess() {
                                                 Project
                                             </h4>
                                         </th>
-                                        <th className={cx("date", "column")}>
-                                            <h4 className={cx("title")}>
-                                                Booked Date
-                                            </h4>
-                                        </th>
 
                                         <th className={cx("sleep", "column")}>
                                             <h4 className={cx("title")}>
@@ -113,21 +137,21 @@ function HistoryPurchasedSuccess() {
                                         </th>
                                         <th className={cx("date", "column")}>
                                             <h4 className={cx("title")}>
-                                                Date
+                                                User Name
                                             </h4>
                                         </th>
                                         <th className={cx("date", "column")}>
                                             <h4 className={cx("title")}>
-                                                Code
+                                                Date
                                             </h4>
                                         </th>
                                     </tr>
                                 </thead>
                                 <tbody className={cx("tbody")}>
-                                    {reservationProject?.map((item, index) => {
+                                    {listTicket?.map((item, index) => {
                                         return (
                                             <tr
-                                                // key={index}
+                                                key={index}
                                                 className={cx("trow")}
                                                 // onClick={() => handleNavigate(item.id)}
                                             >
@@ -210,25 +234,7 @@ function HistoryPurchasedSuccess() {
                                                         </section>
                                                     </figure>
                                                 </td>
-                                                {/* <td className={cx("unit", "column")}>
-                                        <span className={cx("name", "text")}>
-                                            cc
-                                        </span>
-                                    </td> */}
-                                                <td
-                                                    className={cx(
-                                                        "sleep",
-                                                        "column"
-                                                    )}
-                                                >
-                                                    <span
-                                                        className={cx("name")}
-                                                    >
-                                                        {formatDate(
-                                                            item?.bookingTimeShareDate
-                                                        )}
-                                                    </span>
-                                                </td>
+
                                                 <td
                                                     className={cx(
                                                         "type-room",
@@ -238,7 +244,21 @@ function HistoryPurchasedSuccess() {
                                                     <span
                                                         className={cx("name")}
                                                     >
-                                                        {item?.typeRoomName}
+                                                        {item?.typeRoomName
+                                                            ? item?.typeRoomName
+                                                            : "Empty"}
+                                                    </span>
+                                                </td>
+                                                <td
+                                                    className={cx(
+                                                        "date",
+                                                        "column"
+                                                    )}
+                                                >
+                                                    <span
+                                                        className={cx("name")}
+                                                    >
+                                                        {item?.username}
                                                     </span>
                                                 </td>
                                                 <td
@@ -253,21 +273,10 @@ function HistoryPurchasedSuccess() {
                                                         {formatDate(
                                                             item?.startDate
                                                         )}{" "}
+                                                        -{" "}
                                                         {formatDate(
                                                             item?.endDate
                                                         )}
-                                                    </span>
-                                                </td>
-                                                <td
-                                                    className={cx(
-                                                        "date",
-                                                        "column"
-                                                    )}
-                                                >
-                                                    <span
-                                                        className={cx("name")}
-                                                    >
-                                                        {item?.code}
                                                     </span>
                                                 </td>
                                             </tr>
@@ -297,4 +306,4 @@ function HistoryPurchasedSuccess() {
     );
 }
 
-export default HistoryPurchasedSuccess;
+export default AdminBooked;

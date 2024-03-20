@@ -62,36 +62,68 @@ function MenuAvatar({ handleLogout, hideMenuAvatar }) {
 
     return (
         <div className={cx("wrapper")}>
-            <div className={cx("box")}>
-                <Link
-                    to="/user/account/profile"
-                    className={cx("navigate", "text")}
-                >
-                    <p className={cx("type-one")}>Profile</p>
-                </Link>
-                <Link className={cx("navigate", "text")}>
-                    <p className={cx("type-zero")}>Settings</p>
-                </Link>
-                <Link to="/wishlist" className={cx("navigate", "text")}>
-                    <p className={cx("type-one")}>Wishlist</p>
-                </Link>
-                <Link
-                    className={cx("navigate", "text")}
-                    onClick={handleClickOpen}
-                >
-                    <p className={cx("type-zero")}>Feedback</p>
-                </Link>
-            </div>
+            {currentUser?.data?.roleID === 3 && (
+                <>
+                    <div className={cx("box")}>
+                        <Link
+                            to="/user/account/profile"
+                            className={cx("navigate", "text")}
+                        >
+                            <p className={cx("type-one")}>Profile</p>
+                        </Link>
+                        <Link className={cx("navigate", "text")}>
+                            <p className={cx("type-zero")}>Settings</p>
+                        </Link>
+                        <Link to="/wishlist" className={cx("navigate", "text")}>
+                            <p className={cx("type-one")}>Wishlist</p>
+                        </Link>
+                        <Link
+                            className={cx("navigate", "text")}
+                            onClick={handleClickOpen}
+                        >
+                            <p className={cx("type-zero")}>Feedback</p>
+                        </Link>
+                    </div>
 
-            <div className={cx("box")}>
-                <Link className={cx("navigate", "text")}>
-                    <p className={cx("type-one")}>Help</p>
-                </Link>
-                <Link className={cx("navigate", "text")} onClick={handleLogout}>
-                    <p className={cx("type-zero")}>Logout</p>
-                </Link>
-            </div>
-
+                    <div className={cx("box")}>
+                        <Link className={cx("navigate", "text")}>
+                            <p className={cx("type-one")}>Help</p>
+                        </Link>
+                        <Link
+                            className={cx("navigate", "text")}
+                            onClick={handleLogout}
+                        >
+                            <p className={cx("type-zero")}>Logout</p>
+                        </Link>
+                    </div>
+                </>
+            )}
+            {currentUser?.data?.roleID === 2 && (
+                <div className={cx("box")}>
+                    <Link to="/admin" className={cx("navigate", "text")}>
+                        <p className={cx("type-one")}>Staff page</p>
+                    </Link>
+                    <Link
+                        className={cx("navigate", "text")}
+                        onClick={handleLogout}
+                    >
+                        <p className={cx("type-zero")}>Logout</p>
+                    </Link>
+                </div>
+            )}
+            {currentUser?.data?.roleID === 1 && (
+                <div className={cx("box")}>
+                    <Link to="/admin" className={cx("navigate", "text")}>
+                        <p className={cx("type-one")}>Admin page</p>
+                    </Link>
+                    <Link
+                        className={cx("navigate", "text")}
+                        onClick={handleLogout}
+                    >
+                        <p className={cx("type-zero")}>Logout</p>
+                    </Link>
+                </div>
+            )}
             <>
                 <Dialog
                     onClose={handleClose}

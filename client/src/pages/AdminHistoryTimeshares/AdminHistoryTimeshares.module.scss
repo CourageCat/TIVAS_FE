@@ -9,6 +9,15 @@
     padding-bottom: 30px;
 }
 
+.header-date {
+    background: #2ac0e1;
+    color: #fff;
+    padding: 5px;
+    border-radius: 10px;
+    font-size: 2.5rem;
+    font-weight: 400;
+}
+
 .navigate {
     display: block;
 }
@@ -77,6 +86,7 @@
         .trow {
             transition: border-left-color 0.3s, box-shadow 0.3s;
             cursor: pointer;
+
             &:hover {
                 border-left-color: #1570ee;
                 box-shadow: inset 5px 0 0 #1570ee;
@@ -163,7 +173,7 @@
         }
     }
     .status {
-        width: 250px;
+        width: 350px;
         .text {
         }
         .name {

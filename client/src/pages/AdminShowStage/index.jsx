@@ -76,7 +76,7 @@ function AdminShowStage() {
                 }
             );
             setSoldReservation(resSoldReservation?.data);
-            console.log(resSoldReservation?.data);
+
             setProjectDetail(res?.data);
             setCountPage(resSoldReservation?.countPages);
         };
@@ -106,15 +106,15 @@ function AdminShowStage() {
         setPage(value);
     };
 
-    const handleNavigate = (id) => {
-        navigate(`/timesharedetail/${id}`);
+    const handleNavigate = (id, date) => {
+        navigate(`/admin/manageproject/soldtimeshares/${id}?date=${date}`);
     };
 
     return (
         <div className={cx("wrapper")}>
             <Toaster position="top-right" richColors expand={true} />
 
-            <h1 className={cx("heading")}> Manage projects</h1>
+            <h1 className={cx("heading")}>All stages reserved</h1>
 
             <div className={cx("content")}>
                 <div className={cx("project-detail")}>
@@ -175,7 +175,9 @@ function AdminShowStage() {
                                     <tr
                                         key={index}
                                         className={cx("trow")}
-                                        // onClick={() => handleNavigate(item.id)}
+                                        onClick={() =>
+                                            handleNavigate(item?.id, item?.date)
+                                        }
                                     >
                                         <td className={cx("id", "column")}>
                                             <span

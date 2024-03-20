@@ -100,8 +100,12 @@ export const searchProjects = (axiosInstance, form) => {
     );
 };
 
-export const getAllSold = (axiosInstance) => {
-    return axiosInstance.get(`/api/v1/project/getAllSold`);
+export const getAllSold = (axiosInstance, form) => {
+    const page = form.page;
+    const limit = form.limit;
+    return axiosInstance.get(
+        `/api/v1/project/getAllSold?page=${page}&limit=${limit}`
+    );
 };
 
 export const getAllSoldReservation = (axiosInstance, form) => {

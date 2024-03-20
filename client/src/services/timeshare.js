@@ -24,3 +24,12 @@ export const createNewTimeshare = (axiosInstance, typeRoomID, userID, form) => {
         form
     );
 };
+
+export const getAllTimesharesSold = (axiosInstance, form) => {
+    const id = form?.id;
+    const page = form?.page;
+    const limit = form?.limit;
+    return axiosInstance.get(
+        `/api/v1/timeshare/getAllOfSoldReservationStage?id=${id}&page=${page}&limit=${limit}`
+    );
+};

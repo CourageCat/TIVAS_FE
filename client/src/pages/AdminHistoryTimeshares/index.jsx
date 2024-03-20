@@ -1,18 +1,18 @@
 import classNames from "classnames/bind";
-import styles from "./AdminHistory.module.scss";
+import styles from "./AdminHistoryTimeshares.module.scss";
 import { useRef, useState, useEffect } from "react";
 import Stack from "@mui/material/Stack";
 import Pagination from "@mui/material/Pagination";
 
 import images from "~/assets/images";
-import { Link, useNavigate } from "react-router-dom";
+import { Link, useLocation, useNavigate, useParams } from "react-router-dom";
 import ActionUser from "~/components/ActionUser";
 import { useDispatch, useSelector } from "react-redux";
 import createAxios from "~/configs/axios";
 import { getAllUsers } from "~/controllers/user";
 import { Toaster, toast } from "sonner";
 import ToastNotify from "~/components/ToastNotify";
-import { getAllSold } from "~/controllers/project";
+import { getAllTimesharesSold } from "~/controllers/timeshare";
 import ActionProject from "~/components/ActionProject";
 const cx = classNames.bind(styles);
 
@@ -44,28 +44,33 @@ function convertToDate(inputDate) {
     return result;
 }
 
-function AdminHistory() {
+function AdminHistoryTimeshares() {
     const dispatch = useDispatch();
     const navigate = useNavigate();
 
     const currentUser = useSelector((state) => state.auth.login.user);
     const axiosInstance = createAxios(dispatch, currentUser);
 
-    const [listProjectsSold, setListProjectsSold] = useState(null);
+    const [listTimesharesSold, setListTimesharesSold] = useState(null);
 
     const [countPage, setCountPage] = useState(1);
     const [notify, setNotify] = useState({});
 
     const [page, setPage] = useState(1);
 
+    const { id } = useParams();
+    const location = useLocation();
+    const queryParams = new URLSearchParams(location.search);
+    const date = queryParams.get("date");
+
     useEffect(() => {
         const fetchUser = async () => {
-            const res = await getAllSold(axiosInstance, {
+            const res = await getAllTimesharesSold(axiosInstance, {
                 page: page,
+                id: id,
                 limit,
             });
-
-            setListProjectsSold(res?.data);
+            setListTimesharesSold(res?.data);
             setCountPage(res?.countPages);
         };
         fetchUser();
@@ -94,15 +99,18 @@ function AdminHistory() {
         setPage(value);
     };
 
-    const handleNavigate = (id) => {
-        navigate(`/admin/manageproject/showstage/${id}`);
-    };
+    // const handleNavigate = (id) => {
+    //     navigate(`/admin/manageproject/showstage/${id}`);
+    // };
 
     return (
         <div className={cx("wrapper")}>
             <Toaster position="top-right" richColors expand={true} />
 
-            <h1 className={cx("heading")}> All projects sold once</h1>
+            <h1 className={cx("heading")}>
+                All timeshares reserved in{" "}
+                <span className={cx("header-date")}>{date}</span>
+            </h1>
 
             <div className={cx("content")}>
                 <div className={cx("list-projects")}>
@@ -117,30 +125,24 @@ function AdminHistory() {
                                 </th>
 
                                 <th className={cx("status", "column")}>
-                                    <h4 className={cx("title")}>
-                                        Building status
-                                    </h4>
+                                    <h4 className={cx("title")}>Type Room</h4>
                                 </th>
                                 <th className={cx("sleep", "column")}>
-                                    <h4 className={cx("title")}>
-                                        Total stages sold
-                                    </h4>
+                                    <h4 className={cx("title")}>Start Date</h4>
                                 </th>
                                 <th className={cx("date", "column")}>
-                                    <h4 className={cx("title")}>
-                                        Total timeshares sold
-                                    </h4>
+                                    <h4 className={cx("title")}>End Date </h4>
                                 </th>
                             </tr>
                         </thead>
 
                         <tbody className={cx("tbody")}>
-                            {listProjectsSold?.map((item, index) => {
+                            {listTimesharesSold?.map((item, index) => {
                                 return (
                                     <tr
                                         key={index}
                                         className={cx("trow")}
-                                        onClick={() => handleNavigate(item?.id)}
+                                        // onClick={() => handleNavigate(item?.id)}
                                     >
                                         <td className={cx("id", "column")}>
                                             <span
@@ -152,7 +154,12 @@ function AdminHistory() {
                                         <td className={cx("project", "column")}>
                                             <figure className={cx("infor")}>
                                                 <img
-                                                    src={item?.thumbnailPathUrl}
+                                                    src={
+                                                        item?.TypeRoom
+                                                            ?.TypeOfProject
+                                                            ?.Project
+                                                            ?.thumbnailPathUrl
+                                                    }
                                                     alt="image_one"
                                                     className={cx("image")}
                                                 />
@@ -163,7 +170,11 @@ function AdminHistory() {
                                                             "text"
                                                         )}
                                                     >
-                                                        {item?.name}
+                                                        {
+                                                            item?.TypeRoom
+                                                                ?.TypeOfProject
+                                                                ?.Project?.name
+                                                        }
                                                     </h3>
                                                     <div
                                                         className={cx(
@@ -188,7 +199,13 @@ function AdminHistory() {
                                                                 "text"
                                                             )}
                                                         >
-                                                            {item?.location}
+                                                            {
+                                                                item?.TypeRoom
+                                                                    ?.TypeOfProject
+                                                                    ?.Project
+                                                                    ?.Location
+                                                                    ?.name
+                                                            }
                                                         </span>
                                                     </div>
                                                 </section>
@@ -197,24 +214,19 @@ function AdminHistory() {
 
                                         <td className={cx("sleep", "column")}>
                                             <span className={cx("name")}>
-                                                {item?.buildingStatus === 1 &&
-                                                    "Up coming"}
-                                                {item?.buildingStatus === 2 &&
-                                                    "On going"}
-                                                {item?.buildingStatus === 3 &&
-                                                    "Already implemented"}
+                                                {item?.TypeRoom?.name}
                                             </span>
                                         </td>
 
                                         <td className={cx("sleep", "column")}>
                                             <span className={cx("name")}>
-                                                {item?.numberOfSoldStage}
+                                                {convertToDate(item?.startDate)}
                                             </span>
                                         </td>
 
                                         <td className={cx("sleep", "column")}>
                                             <span className={cx("name")}>
-                                                {item?.numberOfTimeShareSold}
+                                                {convertToDate(item?.endDate)}
                                             </span>
                                         </td>
                                     </tr>
@@ -238,4 +250,4 @@ function AdminHistory() {
     );
 }
 
-export default AdminHistory;
+export default AdminHistoryTimeshares;

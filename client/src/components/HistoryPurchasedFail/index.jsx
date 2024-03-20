@@ -49,7 +49,7 @@ function HistoryPurchasedFail() {
                 page: page,
                 limit,
                 status: 3,
-                id: 10,
+                id: currentUser?.data?.id,
             });
             if (res?.err === 0) {
                 setReservationProject(res?.data);
