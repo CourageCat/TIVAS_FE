@@ -68,12 +68,14 @@ function AdminAllAllocated() {
         }
     }, [notify]);
 
+    const { id } = useParams();
+
     useEffect(() => {
         const fetchListing = async () => {
             const res = await getAllTicketByAdmin(axiosInstance, {
                 status: 1,
                 page: page,
-                id: 10,
+                id: id,
                 limit,
             });
 

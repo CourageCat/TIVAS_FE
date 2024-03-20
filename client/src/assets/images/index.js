@@ -57,6 +57,7 @@ const images = {
     blackPlus: require("~/assets/images/blackPlus.svg").default,
     trashIcon: require("~/assets/images/trashIcon.svg").default,
     historyIcon: require("~/assets/images/historyIcon.svg").default,
+    changeIcon: require("~/assets/images/changeIcon.svg").default,
 };
 
 export default images;

@@ -164,3 +164,15 @@ export const getAllSoldReservation = async (axiosInstance, form) => {
         console.log(err);
     }
 };
+
+export const getAllProjectReservation = async (axiosInstance, form) => {
+    try {
+        const res = await services.getAllProjectReservation(
+            axiosInstance,
+            form
+        );
+        return res;
+    } catch (err) {
+        console.log(err);
+    }
+};

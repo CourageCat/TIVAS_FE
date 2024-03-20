@@ -68,12 +68,14 @@ function AdminBooked() {
         }
     }, [notify]);
 
+    const { id } = useParams();
+
     useEffect(() => {
         const fetchListing = async () => {
             const res = await getAllTicketByAdmin(axiosInstance, {
                 status: 3,
                 page: page,
-                id: 10,
+                id: id,
                 limit,
             });
 
