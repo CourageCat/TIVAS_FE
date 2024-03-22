@@ -77,6 +77,7 @@ function AdminAllAllocated() {
                 page: page,
                 id: id,
                 limit,
+                orderType: "DESC",
             });
 
             if (res?.err === 0) {

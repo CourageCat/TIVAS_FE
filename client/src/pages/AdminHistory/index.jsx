@@ -63,6 +63,7 @@ function AdminHistory() {
             const res = await getAllSold(axiosInstance, {
                 page: page,
                 limit,
+                orderType: "DESC",
             });
 
             setListProjectsSold(res?.data);

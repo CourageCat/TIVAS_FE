@@ -58,15 +58,20 @@ export const openReservaion = (axiosInstance, id) => {
     return axiosInstance.put(`api/v1/project/openReservationTicket/${id}`);
 };
 
+export const updateBooking = (axiosInstance, id, form) => {
+    return axiosInstance.put(`api/v1/project/updateBooking/${id}`, form);
+};
+
 export const createNewProject = (axiosInstance, form) => {
     return axiosInstance.post("/api/v1/project/create", form);
 };
 
 export const getAllWithType = (axiosInstance, form) => {
-    const limit = form.limit;
-    const page = form.page;
+    const limit = form?.limit;
+    const page = form?.page;
+    const orderType = form?.orderType;
     return axiosInstance.get(
-        `/api/v1/project/getAllWithType?page=${page}&limit=${limit}`
+        `/api/v1/project/getAllWithType?orderType=${orderType}&page=${page}&limit=${limit}`
     );
 };
 
@@ -103,8 +108,9 @@ export const searchProjects = (axiosInstance, form) => {
 export const getAllSold = (axiosInstance, form) => {
     const page = form.page;
     const limit = form.limit;
+    const orderType = form.orderType;
     return axiosInstance.get(
-        `/api/v1/project/getAllSold?page=${page}&limit=${limit}`
+        `/api/v1/project/getAllSold?page=${page}&limit=${limit}&orderType=${orderType}`
     );
 };
 

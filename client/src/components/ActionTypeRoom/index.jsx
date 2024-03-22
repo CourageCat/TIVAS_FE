@@ -30,6 +30,26 @@ const convertDate = (inputDate) => {
   return `${day}/${month}/${year}`;
 };
 
+function convertDateTimeToDate() {
+  const inputDateTime = "2003-10-13T17:00:00.000Z";
+  const dateObject = new Date(inputDateTime);
+  const year = dateObject.getFullYear();
+  const month = String(dateObject.getMonth() + 1).padStart(2, "0");
+  const day = String(dateObject.getDate()).padStart(2, "0");
+
+  return `${year}-${month}-${day}`;
+}
+
+function compareDates(date_one, date_two) {
+  const dateOne = new Date(date_one);
+  const dateTwo = new Date(date_two);
+
+  if (dateOne < dateTwo) {
+    return false;
+  }
+  return true;
+}
+
 function ActionTypeRoom({ id, nameProject, setNotify }) {
   const navigate = useNavigate();
   const dispatch = useDispatch();
@@ -76,12 +96,27 @@ function ActionTypeRoom({ id, nameProject, setNotify }) {
     handleClose();
   };
 
-  const handleSubmitNewTimeshare = async () => {
+  const handleSubmitNewTimeshare = async (e) => {
+    e.preventDefault();
     const form = {
-      price: +price,
-      startDate: convertDate(startDate),
-      endDate: convertDate(endDate),
+      price: price ? +price : null,
+      startDate: startDate !== "" ? convertDate(startDate) : null,
+      endDate: endDate !== "" ? convertDate(endDate) : null,
     };
+
+    if (!form.price || !form.startDate || !form.endDate) {
+      return setNotify({
+        err: 1,
+        mess: "Please fill in all information",
+      });
+    }
+    if (!compareDates(endDate, startDate)) {
+      return setNotify({
+        err: 1,
+        mess: "The booking close date must be greater than or equal to the booking opening date",
+      });
+    }
+
     setIsLoading(true);
     const res = await createNewTimeshare(
       axiosInstance,

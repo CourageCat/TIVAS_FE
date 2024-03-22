@@ -21,12 +21,13 @@ export const checkPriority = (axiosInstance, id) => {
 };
 
 export const getAllTicketByUser = (axiosInstance, form) => {
-    const status = form.status;
-    const id = form.id;
-    const page = form.page;
-    const limit = form.limit;
+    const status = form?.status;
+    const id = form?.id;
+    const page = form?.page;
+    const limit = form?.limit;
+    const orderType = form?.orderType;
     return axiosInstance.get(
-        `/api/v1/ReservationTicket/getAllTicketsByUser?id=${id}&status=${status}&page=${page}&limit=${limit}`
+        `/api/v1/ReservationTicket/getAllTicketsByUser?id=${id}&status=${status}&page=${page}&limit=${limit}&orderType=${orderType}`
     );
 };
 
@@ -57,7 +58,8 @@ export const getAllTicketByAdmin = (axiosInstance, form) => {
     const id = form.id;
     const page = form.page;
     const limit = form.limit;
+    const orderType = form.orderType;
     return axiosInstance.get(
-        `/api/v1/ReservationTicket/getAllTicketsByAdmin?id=${id}&status=${status}&page=${page}&limit=${limit}`
+        `/api/v1/ReservationTicket/getAllTicketsByAdmin?id=${id}&status=${status}&page=${page}&limit=${limit}&orderType=${orderType}`
     );
 };

@@ -15,7 +15,6 @@ import { createNewTypeRoom } from "~/controllers/typeRoom";
 import TippyHeadless from "@tippyjs/react/headless";
 import RickTextEditor from "~/components/RickTextEditor";
 
-
 const cx = classNames.bind(styles);
 
 function AdminCreateTypeRoom() {
@@ -26,7 +25,7 @@ function AdminCreateTypeRoom() {
 
   const [errorImage, setErrorImage] = useState(false);
 
-  const [listImage, setListImage] = useState("");
+  const [listImage, setListImage] = useState(null);
 
   const { id } = useParams();
 
@@ -90,9 +89,35 @@ function AdminCreateTypeRoom() {
   }, [notify]);
 
   const handleSubmit = async (e) => {
+    if (
+      !listImage ||
+      listImage?.length === 0 ||
+      typeRoomName === "" ||
+      typeOfProject === "" ||
+      numberOfBedRooms === 0 ||
+      numberOfPersons === 0 ||
+      roomSize === 0 ||
+      numberOfBathRooms === 0 ||
+      quantity === 0 ||
+      !amenities ||
+      amenities?.length === 0 ||
+      bedType === "" ||
+      desc === ""
+    ) {
+      return toast.custom(
+        () => (
+          <ToastNotify
+            type="error"
+            title="Error"
+            desc={"Please fill in all information"}
+          />
+        ),
+        { duration: 2000 }
+      );
+    }
     e.preventDefault();
     const formData = new FormData();
-    listImage.map((item) => formData.append("images", item));
+    listImage?.map((item) => formData.append("images", item));
     formData.append("name", typeRoomName);
     formData.append("bedrooms", numberOfBedRooms);
     formData.append("persons", numberOfPersons);
@@ -110,7 +135,7 @@ function AdminCreateTypeRoom() {
       setNotify(res);
     }
     setIsLoading(false);
-    setListImage("");
+    setListImage(null);
     setTypeRoomName("");
     setTypeOfProject(1);
     setNumberOfBedRooms(0);
@@ -219,6 +244,7 @@ function AdminCreateTypeRoom() {
               <input
                 type="number"
                 id="number_of_persons"
+                min="0"
                 className={cx("input")}
                 value={numberOfPersons}
                 onChange={(e) => setNumberOfPersons(e.target.value)}
@@ -234,6 +260,7 @@ function AdminCreateTypeRoom() {
               <input
                 type="number"
                 id="room_size"
+                min="0"
                 value={roomSize}
                 onChange={(e) => setRoomSize(e.target.value)}
                 className={cx("input")}
@@ -247,6 +274,7 @@ function AdminCreateTypeRoom() {
               <input
                 type="number"
                 id="bath_rooms"
+                min="0"
                 value={numberOfBathRooms}
                 onChange={(e) => setNumberOfBathRooms(e.target.value)}
                 className={cx("input")}
@@ -262,6 +290,7 @@ function AdminCreateTypeRoom() {
               <input
                 type="number"
                 id="quantity"
+                min="0"
                 value={quantity}
                 onChange={(e) => setQuantity(e.target.value)}
                 className={cx("input")}

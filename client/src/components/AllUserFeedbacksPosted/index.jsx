@@ -103,6 +103,7 @@ function AllUserFeedbacksPosted() {
             page: page,
             limit,
             status: 1,
+            orderType: "DESC",
         });
         setListFeedback(res_one?.data);
         setCountPage(res_one?.countPages);
@@ -121,7 +122,8 @@ function AllUserFeedbacksPosted() {
         const res_one = await getAllFeedbacks(axiosInstance, {
             page: page,
             limit,
-            status: 2,
+            status: 1,
+            orderType: "DESC",
         });
         setListFeedback(res_one?.data);
         setCountPage(res_one?.countPages);
@@ -141,6 +143,7 @@ function AllUserFeedbacksPosted() {
             page: page,
             limit,
             status: 1,
+            orderType: "DESC",
         });
         setListFeedback(res_one?.data);
         setCountPage(res_one?.countPages);
@@ -157,6 +160,7 @@ function AllUserFeedbacksPosted() {
                 page: page,
                 limit,
                 status: 1,
+                orderType: "DESC",
             });
 
             setListFeedback(res?.data);

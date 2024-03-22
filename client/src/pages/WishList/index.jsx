@@ -20,7 +20,7 @@ import { useDispatch, useSelector } from "react-redux";
 import createAxios from "~/configs/axios";
 const cx = classNames.bind(styles);
 
-const limit = 5;
+const limit = 3;
 
 function WishList() {
     const [countPage, setCountPage] = useState(1);
@@ -43,12 +43,11 @@ function WishList() {
                 limit,
             });
 
-            if (res?.err === 0) {
-                setWishlistData(res?.data);
-            }
+            setWishlistData(res?.data);
+            setCountPage(res?.countPages);
         };
         fetchData();
-    }, []);
+    }, [page]);
 
     useEffect(() => {
         if (notify?.err === 0) {
