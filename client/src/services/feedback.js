@@ -6,8 +6,9 @@ export const getAllFeedbacks = (axiosInstance, form) => {
     const limit = form.limit;
     const page = form.page;
     const status = form.status;
+    const orderType = form.orderType;
     return axiosInstance.get(
-        `/api/v1/feedback/getAll?status=${status}&page=${page}&limit=${limit}`
+        `/api/v1/feedback/getAll?status=${status}&page=${page}&limit=${limit}&orderType=${orderType}`
     );
 };
 

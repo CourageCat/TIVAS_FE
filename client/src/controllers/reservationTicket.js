@@ -71,3 +71,12 @@ export const refundMoneyTimeshare = async (axiosInstance, id) => {
         console.log(err);
     }
 };
+
+export const getAllTicketByAdmin = async (axiosInstance, form) => {
+    try {
+        const res = await services.getAllTicketByAdmin(axiosInstance, form);
+        return res;
+    } catch (err) {
+        console.log(err);
+    }
+};

@@ -153,9 +153,9 @@ export const searchProjects = async (axiosInstance, form) => {
   }
 };
 
-export const getAllSold = async (axiosInstance) => {
+export const getAllSold = async (axiosInstance, form) => {
     try {
-        const res = await services.getAllSold(axiosInstance);
+        const res = await services.getAllSold(axiosInstance, form);
         return res;
     } catch (err) {
         console.log(err);
@@ -165,6 +165,18 @@ export const getAllSold = async (axiosInstance) => {
 export const getAllSoldReservation = async (axiosInstance, form) => {
     try {
         const res = await services.getAllSoldReservation(axiosInstance, form);
+        return res;
+    } catch (err) {
+        console.log(err);
+    }
+};
+
+export const getAllProjectReservation = async (axiosInstance, form) => {
+    try {
+        const res = await services.getAllProjectReservation(
+            axiosInstance,
+            form
+        );
         return res;
     } catch (err) {
         console.log(err);

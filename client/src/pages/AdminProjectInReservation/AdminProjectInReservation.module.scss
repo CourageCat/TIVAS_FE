@@ -1,5 +1,5 @@
 .wrapper {
-    height: 1550px;
+    height: 2000px;
     border-radius: 8px;
     padding: 16px;
     background-color: #fff;
@@ -71,7 +71,6 @@
         }
         .trow {
             transition: border-left-color 0.3s, box-shadow 0.3s;
-            user-select: none;
             &:hover {
                 border-left-color: #1570ee;
                 box-shadow: inset 5px 0 0 #1570ee;
@@ -181,7 +180,6 @@
     .date {
         width: 170px;
         .name {
-            white-space: nowrap;
             width: 10px;
             font-family: "Inter", sans-serif;
             font-size: 1.5rem;
@@ -194,8 +192,6 @@
         width: 150px;
         .name {
             // width: 100px;
-            white-space: nowrap;
-
             font-family: "Inter", sans-serif;
             font-size: 1.5rem;
             font-weight: 500;
@@ -210,6 +206,38 @@
     //         color: #000;
     //     }
     // }
+}
+
+.icon {
+    color: #000;
+    width: 30px;
+    height: 30px;
+}
+
+.text-item {
+    padding: 10px 30px !important;
+    font-size: 1.4rem !important;
+    font-family: "Inner", sans-serif !important;
+
+    &:hover {
+        background: rgba(65, 131, 196, 0.2);
+    }
+
+    .row {
+        display: flex;
+        align-items: center;
+        gap: 10px;
+        background: none !important;
+
+        .icon {
+            width: 20px;
+            height: 20px;
+        }
+    }
+}
+
+.menu-wrapper {
+    box-shadow: rgba(0, 0, 0, 0.16) 0px 3px 6px, rgba(0, 0, 0, 0.23) 0px 3px 6px !important;
 }
 
 .header-list {

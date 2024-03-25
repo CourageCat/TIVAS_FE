@@ -17,7 +17,7 @@ import createAxios from "~/configs/axios";
 
 const cx = classNames.bind(styles);
 
-const limit = 5;
+const limit = 9;
 
 // Set Date
 function formatDate(dateString) {
@@ -57,15 +57,12 @@ function AllReservation() {
                 limit,
                 orderType: "DESC",
                 status: status,
-                id: 10,
+                id: currentUser?.data?.id,
             });
-            if (res?.err === 0) {
-                setReservationProject(res?.data);
-                setCountPage(res.countPages);
-            } else {
-                setReservationProject([]);
-                setCountPage(1);
-            }
+
+            setReservationProject(res?.data);
+            console.log(res?.data);
+            setCountPage(res?.countPages);
         };
         fetchListing();
     }, [page]);

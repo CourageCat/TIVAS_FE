@@ -1,5 +1,5 @@
 .wrapper {
-    height: 1550px;
+    min-height: 1000px;
     border-radius: 8px;
     padding: 16px;
     background-color: #fff;
@@ -7,6 +7,19 @@
         rgba(247, 247, 250, 0.1) 0px 16px 56px,
         rgba(17, 17, 26, 0.1) 0px 24px 80px;
     padding-bottom: 30px;
+}
+
+.header-date {
+    background: #2ac0e1;
+    color: #fff;
+    padding: 5px;
+    border-radius: 10px;
+    font-size: 2.5rem;
+    font-weight: 400;
+}
+
+.navigate {
+    display: block;
 }
 
 .wrapper.color-changed {
@@ -44,6 +57,7 @@
     }
     .thead {
         .column {
+            // display: inline-block;
             padding: 8px;
             border: none;
             text-align: left;
@@ -71,7 +85,8 @@
         }
         .trow {
             transition: border-left-color 0.3s, box-shadow 0.3s;
-            user-select: none;
+            cursor: pointer;
+
             &:hover {
                 border-left-color: #1570ee;
                 box-shadow: inset 5px 0 0 #1570ee;
@@ -93,7 +108,7 @@
     }
 
     .project {
-        width: 300px;
+        width: 200px;
 
         .text {
             width: 150px;
@@ -112,6 +127,7 @@
 
         .box {
             .name-project {
+                width: 200px;
                 font-family: "Inter", sans-serif;
                 font-size: 1.8rem;
                 font-weight: 400;
@@ -146,7 +162,7 @@
         }
     }
     .unit {
-        width: 125px;
+        width: 100px;
         .text {
         }
         .name {
@@ -157,7 +173,7 @@
         }
     }
     .status {
-        width: 170px;
+        width: 350px;
         .text {
         }
         .name {
@@ -169,7 +185,7 @@
     }
 
     .sleep {
-        width: 150px;
+        width: 200px;
         .name {
             font-family: "Inter", sans-serif;
             font-size: 1.5rem;
@@ -179,10 +195,9 @@
     }
 
     .date {
-        width: 170px;
+        width: 100px;
         .name {
-            white-space: nowrap;
-            width: 10px;
+            width: 100px;
             font-family: "Inter", sans-serif;
             font-size: 1.5rem;
             font-weight: 500;
@@ -191,11 +206,8 @@
     }
 
     .booking-date {
-        width: 150px;
+        width: 100px;
         .name {
-            // width: 100px;
-            white-space: nowrap;
-
             font-family: "Inter", sans-serif;
             font-size: 1.5rem;
             font-weight: 500;
@@ -210,6 +222,10 @@
     //         color: #000;
     //     }
     // }
+}
+
+.empty {
+    color: #b5b1b1;
 }
 
 .header-list {

@@ -29,6 +29,9 @@ import UserHistory from "~/components/UserHistory";
 import AdminManageUserFeedback from "~/pages/AdminManageUserFeedback";
 import AdminHistory from "~/pages/AdminHistory";
 import AdminShowStage from "~/pages/AdminShowStage";
+import AdminHistoryTimeshares from "~/pages/AdminHistoryTimeshares";
+import AdminBeforeCloseBooking from "~/pages/AdminBeforeCloseBooking";
+import AdminProjectInReservation from "~/pages/AdminProjectInReservation";
 
 const routes = [
     {
@@ -232,7 +235,7 @@ const routes = [
         layout: LayoutAdmin,
     },
     {
-        path: "/admin/manageuser/ticket/:id",
+        path: "/admin/manageproject/ticket/:id",
         component: AdminManageUserTicket,
         layout: LayoutAdmin,
     },
@@ -263,6 +266,29 @@ const routes = [
     {
         path: "/admin/manageproject/showstage/:id",
         component: AdminShowStage,
+        layout: LayoutAdmin,
+    },
+
+    {
+        path: "/admin/manageproject/soldtimeshares/:id",
+        component: AdminHistoryTimeshares,
+        layout: LayoutAdmin,
+    },
+    {
+        path: "/admin/manageproject/projectinreservation",
+        component: AdminProjectInReservation,
+        layout: LayoutAdmin,
+    },
+
+    {
+        path: "/admin/manageproject/beforeclosebooking/:id",
+        component: AdminBeforeCloseBooking,
+        layout: LayoutAdmin,
+    },
+
+    {
+        path: "/admin/manageuser/ticket/:id",
+        component: AdminManageUserTicket,
         layout: LayoutAdmin,
     },
 ];

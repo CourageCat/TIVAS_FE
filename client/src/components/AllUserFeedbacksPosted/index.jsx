@@ -76,7 +76,7 @@ function AllUserFeedbacksPosted() {
                 <ToastNotify
                     type="success"
                     title="success"
-                    desc="UnPost successfully"
+                    desc="Unpost successfully"
                 />
             ));
         }
@@ -91,6 +91,12 @@ function AllUserFeedbacksPosted() {
                     desc="Post successfully"
                 />
             ));
+        } else if (post?.err === 1) {
+            <ToastNotify
+                type="error"
+                title="Error"
+                desc="Can post only maximum for 5 feedbacks to Users"
+            />;
         }
     }, [post]);
 
@@ -103,6 +109,7 @@ function AllUserFeedbacksPosted() {
             page: page,
             limit,
             status: 1,
+            orderType: "DESC",
         });
         setListFeedback(res_one?.data);
         setCountPage(res_one?.countPages);
@@ -115,13 +122,15 @@ function AllUserFeedbacksPosted() {
 
     const handlePost = async (id) => {
         const res = await updateShowFeedback(axiosInstance, id);
+
         setPost(res);
         handleClose();
 
         const res_one = await getAllFeedbacks(axiosInstance, {
             page: page,
             limit,
-            status: 2,
+            status: 1,
+            orderType: "DESC",
         });
         setListFeedback(res_one?.data);
         setCountPage(res_one?.countPages);
@@ -141,6 +150,7 @@ function AllUserFeedbacksPosted() {
             page: page,
             limit,
             status: 1,
+            orderType: "DESC",
         });
         setListFeedback(res_one?.data);
         setCountPage(res_one?.countPages);
@@ -157,9 +167,11 @@ function AllUserFeedbacksPosted() {
                 page: page,
                 limit,
                 status: 1,
+                orderType: "DESC",
             });
 
             setListFeedback(res?.data);
+            console.log(res?.length);
 
             setCountPage(res?.countPages);
         };

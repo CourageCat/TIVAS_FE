@@ -2,7 +2,7 @@ export const getAllTimeshare = (axiosInstance, form) => {
     const page = form?.page;
     const limit = form?.limit;
     return axiosInstance.get(
-        `/api/v1/timeshare/getAll?page=${page}&limit=${limit}&orderBy=startDate&orderType=DESC`
+        `/api/v1/timeshare/listing?page=${page}&limit=${limit}&orderBy=startDate&orderType=DESC`
     );
 };
 
@@ -22,5 +22,14 @@ export const createNewTimeshare = (axiosInstance, typeRoomID, userID, form) => {
     return axiosInstance.post(
         `api/v1/timeshare/create?typeRoomID=${typeRoomID}&userID=${userID}`,
         form
+    );
+};
+
+export const getAllTimesharesSold = (axiosInstance, form) => {
+    const id = form?.id;
+    const page = form?.page;
+    const limit = form?.limit;
+    return axiosInstance.get(
+        `/api/v1/timeshare/getAllOfSoldReservationStage?id=${id}&page=${page}&limit=${limit}`
     );
 };

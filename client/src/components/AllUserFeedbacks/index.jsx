@@ -103,6 +103,7 @@ function AllUserFeedbacks() {
             page: page,
             limit,
             status: 0,
+            orderType: "DESC",
         });
         setListFeedback(res_one?.data);
         setCountPage(res_one?.countPages);
@@ -122,6 +123,7 @@ function AllUserFeedbacks() {
             page: page,
             limit,
             status: 0,
+            orderType: "DESC",
         });
         setListFeedback(res_one?.data);
         setCountPage(res_one?.countPages);
@@ -141,6 +143,7 @@ function AllUserFeedbacks() {
             page: page,
             limit,
             status: 0,
+            orderType: "DESC",
         });
         setListFeedback(res_one?.data);
         setCountPage(res_one?.countPages);
@@ -157,6 +160,7 @@ function AllUserFeedbacks() {
                 page: page,
                 limit,
                 status: 0,
+                orderType: "DESC",
             });
 
             setListFeedback(res?.data);

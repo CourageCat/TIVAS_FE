@@ -1,8 +1,13 @@
 import classNames from "classnames/bind";
-import styles from "./AdminManageProject.module.scss";
+import styles from "./AdminProjectInReservation.module.scss";
 import { useRef, useState, useEffect } from "react";
 import Stack from "@mui/material/Stack";
 import Pagination from "@mui/material/Pagination";
+
+import Tippy from "@tippyjs/react";
+import Button from "@mui/material/Button";
+import Menu from "@mui/material/Menu";
+import MenuItem from "@mui/material/MenuItem";
 
 import images from "~/assets/images";
 import { Link, useNavigate } from "react-router-dom";
@@ -12,17 +17,12 @@ import createAxios from "~/configs/axios";
 import { getAllUsers } from "~/controllers/user";
 import { Toaster, toast } from "sonner";
 import ToastNotify from "~/components/ToastNotify";
-import {
-    getAllProject,
-    getAllProjects,
-    getAllWithType,
-} from "~/controllers/project";
+import { getAllProjectReservation } from "~/controllers/project";
 import ActionProject from "~/components/ActionProject";
 import { Box, CircularProgress } from "@mui/material";
-import Tippy from "@tippyjs/react";
 const cx = classNames.bind(styles);
 
-const limit = 10;
+const limit = 5;
 
 function convertToDate(inputDate) {
     const date = new Date(inputDate);
@@ -43,6 +43,7 @@ function AdminManageProject() {
     const axiosInstance = createAxios(dispatch, currentUser);
 
     const [listProjects, setListProjects] = useState(null);
+    const [anchorEl, setAnchorEl] = useState(null);
 
     const [countPage, setCountPage] = useState(1);
     const [notify, setNotify] = useState({});
@@ -50,34 +51,26 @@ function AdminManageProject() {
     const [page, setPage] = useState(1);
     const [isLoading, setIsLoading] = useState(true);
 
-    const fetchDataTmp = async () => {
-        const res = await getAllWithType(axiosInstance, {
-            page: page,
-            limit: limit,
-            orderType: "DESC",
-        });
-        setListProjects(res?.data);
-        setCountPage(res?.countPages);
-        if (page < res?.countPages) {
-            setPage(page);
-        } else {
-            setPage(res?.countPages);
-        }
-        setIsLoading(false);
+    const open = Boolean(anchorEl);
+    const handleClick = (event) => {
+        setAnchorEl(event.currentTarget);
+    };
+
+    const handleClose = () => {
+        setAnchorEl(null);
     };
 
     useEffect(() => {
-        const fetchData = async () => {
-            const res = await getAllWithType(axiosInstance, {
+        const fetchUser = async () => {
+            const res = await getAllProjectReservation(axiosInstance, {
                 page: page,
                 limit: limit,
-                orderType: "DESC",
             });
-            setListProjects(res?.data);
-            setCountPage(res?.countPages);
+            setListProjects(res.data);
+            setCountPage(res.countPages);
             setIsLoading(false);
         };
-        fetchData();
+        fetchUser();
         window.scrollTo(0, 0);
     }, [page]);
 
@@ -103,8 +96,16 @@ function AdminManageProject() {
         setPage(value);
     };
 
-    const handleNavigate = (id) => {
-        navigate(`/timesharedetail/${id}`);
+    const handleAfterClose = (id) => {
+        navigate(`/admin/manageproject/ticket/${id}`);
+    };
+
+    const handleBeforeClose = (id) => {
+        navigate(`/admin/manageproject/beforeclosebooking/${id}`);
+    };
+
+    const handleManageTimeshare = (id) => {
+        navigate(`/admin/manageproject/managetimeshare/${id}`);
     };
 
     return (
@@ -189,19 +190,14 @@ function AdminManageProject() {
                                                     <section
                                                         className={cx("box")}
                                                     >
-                                                        <Tippy
-                                                            content={item?.name}
-                                                            placement="top"
+                                                        <h3
+                                                            className={cx(
+                                                                "name-project",
+                                                                "text"
+                                                            )}
                                                         >
-                                                            <h3
-                                                                className={cx(
-                                                                    "name-project",
-                                                                    "text"
-                                                                )}
-                                                            >
-                                                                {item?.name}
-                                                            </h3>
-                                                        </Tippy>
+                                                            {item?.name}
+                                                        </h3>
                                                         <div
                                                             className={cx(
                                                                 "location"
@@ -281,7 +277,9 @@ function AdminManageProject() {
                                             >
                                                 {item?.reservationDate ===
                                                     null ||
-                                                item?.reservationDate === "" ? (
+                                                item?.reservationDate === "" ||
+                                                item?.openDate === null ||
+                                                item?.openDate === "" ? (
                                                     <span
                                                         className={cx("name")}
                                                     >
@@ -291,9 +289,7 @@ function AdminManageProject() {
                                                     <span
                                                         className={cx("name")}
                                                     >
-                                                        {`${convertToDate(
-                                                            item?.reservationDate
-                                                        )}`}
+                                                        {`${item?.reservationDate} ${item?.openDate}`}
                                                     </span>
                                                 )}
                                             </td>
@@ -316,34 +312,165 @@ function AdminManageProject() {
                                                     <span
                                                         className={cx("name")}
                                                     >
-                                                        {`${convertToDate(
-                                                            item?.openDate
-                                                        )}-${convertToDate(
-                                                            item?.closeDate
-                                                        )}`}
+                                                        {`${item?.openDate} ${item?.closeDate}`}
                                                     </span>
                                                 )}
                                             </td>
                                             <td
-                                                className={cx(
-                                                    "action",
-                                                    "column"
-                                                )}
+                                                className={cx("date", "column")}
                                             >
-                                                <ActionProject
-                                                    id={item?.id}
-                                                    fetchData={fetchDataTmp}
-                                                    nameProject={item?.name}
-                                                    status={item?.status}
-                                                    notify={notify}
-                                                    setNotify={setNotify}
-                                                    resPrice={
-                                                        item?.reservationPrice
-                                                    }
-                                                    resDate={
-                                                        item?.reservationDate
-                                                    }
-                                                />
+                                                <div>
+                                                    <Menu
+                                                        id="basic-menu"
+                                                        anchorEl={anchorEl}
+                                                        open={open}
+                                                        onClose={handleClose}
+                                                        MenuListProps={{
+                                                            "aria-labelledby":
+                                                                "basic-button",
+                                                        }}
+                                                        className={cx(
+                                                            "menu-wrapper"
+                                                        )}
+                                                    >
+                                                        <MenuItem
+                                                            className={cx(
+                                                                "text-item"
+                                                            )}
+                                                            onClick={() =>
+                                                                handleManageTimeshare(
+                                                                    item?.id
+                                                                )
+                                                            }
+                                                        >
+                                                            <div
+                                                                className={cx(
+                                                                    "row",
+                                                                    "remove"
+                                                                )}
+                                                            >
+                                                                <img
+                                                                    src={
+                                                                        images.changeIcon
+                                                                    }
+                                                                    alt="plus-icon"
+                                                                    className={cx(
+                                                                        "icon"
+                                                                    )}
+                                                                />
+                                                                <div
+                                                                    className={cx(
+                                                                        "text"
+                                                                    )}
+                                                                >
+                                                                    Manage all
+                                                                    timeshares
+                                                                </div>
+                                                            </div>
+                                                        </MenuItem>
+                                                        <MenuItem
+                                                            className={cx(
+                                                                "text-item"
+                                                            )}
+                                                            onClick={() =>
+                                                                handleBeforeClose(
+                                                                    item?.id
+                                                                )
+                                                            }
+                                                        >
+                                                            <div
+                                                                className={cx(
+                                                                    "row",
+                                                                    "remove"
+                                                                )}
+                                                            >
+                                                                <img
+                                                                    src={
+                                                                        images.changeIcon
+                                                                    }
+                                                                    alt="plus-icon"
+                                                                    className={cx(
+                                                                        "icon"
+                                                                    )}
+                                                                />
+                                                                <div
+                                                                    className={cx(
+                                                                        "text"
+                                                                    )}
+                                                                >
+                                                                    Before close
+                                                                    booking
+                                                                </div>
+                                                            </div>
+                                                        </MenuItem>
+                                                        <MenuItem
+                                                            className={cx(
+                                                                "text-item"
+                                                            )}
+                                                            onClick={() =>
+                                                                handleAfterClose(
+                                                                    item?.id
+                                                                )
+                                                            }
+                                                        >
+                                                            <div
+                                                                className={cx(
+                                                                    "row",
+                                                                    "after"
+                                                                )}
+                                                            >
+                                                                <img
+                                                                    src={
+                                                                        images.changeIcon
+                                                                    }
+                                                                    alt="plus-icon"
+                                                                    className={cx(
+                                                                        "icon"
+                                                                    )}
+                                                                />
+                                                                <div
+                                                                    className={cx(
+                                                                        "text"
+                                                                    )}
+                                                                >
+                                                                    After close
+                                                                    booking
+                                                                </div>
+                                                            </div>
+                                                        </MenuItem>
+                                                    </Menu>
+                                                    <Button
+                                                        id="basic-button"
+                                                        aria-controls={
+                                                            open
+                                                                ? "basic-menu"
+                                                                : undefined
+                                                        }
+                                                        aria-haspopup="true"
+                                                        aria-expanded={
+                                                            open
+                                                                ? "true"
+                                                                : undefined
+                                                        }
+                                                        onClick={handleClick}
+                                                    >
+                                                        <svg
+                                                            // onClick={toggleOpen}
+                                                            className={cx(
+                                                                "icon"
+                                                            )}
+                                                            xmlns="http://www.w3.org/2000/svg"
+                                                            width="16"
+                                                            height="16"
+                                                            fill="currentColor"
+                                                            viewBox="0 0 16 16"
+                                                        >
+                                                            <path d="M2 2.5a.5.5 0 0 0-.5.5v1a.5.5 0 0 0 .5.5h1a.5.5 0 0 0 .5-.5V3a.5.5 0 0 0-.5-.5zM3 3H2v1h1z" />
+                                                            <path d="M5 3.5a.5.5 0 0 1 .5-.5h9a.5.5 0 0 1 0 1h-9a.5.5 0 0 1-.5-.5M5.5 7a.5.5 0 0 0 0 1h9a.5.5 0 0 0 0-1zm0 4a.5.5 0 0 0 0 1h9a.5.5 0 0 0 0-1z" />
+                                                            <path d="M1.5 7a.5.5 0 0 1 .5-.5h1a.5.5 0 0 1 .5.5v1a.5.5 0 0 1-.5.5H2a.5.5 0 0 1-.5-.5zM2 7h1v1H2zm0 3.5a.5.5 0 0 0-.5.5v1a.5.5 0 0 0 .5.5h1a.5.5 0 0 0 .5-.5v-1a.5.5 0 0 0-.5-.5zm1 .5H2v1h1z" />
+                                                        </svg>
+                                                    </Button>
+                                                </div>
                                             </td>
                                         </tr>
                                     );
