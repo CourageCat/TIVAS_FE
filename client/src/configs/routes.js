@@ -285,6 +285,12 @@ const routes = [
         component: AdminBeforeCloseBooking,
         layout: LayoutAdmin,
     },
+
+    {
+        path: "/admin/manageuser/ticket/:id",
+        component: AdminManageUserTicket,
+        layout: LayoutAdmin,
+    },
 ];
 
 export default routes;

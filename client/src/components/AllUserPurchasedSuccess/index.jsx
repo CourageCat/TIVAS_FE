@@ -88,22 +88,48 @@ function AllUserPurchasedSuccess() {
         fetchListing();
     }, [page]);
 
-    const handleSuccessBooking = async (timeShareID, userID) => {
+    const handleSuccessBooking = async (reservationID) => {
         const res = await completeBooking(axiosInstance, {
-            userID,
-            timeShareID,
+            reservationID,
         });
+
+        const res_one = await getUserPriority(axiosInstance, id, {
+            page: page,
+            limit,
+        });
+
+        setUserPriorityData(res_one?.data);
+        setCountPage(res_one?.countPages);
+        if (page < res_one?.countPages) {
+            setPage(page);
+        } else {
+            setPage(res_one?.countPages);
+        }
         setNotify({
             ...res,
             mess: res.message,
         });
     };
 
-    const handleFailureBooking = async (timeShareID, userID) => {
+    const handleFailureBooking = async (reservationID) => {
         const res = await rejectBooking(axiosInstance, {
-            userID,
-            timeShareID,
+            reservationID,
         });
+
+        const res_one = await getUserPriority(axiosInstance, id, {
+            page: page,
+            limit,
+        });
+
+        setUserPriorityData(res_one?.data);
+        setCountPage(res_one?.countPage);
+        setCountPage(res_one?.countPages);
+        if (page < res_one?.countPages) {
+            setPage(page);
+        } else {
+            setPage(res_one?.countPages);
+        }
+
         setNotify({
             ...res,
             mess: res.message,
@@ -331,8 +357,7 @@ function AllUserPurchasedSuccess() {
                                                                     )}
                                                                     onClick={() =>
                                                                         handleSuccessBooking(
-                                                                            item?.timeShareID,
-                                                                            item?.userID
+                                                                            item?.reservationID
                                                                         )
                                                                     }
                                                                 >
@@ -345,8 +370,7 @@ function AllUserPurchasedSuccess() {
                                                                     )}
                                                                     onClick={() =>
                                                                         handleFailureBooking(
-                                                                            item?.timeShareID,
-                                                                            item?.userID
+                                                                            item?.reservationID
                                                                         )
                                                                     }
                                                                 >

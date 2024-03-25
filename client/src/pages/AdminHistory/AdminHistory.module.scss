@@ -1,5 +1,5 @@
 .wrapper {
-    height: 2000px;
+    min-height: 1000px;
     border-radius: 8px;
     padding: 16px;
     background-color: #fff;
@@ -7,6 +7,7 @@
         rgba(247, 247, 250, 0.1) 0px 16px 56px,
         rgba(17, 17, 26, 0.1) 0px 24px 80px;
     padding-bottom: 30px;
+    position: relative;
 }
 
 .navigate {
@@ -235,4 +236,16 @@
 
         font-weight: 600;
     }
+}
+
+.empty-img {
+    position: absolute;
+    top: 30%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    background-position: 50%;
+    background-repeat: no-repeat;
+    background-size: contain;
+    height: 200px;
+    width: 200px;
 }

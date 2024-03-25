@@ -104,6 +104,10 @@ function AdminManageProject() {
         navigate(`/admin/manageproject/beforeclosebooking/${id}`);
     };
 
+    const handleManageTimeshare = (id) => {
+        navigate(`/admin/manageproject/managetimeshare/${id}`);
+    };
+
     return (
         <div className={cx("wrapper")}>
             <Toaster position="top-right" richColors expand={true} />
@@ -329,6 +333,41 @@ function AdminManageProject() {
                                                             "menu-wrapper"
                                                         )}
                                                     >
+                                                        <MenuItem
+                                                            className={cx(
+                                                                "text-item"
+                                                            )}
+                                                            onClick={() =>
+                                                                handleManageTimeshare(
+                                                                    item?.id
+                                                                )
+                                                            }
+                                                        >
+                                                            <div
+                                                                className={cx(
+                                                                    "row",
+                                                                    "remove"
+                                                                )}
+                                                            >
+                                                                <img
+                                                                    src={
+                                                                        images.changeIcon
+                                                                    }
+                                                                    alt="plus-icon"
+                                                                    className={cx(
+                                                                        "icon"
+                                                                    )}
+                                                                />
+                                                                <div
+                                                                    className={cx(
+                                                                        "text"
+                                                                    )}
+                                                                >
+                                                                    Manage all
+                                                                    timeshares
+                                                                </div>
+                                                            </div>
+                                                        </MenuItem>
                                                         <MenuItem
                                                             className={cx(
                                                                 "text-item"

@@ -2,7 +2,7 @@ export const getAllTimeshare = (axiosInstance, form) => {
     const page = form?.page;
     const limit = form?.limit;
     return axiosInstance.get(
-        `/api/v1/timeshare/getAll?page=${page}&limit=${limit}&orderBy=startDate&orderType=DESC`
+        `/api/v1/timeshare/listing?page=${page}&limit=${limit}&orderBy=startDate&orderType=DESC`
     );
 };
 

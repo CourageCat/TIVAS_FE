@@ -15,6 +15,8 @@ import { useDispatch, useSelector } from "react-redux";
 import createAxios from "~/configs/axios";
 import { getAllLocations } from "~/controllers/location";
 
+import { getAllFeedbacks } from "~/controllers/feedback";
+
 const cx = classNames.bind(styles);
 
 const BLOG = [
@@ -41,39 +43,39 @@ const BLOG = [
     },
 ];
 
-const FEED_BACK = [
-    {
-        image: images.portrait,
-        desc: "I feel this application is great, it has helped me have a satisfactory house for my family this Tet holiday.",
-        fullName: "Nguyen Mai Viet Vy",
-    },
-    {
-        image: images.portrait,
-        desc: "I feel this application is great, it has helped me have a satisfactory house for my family this Tet holiday.",
-        fullName: "Nguyen Van Teo",
-    },
-    {
-        image: images.portrait,
-        desc: "I feel this application is great, it has helped me have a satisfactory house for my family this Tet holiday.",
-        fullName: "Bentanick",
-    },
-    {
-        image: images.portrait,
-        desc: "I feel this application is great, it has helped me have a satisfactory house for my family this Tet holiday.",
-        fullName: "Kolorado",
-    },
-    {
-        image: images.portrait,
-        desc: "I feel this application is great, it has helped me have a satisfactory house for my family this Tet holiday.",
-        fullName: "Ro nan do",
-    },
-];
+// const FEED_BACK = [
+//     {
+//         image: images.portrait,
+//         desc: "I feel this application is great, it has helped me have a satisfactory house for my family this Tet holiday.",
+//         fullName: "Nguyen Mai Viet Vy",
+//     },
+//     {
+//         image: images.portrait,
+//         desc: "I feel this application is great, it has helped me have a satisfactory house for my family this Tet holiday.",
+//         fullName: "Nguyen Van Teo",
+//     },
+//     {
+//         image: images.portrait,
+//         desc: "I feel this application is great, it has helped me have a satisfactory house for my family this Tet holiday.",
+//         fullName: "Bentanick",
+//     },
+//     {
+//         image: images.portrait,
+//         desc: "I feel this application is great, it has helped me have a satisfactory house for my family this Tet holiday.",
+//         fullName: "Kolorado",
+//     },
+//     {
+//         image: images.portrait,
+//         desc: "I feel this application is great, it has helped me have a satisfactory house for my family this Tet holiday.",
+//         fullName: "Ro nan do",
+//     },
+// ];
 
 const settingsFeedback = {
     infinite: true,
     touchMove: false,
     speed: 500,
-    slidesToShow: 1,
+    slidesToShow: 4,
     slidesToScroll: 1,
     fade: true,
     cssEase: "linear",
@@ -161,12 +163,16 @@ const settingTopResort = {
     nextArrow: <CustomNextArrowTopResort />,
 };
 
+const limit = 5;
+
 function Home() {
     const [listBlog, setListBlog] = useState(BLOG);
-    const [listFeedback, setListFeedback] = useState(FEED_BACK);
-    const [listTimeshareSale, setListTimeshareSale] = useState(FEED_BACK);
+    // const [listTimeshareSale, setListTimeshareSale] = useState(FEED_BACK);
     const [topResort, setTopResort] = useState([]);
     const [listLocation, setListLocation] = useState([]);
+    const [listFeedback, setListFeedback] = useState(null);
+    const [countPage, setCountPage] = useState(1);
+    const [page, setPage] = useState(1);
 
     const dispatch = useDispatch();
     const currentUser = useSelector((state) => state.auth.login.user);
@@ -194,85 +200,100 @@ function Home() {
         });
     };
 
+    useEffect(() => {
+        const fetchListing = async () => {
+            const res = await getAllFeedbacks(axiosInstance, {
+                status: 1,
+                orderType: "DESC",
+                page: page,
+                limit,
+            });
+            setListFeedback(res?.data);
+            console.log(res?.data);
+        };
+        fetchListing();
+    }, []);
+
     const renderFeedback = () => {
-        return listFeedback.map((item, index) => {
-            return (
-                <div key={index}>
-                    <div className={cx("feedback")}>
-                        <LazyLoadImage
-                            src="https://d1hjkbq40fs2x4.cloudfront.net/2016-01-31/files/1045.jpg"
-                            alt={item.name}
-                            className={cx("image")}
-                        />
-                        <div className={cx("content")}>
-                            <h3 className={cx("heading")}>
-                                What our guests say
-                            </h3>
-                            <div className={cx("review")}>
-                                <div className={cx("rating")}>
-                                    <div className={cx("list-icon")}>
-                                        <svg
-                                            className={cx("icon")}
-                                            xmlns="http://www.w3.org/2000/svg"
-                                            width="16"
-                                            height="16"
-                                            fill="currentColor"
-                                            viewBox="0 0 16 16"
-                                        >
-                                            <path d="M3.612 15.443c-.386.198-.824-.149-.746-.592l.83-4.73L.173 6.765c-.329-.314-.158-.888.283-.95l4.898-.696L7.538.792c.197-.39.73-.39.927 0l2.184 4.327 4.898.696c.441.062.612.636.282.95l-3.522 3.356.83 4.73c.078.443-.36.79-.746.592L8 13.187l-4.389 2.256z" />
-                                        </svg>
-                                        <svg
-                                            className={cx("icon")}
-                                            xmlns="http://www.w3.org/2000/svg"
-                                            width="16"
-                                            height="16"
-                                            fill="currentColor"
-                                            viewBox="0 0 16 16"
-                                        >
-                                            <path d="M3.612 15.443c-.386.198-.824-.149-.746-.592l.83-4.73L.173 6.765c-.329-.314-.158-.888.283-.95l4.898-.696L7.538.792c.197-.39.73-.39.927 0l2.184 4.327 4.898.696c.441.062.612.636.282.95l-3.522 3.356.83 4.73c.078.443-.36.79-.746.592L8 13.187l-4.389 2.256z" />
-                                        </svg>
-                                        <svg
-                                            className={cx("icon")}
-                                            xmlns="http://www.w3.org/2000/svg"
-                                            width="16"
-                                            height="16"
-                                            fill="currentColor"
-                                            viewBox="0 0 16 16"
-                                        >
-                                            <path d="M3.612 15.443c-.386.198-.824-.149-.746-.592l.83-4.73L.173 6.765c-.329-.314-.158-.888.283-.95l4.898-.696L7.538.792c.197-.39.73-.39.927 0l2.184 4.327 4.898.696c.441.062.612.636.282.95l-3.522 3.356.83 4.73c.078.443-.36.79-.746.592L8 13.187l-4.389 2.256z" />
-                                        </svg>
-                                        <svg
-                                            className={cx("icon")}
-                                            xmlns="http://www.w3.org/2000/svg"
-                                            width="16"
-                                            height="16"
-                                            fill="currentColor"
-                                            viewBox="0 0 16 16"
-                                        >
-                                            <path d="M3.612 15.443c-.386.198-.824-.149-.746-.592l.83-4.73L.173 6.765c-.329-.314-.158-.888.283-.95l4.898-.696L7.538.792c.197-.39.73-.39.927 0l2.184 4.327 4.898.696c.441.062.612.636.282.95l-3.522 3.356.83 4.73c.078.443-.36.79-.746.592L8 13.187l-4.389 2.256z" />
-                                        </svg>
-                                        <svg
-                                            className={cx("icon")}
-                                            xmlns="http://www.w3.org/2000/svg"
-                                            width="16"
-                                            height="16"
-                                            fill="currentColor"
-                                            viewBox="0 0 16 16"
-                                        >
-                                            <path d="M3.612 15.443c-.386.198-.824-.149-.746-.592l.83-4.73L.173 6.765c-.329-.314-.158-.888.283-.95l4.898-.696L7.538.792c.197-.39.73-.39.927 0l2.184 4.327 4.898.696c.441.062.612.636.282.95l-3.522 3.356.83 4.73c.078.443-.36.79-.746.592L8 13.187l-4.389 2.256z" />
-                                        </svg>
-                                    </div>
-                                    <p className={cx("text")}>{item.desc}</p>
-                                    <span className={cx("full-name")}>
-                                        {item.fullName}
-                                    </span>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            );
-        });
+        return listFeedback
+            ? listFeedback?.map((item, index) => {
+                  return (
+                      <div key={index}>
+                          <div className={cx("feedback")}>
+                              <LazyLoadImage
+                                  src={item?.User?.avatarURL}
+                                  alt="avatar"
+                                  className={cx("image")}
+                              />
+                              <div className={cx("content")}>
+                                  <h3 className={cx("heading")}>
+                                      {item?.User?.username}
+                                  </h3>
+                                  <div className={cx("review")}>
+                                      <div className={cx("rating")}>
+                                          <div className={cx("list-icon")}>
+                                              <svg
+                                                  className={cx("icon")}
+                                                  xmlns="http://www.w3.org/2000/svg"
+                                                  width="16"
+                                                  height="16"
+                                                  fill="currentColor"
+                                                  viewBox="0 0 16 16"
+                                              >
+                                                  <path d="M3.612 15.443c-.386.198-.824-.149-.746-.592l.83-4.73L.173 6.765c-.329-.314-.158-.888.283-.95l4.898-.696L7.538.792c.197-.39.73-.39.927 0l2.184 4.327 4.898.696c.441.062.612.636.282.95l-3.522 3.356.83 4.73c.078.443-.36.79-.746.592L8 13.187l-4.389 2.256z" />
+                                              </svg>
+                                              <svg
+                                                  className={cx("icon")}
+                                                  xmlns="http://www.w3.org/2000/svg"
+                                                  width="16"
+                                                  height="16"
+                                                  fill="currentColor"
+                                                  viewBox="0 0 16 16"
+                                              >
+                                                  <path d="M3.612 15.443c-.386.198-.824-.149-.746-.592l.83-4.73L.173 6.765c-.329-.314-.158-.888.283-.95l4.898-.696L7.538.792c.197-.39.73-.39.927 0l2.184 4.327 4.898.696c.441.062.612.636.282.95l-3.522 3.356.83 4.73c.078.443-.36.79-.746.592L8 13.187l-4.389 2.256z" />
+                                              </svg>
+                                              <svg
+                                                  className={cx("icon")}
+                                                  xmlns="http://www.w3.org/2000/svg"
+                                                  width="16"
+                                                  height="16"
+                                                  fill="currentColor"
+                                                  viewBox="0 0 16 16"
+                                              >
+                                                  <path d="M3.612 15.443c-.386.198-.824-.149-.746-.592l.83-4.73L.173 6.765c-.329-.314-.158-.888.283-.95l4.898-.696L7.538.792c.197-.39.73-.39.927 0l2.184 4.327 4.898.696c.441.062.612.636.282.95l-3.522 3.356.83 4.73c.078.443-.36.79-.746.592L8 13.187l-4.389 2.256z" />
+                                              </svg>
+                                              <svg
+                                                  className={cx("icon")}
+                                                  xmlns="http://www.w3.org/2000/svg"
+                                                  width="16"
+                                                  height="16"
+                                                  fill="currentColor"
+                                                  viewBox="0 0 16 16"
+                                              >
+                                                  <path d="M3.612 15.443c-.386.198-.824-.149-.746-.592l.83-4.73L.173 6.765c-.329-.314-.158-.888.283-.95l4.898-.696L7.538.792c.197-.39.73-.39.927 0l2.184 4.327 4.898.696c.441.062.612.636.282.95l-3.522 3.356.83 4.73c.078.443-.36.79-.746.592L8 13.187l-4.389 2.256z" />
+                                              </svg>
+                                              <svg
+                                                  className={cx("icon")}
+                                                  xmlns="http://www.w3.org/2000/svg"
+                                                  width="16"
+                                                  height="16"
+                                                  fill="currentColor"
+                                                  viewBox="0 0 16 16"
+                                              >
+                                                  <path d="M3.612 15.443c-.386.198-.824-.149-.746-.592l.83-4.73L.173 6.765c-.329-.314-.158-.888.283-.95l4.898-.696L7.538.792c.197-.39.73-.39.927 0l2.184 4.327 4.898.696c.441.062.612.636.282.95l-3.522 3.356.83 4.73c.078.443-.36.79-.746.592L8 13.187l-4.389 2.256z" />
+                                              </svg>
+                                          </div>
+                                          <p className={cx("text")}>
+                                              {item?.content}
+                                          </p>
+                                      </div>
+                                  </div>
+                              </div>
+                          </div>
+                      </div>
+                  );
+              })
+            : " ";
     };
 
     const renderTopResort = () => {
@@ -427,15 +448,17 @@ function Home() {
                             </p>
 
                             {/* <a href="!#"> */}
-                            <Link to="#!" className={cx("explore-link")}>
+                            <Link to="/listings" className={cx("explore-link")}>
                                 Search Property
                             </Link>
                         </div>
                     </div>
                 </section>
                 {/* Feedback */}
+
                 <section className={cx("feedback-wrapper")}>
                     <Slider {...settingsFeedback}>{renderFeedback()}</Slider>
+
                     {/* <div className={cx("button")}></div> */}
                 </section>
                 {/* Blog */}

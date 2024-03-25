@@ -22,7 +22,7 @@ import { Box, CircularProgress } from "@mui/material";
 import Tippy from "@tippyjs/react";
 const cx = classNames.bind(styles);
 
-const limit = 5;
+const limit = 10;
 
 function convertToDate(inputDate) {
     const date = new Date(inputDate);

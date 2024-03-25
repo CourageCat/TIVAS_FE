@@ -88,6 +88,12 @@
                 color: #000;
                 font-size: 10.9;
                 font-weight: 500;
+                transition: 0.25s;
+
+                &:hover {
+                    scale: (1.1);
+                    opacity: 0.9;
+                }
             }
         }
     }
@@ -119,6 +125,8 @@
         }
 
         .review {
+            min-width: 600px;
+            min-height: 300px;
             margin-top: 32px;
             border-radius: 8px;
             box-shadow: 0 2px 30px rgba(44, 60, 74, 0.08);
@@ -195,15 +203,12 @@
     .list-blog {
         min-height: 550px;
         margin-top: 45px;
-        // display: grid;
-        // grid-template-columns: repeat(3, 1fr);
-        // row-gap: 12px;
         display: flex;
-        justify-content: center;
         gap: 50px;
 
         .blog-item {
-            transition: 0.25s;
+            transition: 0.3s ease-in-out;
+
             font-family: "Poppins", sans-serif;
         }
 

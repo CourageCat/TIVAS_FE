@@ -76,7 +76,7 @@ function AllUserFeedbacksPosted() {
                 <ToastNotify
                     type="success"
                     title="success"
-                    desc="UnPost successfully"
+                    desc="Unpost successfully"
                 />
             ));
         }
@@ -91,6 +91,12 @@ function AllUserFeedbacksPosted() {
                     desc="Post successfully"
                 />
             ));
+        } else if (post?.err === 1) {
+            <ToastNotify
+                type="error"
+                title="Error"
+                desc="Can post only maximum for 5 feedbacks to Users"
+            />;
         }
     }, [post]);
 
@@ -116,6 +122,7 @@ function AllUserFeedbacksPosted() {
 
     const handlePost = async (id) => {
         const res = await updateShowFeedback(axiosInstance, id);
+
         setPost(res);
         handleClose();
 
@@ -164,6 +171,7 @@ function AllUserFeedbacksPosted() {
             });
 
             setListFeedback(res?.data);
+            console.log(res?.length);
 
             setCountPage(res?.countPages);
         };

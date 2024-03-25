@@ -81,6 +81,7 @@ function AdminReserved() {
 
             if (res?.err === 0) {
                 setListTicket(res?.data);
+                console.log(res?.data);
                 setCountPage(res?.countPages);
             } else {
                 setListTicket([]);
