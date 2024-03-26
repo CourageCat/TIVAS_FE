@@ -68,7 +68,7 @@ function AllUserPurchasedFail() {
     return (
         <div className={cx("wrapper")}>
             <div className={cx("row")}>
-                <h1 className={cx("title")}>Booking fail</h1>
+                <h1 className={cx("title")}>Booked Fail</h1>
 
                 <Tippy
                     content="Show all timeshare you purchased success"

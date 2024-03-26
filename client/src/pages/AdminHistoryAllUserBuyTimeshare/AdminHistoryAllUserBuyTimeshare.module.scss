@@ -1,5 +1,5 @@
 .wrapper {
-    min-height: 1000px;
+    min-height: 1100px;
     border-radius: 8px;
     padding: 16px;
     background-color: #fff;
@@ -7,19 +7,7 @@
         rgba(247, 247, 250, 0.1) 0px 16px 56px,
         rgba(17, 17, 26, 0.1) 0px 24px 80px;
     padding-bottom: 30px;
-}
-
-.header-date {
-    background: #2ac0e1;
-    color: #fff;
-    padding: 5px;
-    border-radius: 10px;
-    font-size: 2.5rem;
-    font-weight: 400;
-}
-
-.navigate {
-    display: block;
+    position: relative;
 }
 
 .wrapper.color-changed {
@@ -27,10 +15,6 @@
 }
 
 .title {
-    white-space: nowrap;
-}
-
-.heading {
     font-family: "Inter", sans-serif;
     font-size: 3rem;
     font-weight: 400;
@@ -48,7 +32,7 @@
     }
 }
 
-.list-projects {
+.list-user {
     margin-top: 30px;
 
     .table {
@@ -57,14 +41,13 @@
     }
     .thead {
         .column {
-            // display: inline-block;
             padding: 8px;
             border: none;
             text-align: left;
 
             .title {
                 font-family: "Poppins", sans-serif;
-                font-size: 1.7rem;
+                font-size: 1.8rem;
                 font-weight: 400;
             }
         }
@@ -85,8 +68,6 @@
         }
         .trow {
             transition: border-left-color 0.3s, box-shadow 0.3s;
-            cursor: pointer;
-
             &:hover {
                 border-left-color: #1570ee;
                 box-shadow: inset 5px 0 0 #1570ee;
@@ -107,125 +88,136 @@
         }
     }
 
-    .project {
-        width: 200px;
+    .avatar {
+        width: 150px;
+        vertical-align: middle;
+        .image {
+            width: 60px;
+            height: 60px;
+            object-fit: cover;
+            display: block;
+            border-radius: 10px;
+        }
+    }
 
+    .username {
+        width: 200px;
+        .text {
+            vertical-align: middle;
+        }
+        .name {
+            font-family: "Inter", sans-serif;
+            font-size: 1.5rem;
+            font-weight: 400;
+            color: #000;
+        }
+    }
+
+    .fullName {
+        width: 250px;
+        .text {
+            width: 200px;
+            vertical-align: middle;
+        }
+        .name {
+            font-family: "Inter", sans-serif;
+            font-size: 1.4rem;
+            font-weight: 400;
+            color: #000;
+        }
+    }
+
+    .email {
+        width: 200px;
         .text {
             width: 150px;
-        }
-        .infor {
-            display: flex;
-            // align-items: center;
-            column-gap: 10px;
-        }
-        .image {
-            width: 100px;
-            height: 100px;
-            object-fit: cover;
-            border-radius: 8px;
-        }
-
-        .box {
-            .name-project {
-                width: 200px;
-                font-family: "Inter", sans-serif;
-                font-size: 1.8rem;
-                font-weight: 300;
-            }
-
-            .location {
-                display: flex;
-                align-items: center;
-                column-gap: 2px;
-                .icon {
-                    width: 15px;
-                    height: 15px;
-                }
-                .position {
-                    font-family: "Inter", sans-serif;
-                    font-size: 1.4rem;
-                    font-weight: 300;
-                }
-            }
-        }
-    }
-
-    .id {
-        width: 60px;
-        .text {
+            vertical-align: middle;
         }
         .name {
             font-family: "Inter", sans-serif;
-            font-size: 1.5rem;
-            font-weight: 300;
+            font-size: 1.4rem;
+            font-weight: 400;
             color: #000;
         }
     }
-    .unit {
-        width: 100px;
-        .text {
-        }
-        .name {
-            font-family: "Inter", sans-serif;
-            font-size: 1.5rem;
-            font-weight: 300;
-            color: #000;
-        }
-    }
-    .status {
-        width: 350px;
-        .text {
-        }
-        .name {
-            font-family: "Inter", sans-serif;
-            font-size: 1.5rem;
-            font-weight: 300;
-            color: #000;
-        }
-    }
-
-    .sleep {
+    .phoneNumber {
         width: 200px;
+        .text {
+            width: 150px;
+            vertical-align: middle;
+        }
         .name {
             font-family: "Inter", sans-serif;
-            font-size: 1.5rem;
-            font-weight: 300;
+            font-size: 1.4rem;
+            font-weight: 400;
             color: #000;
         }
     }
-
-    .date {
-        width: 100px;
-        .name {
+    .typeLogin {
+        width: 150px;
+        .text {
             width: 100px;
-            font-family: "Inter", sans-serif;
-            font-size: 1.5rem;
-            font-weight: 300;
-            color: #000;
+            vertical-align: middle;
         }
-    }
-
-    .booking-date {
-        width: 100px;
         .name {
             font-family: "Inter", sans-serif;
-            font-size: 1.5rem;
-            font-weight: 300;
+            font-size: 1.4rem;
+            font-weight: 400;
             color: #000;
         }
     }
-    // .price {
-    //     .name {
-    //         font-family: "Inter", sans-serif;
-    //         font-size: 1.5rem;
-    //         font-weight: 300;
-    //         color: #000;
-    //     }
-    // }
-}
 
-.empty {
-    color: #b5b1b1;
+    .status {
+        width: 100px;
+        .text {
+            vertical-align: middle;
+        }
+        .btn {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            width: 80px;
+            height: 40px;
+            background-color: rgb(1, 43, 231);
+            border-radius: 6px;
+        }
+        .ban {
+            background-color: rgb(255, 0, 0);
+            position: relative;
+
+            &:hover {
+                .reason {
+                    display: inline-block;
+                }
+            }
+
+            .reason {
+                position: absolute;
+                content: "Click to see reason!";
+                display: none;
+                top: -80%;
+                left: -20%;
+                transform: translate(-50%, -50%);
+                width: max-content;
+                padding: 5px;
+                border-radius: 4px;
+                background-color: #dddcdc;
+                font-family: "Inter", sans-serif;
+                font-size: 1.4rem;
+            }
+        }
+        .name {
+            font-family: "Inter", sans-serif;
+            font-size: 1.4rem;
+            font-weight: 400;
+            color: #fff;
+            user-select: none;
+        }
+    }
+
+    .action {
+        user-select: none;
+    }
 }
 
 .header-list {
@@ -245,4 +237,16 @@
 
         font-weight: 600;
     }
+}
+
+.empty-img {
+    position: absolute;
+    top: 40%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    background-position: 50%;
+    background-repeat: no-repeat;
+    background-size: contain;
+    height: 200px;
+    width: 200px;
 }

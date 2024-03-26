@@ -96,7 +96,7 @@ function AdminReserved() {
             <Toaster position="top-right" richColors expand={true} />
 
             <div className={cx("row")}>
-                <h1 className={cx("title")}>Booking Success</h1>
+                <h1 className={cx("title")}>Reserved</h1>
 
                 <Tippy
                     content="Show all timeshare you purchased success"

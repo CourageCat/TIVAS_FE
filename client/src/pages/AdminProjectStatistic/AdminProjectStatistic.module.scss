@@ -1,0 +1,213 @@
+.wrapper {
+    border-radius: 8px;
+    padding: 16px;
+    background-color: #fff;
+    box-shadow: rgba(17, 17, 26, 0.1) 0px 8px 24px,
+        rgba(17, 17, 26, 0.1) 0px 16px 56px, rgba(17, 17, 26, 0.1) 0px 24px 80px;
+    padding: 30px 50px;
+    height: 2000px;
+}
+
+.heading {
+    font-family: "Poppins", sans-serif;
+    font-size: 4rem;
+    font-weight: 300;
+}
+
+.row {
+    display: flex;
+}
+
+// Group Block
+
+.group-block {
+    display: flex;
+    margin-top: 50px;
+    gap: 40px;
+
+    .block {
+        width: 400px;
+        border-radius: 15px;
+        box-shadow: -4px 4px 27px -12px rgba(0, 0, 0, 0.75);
+        .up-block {
+            padding: 35px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            border-radius: 15px 15px 0 0;
+
+            .price {
+                font-family: "Poppins", sans-serif;
+                font-size: 2.5rem;
+                font-weight: 400;
+                color: #2ac0e1;
+            }
+
+            .price.right {
+                color: #4650dd;
+            }
+
+            .title {
+                font-family: "Poppins", sans-serif;
+                font-size: 1.8rem;
+                font-weight: 300;
+                color: #565656;
+            }
+
+            .icon {
+                width: 30px;
+                height: 30px;
+                object-fit: cover;
+            }
+        }
+
+        .down-block {
+            background: #2abfe127;
+            width: 100%;
+            height: 50px;
+            border-radius: 0 0 15px 15px;
+            border-top: #2abfe133 solid 1px;
+
+            // .row {
+            //     display: flex;
+            //     justify-content: space-between;
+            //     align-items: center;
+
+            //     .text {
+            //         font-family: "Poppins", sans-serif;
+            //         font-size: 1.5rem;
+            //         font-weight: 400;
+            //         color: #2ac0e1;
+            //     }
+
+            //     .text.right {
+            //         color: #4650dd;
+            //     }
+            // }
+        }
+
+        .down-block.right {
+            background: #dadcf8;
+            border-top: #4650dd3a solid 1px;
+        }
+    }
+}
+
+// Chart Content
+
+.chart-wrapper {
+    margin-top: 50px;
+    box-shadow: -4px 4px 27px -12px rgba(0, 0, 0, 0.75);
+    padding-bottom: 30px;
+    width: 841px;
+    border-radius: 15px;
+
+    .chart-heading {
+        font-family: "Poppins", sans-serif;
+        padding: 20px;
+        font-size: 2rem;
+        font-weight: 300;
+        padding-bottom: 20px;
+        border-bottom: #00000016 solid 1px;
+    }
+
+    .chart-content {
+        .revenue-wrapper {
+            padding: 20px;
+
+            display: flex;
+
+            .content {
+                padding: 20px;
+                padding-right: 80px;
+
+                .header {
+                    font-family: "Poppins", sans-serif;
+                    font-size: 1.5rem;
+                    font-weight: 300;
+                    color: #70777e;
+                }
+
+                .revenue {
+                    font-size: 2rem;
+                    font-weight: 500;
+                }
+
+                .price {
+                    font-family: "Poppins", sans-serif;
+                    font-size: 2rem;
+                    margin-top: 10px;
+                    font-weight: 400;
+                }
+                .revenue-price {
+                    font-size: 2.5rem;
+                    font-family: "Poppins", sans-serif;
+                    font-weight: 500;
+                    color: #4650dd;
+                }
+            }
+
+            .border {
+                border-right: #00000016 solid 1px;
+            }
+        }
+    }
+
+    .chart-info {
+        padding: 30px;
+        margin-left: auto;
+        width: fit-content;
+        gap: 20px;
+
+        .text {
+            font-size: 1.5rem;
+            font-family: "Poppins", sans-serif;
+            font-weight: 500;
+            position: relative;
+        }
+
+        .revenue {
+            color: #70777e;
+            &::before {
+                content: "";
+                width: 9px;
+                height: 8px;
+                border-radius: 50%;
+                background: #4650dd;
+                position: absolute;
+                top: 6px;
+                right: 340px;
+            }
+        }
+
+        .success {
+            color: #70777e;
+
+            &::before {
+                content: "";
+                width: 9px;
+                height: 8px;
+                border-radius: 50%;
+                background: #6ea8fe;
+                position: absolute;
+                top: 6px;
+                right: 340px;
+            }
+        }
+
+        .fail {
+            color: #70777e;
+
+            &::before {
+                content: "";
+                width: 9px;
+                height: 8px;
+                border-radius: 50%;
+                background: #d0d2f3;
+                position: absolute;
+                top: 6px;
+                right: 340px;
+            }
+        }
+    }
+}

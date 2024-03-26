@@ -5,7 +5,7 @@ import TimeshareRentals from "~/pages/TimeshareRentals";
 import Policy from "~/pages/Policy";
 import ProjectDetail from "~/pages/ProjectDetail";
 import LayoutAdmin from "~/pages/LayoutAdmin";
-import AdminDashboard from "~/pages/AdminDashboard";
+import AdminProjectStatistic from "~/pages/AdminProjectStatistic";
 import AdminCreateProject from "~/pages/AdminCreateProject";
 import ProfileLayout from "~/pages/ProfileLayout";
 import Profile from "~/components/Layouts/Profile";
@@ -32,6 +32,7 @@ import AdminShowStage from "~/pages/AdminShowStage";
 import AdminHistoryTimeshares from "~/pages/AdminHistoryTimeshares";
 import AdminBeforeCloseBooking from "~/pages/AdminBeforeCloseBooking";
 import AdminProjectInReservation from "~/pages/AdminProjectInReservation";
+import AdminHistoryAllUserBuyTimeshare from "~/pages/AdminHistoryAllUserBuyTimeshare";
 
 const routes = [
     {
@@ -114,8 +115,8 @@ const routes = [
         layout: null,
     },
     {
-        path: "/admin",
-        component: AdminDashboard,
+        path: "/statistic/:id",
+        component: AdminProjectStatistic,
         layout: LayoutAdmin,
     },
     {
@@ -159,11 +160,6 @@ const routes = [
     },
 
     {
-        path: "/admin/manageproject/listproject",
-        component: AdminManageProject,
-        layout: LayoutAdmin,
-    },
-    {
         path: "/admin/typeroomdetail",
         component: AdminRoomTypeDetail,
         layout: LayoutAdmin,
@@ -171,11 +167,6 @@ const routes = [
     {
         path: "/admin/manageproject/projectdetail",
         component: AdminProjectDetail,
-        layout: LayoutAdmin,
-    },
-    {
-        path: "/admin/manageuser/listuser",
-        component: AdminManageUser,
         layout: LayoutAdmin,
     },
 
@@ -194,11 +185,7 @@ const routes = [
         component: TimeshareDetail,
         layout: null,
     },
-    {
-        path: "/admin",
-        component: AdminDashboard,
-        layout: LayoutAdmin,
-    },
+
     {
         path: "/admin/createproject",
         component: AdminCreateProject,
@@ -225,7 +212,7 @@ const routes = [
         layout: LayoutAdmin,
     },
     {
-        path: "/admin/manageproject/managetimeshare/:id",
+        path: "/admin/manageproject/managetimeshare/:projectID",
         component: AdminManageTimeshare,
         layout: LayoutAdmin,
     },
@@ -289,6 +276,12 @@ const routes = [
     {
         path: "/admin/manageuser/ticket/:id",
         component: AdminManageUserTicket,
+        layout: LayoutAdmin,
+    },
+
+    {
+        path: "/admin/manageproject/userbuytimeshare/:id",
+        component: AdminHistoryAllUserBuyTimeshare,
         layout: LayoutAdmin,
     },
 ];

@@ -66,7 +66,6 @@ function ListOpeningReservation() {
             });
 
             setProjectInReservation(res?.data);
-            console.log(res?.data);
         };
         fetchListing();
     }, [page]);
