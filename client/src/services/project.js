@@ -93,7 +93,7 @@ export const getAllProjectInReservation = (axiosInstance, form) => {
     const page = form?.page;
     const limit = form?.limit;
     return axiosInstance.get(
-        `/api/v1/Project/getAllInReservation?page=${page}&limit=${limit}`
+        `/api/v1/Project/getAllInReservation?page=${page}&limit=${limit}&orderType=DESC`
     );
 };
 
