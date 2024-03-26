@@ -62,3 +62,15 @@ export const getAllTimesharesSold = async (axiosInstance, form) => {
         console.log(err);
     }
 };
+
+export const getAllUserPurchaseTimeshare = async (axiosInstance, form) => {
+    try {
+        const res = await services.getAllUserPurchaseTimeshare(
+            axiosInstance,
+            form
+        );
+        return res;
+    } catch (err) {
+        console.log(err);
+    }
+};

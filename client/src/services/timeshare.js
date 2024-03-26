@@ -33,3 +33,12 @@ export const getAllTimesharesSold = (axiosInstance, form) => {
         `/api/v1/timeshare/getAllOfSoldReservationStage?id=${id}&page=${page}&limit=${limit}`
     );
 };
+
+export const getAllUserPurchaseTimeshare = (axiosInstance, form) => {
+    const id = form?.id;
+    const page = form?.page;
+    const limit = form?.limit;
+    return axiosInstance.get(
+        `/api/v1/timeshare/getAllUserPurchasedTimeShare?id=${id}&page=${page}&limit=${limit}&orderType=DESC`
+    );
+};

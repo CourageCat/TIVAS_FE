@@ -110,6 +110,10 @@ function AdminShowStage() {
         navigate(`/admin/manageproject/soldtimeshares/${id}?date=${date}`);
     };
 
+    const handleStatistic = (id) => {
+        navigate(`/statistic/${id}`);
+    };
+
     return (
         <div className={cx("wrapper")}>
             <Toaster position="top-right" richColors expand={true} />
@@ -142,6 +146,19 @@ function AdminShowStage() {
                                 <span className={cx("position")}>
                                     {projectDetail?.Project?.location}
                                 </span>
+                            </div>
+                            <div
+                                className={cx("link")}
+                                onClick={() => handleStatistic(id)}
+                            >
+                                <div className={cx("text")}>
+                                    View statistic of this project
+                                </div>
+                                <img
+                                    src={images.doubleArrow}
+                                    alt="icon"
+                                    className={cx("icon")}
+                                />
                             </div>
                         </div>
                     </div>

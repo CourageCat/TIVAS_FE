@@ -132,3 +132,7 @@ export const getAllProjectReservation = (axiosInstance, form) => {
         `/api/v1/project/getAllReservation?page=${page}&limit=${limit}`
     );
 };
+
+export const getStatisticOnStage = (axiosInstance, id) => {
+    return axiosInstance.get(`/api/v1/project/statisticOnStage/${id}`);
+};

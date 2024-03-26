@@ -99,9 +99,9 @@ function AdminHistoryTimeshares() {
         setPage(value);
     };
 
-    // const handleNavigate = (id) => {
-    //     navigate(`/admin/manageproject/showstage/${id}`);
-    // };
+    const handleNavigate = (id) => {
+        navigate(`/admin/manageproject/userbuytimeshare/${id}`);
+    };
 
     return (
         <div className={cx("wrapper")}>
@@ -142,7 +142,7 @@ function AdminHistoryTimeshares() {
                                     <tr
                                         key={index}
                                         className={cx("trow")}
-                                        // onClick={() => handleNavigate(item?.id)}
+                                        onClick={() => handleNavigate(item?.id)}
                                     >
                                         <td className={cx("id", "column")}>
                                             <span

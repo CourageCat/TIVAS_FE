@@ -1,5 +1,5 @@
 import classNames from "classnames/bind";
-import styles from "./AdminManageUser.module.scss";
+import styles from "./AdminHistoryAllUserBuyTimeshare.module.scss";
 import { useRef, useState, useEffect } from "react";
 import Stack from "@mui/material/Stack";
 import Pagination from "@mui/material/Pagination";
@@ -8,72 +8,41 @@ import images from "~/assets/images";
 import ActionUser from "~/components/ActionUser";
 import { useDispatch, useSelector } from "react-redux";
 import createAxios from "~/configs/axios";
-import { getAllUsers } from "~/controllers/user";
+import { getAllUserPurchaseTimeshare } from "~/controllers/timeshare";
 import { Toaster, toast } from "sonner";
 import ToastNotify from "~/components/ToastNotify";
 import { Box, CircularProgress } from "@mui/material";
+import { useParams } from "react-router-dom";
 const cx = classNames.bind(styles);
 
 const limit = 10;
 
-function AdminManageUser() {
+function AdminHistoryAllUserBuyTimeshare() {
     const dispatch = useDispatch();
 
     const currentUser = useSelector((state) => state.auth.login.user);
     const axiosInstance = createAxios(dispatch, currentUser);
 
-    const [listUsers, setListUsers] = useState([]);
+    const [listUsers, setListUsers] = useState(null);
     const [countPage, setCountPage] = useState(1);
-    const [notify, setNotify] = useState({});
-    const [isLoading, setIsLoading] = useState(true);
 
     const [page, setPage] = useState(1);
 
-    const fetchUserBan = async () => {
-        const res = await getAllUsers(axiosInstance, {
-            page: page,
-            limit: limit,
-        });
-        setListUsers(res?.data);
-        setCountPage(res?.countPages);
-        setIsLoading(false);
-        if (page < res?.countPages) {
-            setPage(page);
-        } else {
-            setPage(res?.countPages);
-        }
-    };
+    const { id } = useParams();
 
     useEffect(() => {
         const fetchUser = async () => {
-            const res = await getAllUsers(axiosInstance, {
+            const res = await getAllUserPurchaseTimeshare(axiosInstance, {
+                id: id,
                 page: page,
                 limit: limit,
             });
-            setListUsers(res.data);
-            setCountPage(res.countPages);
-            setIsLoading(false);
+            setListUsers(res?.data);
+            console.log(res?.data);
+            setCountPage(res?.countPages);
         };
         fetchUser();
     }, [page]);
-
-    useEffect(() => {
-        if (notify?.err === 1) {
-            toast.custom(() => (
-                <ToastNotify type="error" title="Error" desc={notify?.mess} />
-            ));
-            setNotify({});
-        } else if (notify?.err === 0) {
-            toast.custom(() => (
-                <ToastNotify
-                    type="success"
-                    title="Success"
-                    desc={notify?.mess}
-                />
-            ));
-            setNotify({});
-        }
-    }, [notify]);
 
     const handlePageChange = (event, value) => {
         setPage(value);
@@ -81,10 +50,8 @@ function AdminManageUser() {
 
     return (
         <div className={cx("wrapper")}>
-            <Toaster position="top-right" richColors expand={true} />
-
             <h1 className={cx("title")}> Manage User</h1>
-            {isLoading === false && listUsers && (
+            {listUsers?.length !== 0 ? (
                 <div className={cx("content")}>
                     <div className={cx("list-user")}>
                         <table className={cx("table")}>
@@ -103,35 +70,12 @@ function AdminManageUser() {
                                             Full Name
                                         </h4>
                                     </th>
-                                    <th className={cx("email", "column")}>
-                                        <h4 className={cx("title")}>Email</h4>
-                                    </th>
-                                    <th className={cx("phoneNumber", "column")}>
-                                        <h4 className={cx("title")}>
-                                            Phone number
-                                        </h4>
-                                    </th>
-                                    <th className={cx("typeLogin", "column")}>
-                                        <h4 className={cx("title")}>
-                                            Type login
-                                        </h4>
-                                    </th>
-                                    <th className={cx("status", "column")}>
-                                        <h4 className={cx("title")}>Status</h4>
-                                    </th>
-                                    <th className={cx("action", "column")}>
-                                        <h4 className={cx("title")}>Action</h4>
-                                    </th>
                                 </tr>
                             </thead>
                             <tbody className={cx("tbody")}>
-                                {listUsers.map((item, index) => {
+                                {listUsers?.map((item, index) => {
                                     return (
-                                        <tr
-                                            key={index}
-                                            className={cx("trow")}
-                                            // onClick={() => handleNavigate(item.id)}
-                                        >
+                                        <tr key={index} className={cx("trow")}>
                                             <td
                                                 className={cx(
                                                     "avatar",
@@ -201,52 +145,6 @@ function AdminManageUser() {
                                                     {item?.type}
                                                 </span>
                                             </td>
-                                            <td
-                                                className={cx(
-                                                    "status",
-                                                    "column"
-                                                )}
-                                            >
-                                                <div
-                                                    className={cx("btn", {
-                                                        ban:
-                                                            item?.banStatus ===
-                                                            1,
-                                                    })}
-                                                >
-                                                    <span
-                                                        className={cx("name")}
-                                                    >
-                                                        {item?.banStatus === 0
-                                                            ? "Unban"
-                                                            : "Ban"}
-                                                    </span>
-                                                    {item?.banStatus === 1 && (
-                                                        <span
-                                                            className={cx(
-                                                                "reason"
-                                                            )}
-                                                        >
-                                                            {item?.reasonBan}
-                                                        </span>
-                                                    )}
-                                                </div>
-                                            </td>
-                                            <td
-                                                className={cx(
-                                                    "action",
-                                                    "column"
-                                                )}
-                                            >
-                                                <ActionUser
-                                                    fetchUser={fetchUserBan}
-                                                    id={item?.id}
-                                                    username={item?.username}
-                                                    banStatus={item?.banStatus}
-                                                    notify={notify}
-                                                    setNotify={setNotify}
-                                                />
-                                            </td>
                                         </tr>
                                     );
                                 })}
@@ -264,22 +162,17 @@ function AdminManageUser() {
                         </Stack>
                     </div>
                 </div>
-            )}
-            {isLoading === false && !listUsers && <h4>Empty user</h4>}
-            {isLoading === true && (
-                <Box
-                    sx={{
-                        marginTop: "100px",
-                        display: "flex",
-                        alignItems: "center",
-                        justifyContent: "center",
-                    }}
-                >
-                    <CircularProgress />
-                </Box>
+            ) : (
+                <div className={cx("empty-wrapper")}>
+                    <img
+                        src={images.empty}
+                        alt="empty"
+                        className={cx("empty-img")}
+                    />
+                </div>
             )}
         </div>
     );
 }
 
-export default AdminManageUser;
+export default AdminHistoryAllUserBuyTimeshare;
