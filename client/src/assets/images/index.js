@@ -61,6 +61,8 @@ const images = {
     ticketIcon: require("~/assets/images/ticketIcon.svg").default,
     bookedIcon: require("~/assets/images/bookedIcon.svg").default,
     doubleArrow: require("~/assets/images/doubleArrow.svg").default,
+    statisticIcon: require("~/assets/images/statisticIcon.svg").default,
+    statisticIcon: require("~/assets/images/statisticIcon.svg").default,
 };
 
 export default images;

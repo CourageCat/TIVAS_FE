@@ -35,8 +35,10 @@ export const putOpenBooking = (axiosInstance, id) => {
     return axiosInstance.put(`/api/v1/project/openBooking/${id}`);
 };
 
-export const putCloseBooking = (axiosInstance, id) => {
-    return axiosInstance.get(`/api/v1/reservationticket/checkPriority/${id}`);
+export const putCloseBooking = (axiosInstance, form) => {
+    const id = form?.id;
+    const type = form?.type;
+    return axiosInstance.put(`/api/v1/reservationticket/checkPriority/?id=${id}&type=${type}`);
 };
 
 export const getAllProject = (axiosInstance, form) => {

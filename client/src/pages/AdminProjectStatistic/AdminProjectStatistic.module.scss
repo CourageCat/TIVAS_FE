@@ -5,7 +5,8 @@
     box-shadow: rgba(17, 17, 26, 0.1) 0px 8px 24px,
         rgba(17, 17, 26, 0.1) 0px 16px 56px, rgba(17, 17, 26, 0.1) 0px 24px 80px;
     padding: 30px 50px;
-    height: 2000px;
+    min-height: 1000px;
+    position: relative;
 }
 
 .heading {
@@ -210,4 +211,16 @@
             }
         }
     }
+}
+
+.empty-img {
+    position: absolute;
+    top: 40%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    background-position: 50%;
+    background-repeat: no-repeat;
+    background-size: contain;
+    height: 200px;
+    width: 200px;
 }

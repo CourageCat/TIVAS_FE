@@ -117,9 +117,9 @@ export const getAllTypeOfProject = async (axiosInstance, param) => {
     }
 };
 
-export const closeBookingDate = async (axiosInstance, id) => {
+export const closeBookingDate = async (axiosInstance, form) => {
     try {
-        const res = await services.putCloseBooking(axiosInstance, id);
+        const res = await services.putCloseBooking(axiosInstance, form);
         return res;
     } catch (err) {
         console.log(err);

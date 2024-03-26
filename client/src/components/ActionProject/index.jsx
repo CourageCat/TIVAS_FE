@@ -6,12 +6,17 @@ import { banUserById, getAllUsers, unBanUserById } from "~/controllers/user";
 import { useDispatch, useSelector } from "react-redux";
 import createAxios from "~/configs/axios";
 import {
+    Box,
     Button,
     Dialog,
     DialogActions,
     DialogContent,
     DialogContentText,
     DialogTitle,
+    FormControl,
+    InputLabel,
+    MenuItem,
+    Select,
 } from "@mui/material";
 import { useNavigate } from "react-router-dom";
 import {
@@ -22,6 +27,7 @@ import {
     updateReservation,
 } from "~/controllers/project";
 import { refundMoneyTimeshare } from "~/controllers/reservationTicket";
+import images from "~/assets/images";
 
 const cx = classNames.bind(styles);
 
@@ -75,8 +81,24 @@ function ActionProject({
 
     const [reservationPrice, setReservationPrice] = useState("");
     const [reservationDate, setReservationDate] = useState("");
+    const [newReservationPrice, setNewReservationPrice] = useState("");
+    const [newReservationDate, setNewReservationDate] = useState("");
     const [openDate, setOpenDate] = useState("");
     const [closeDate, setCloseDate] = useState("");
+
+    const [typeBookPriority, setTypeBookPriority] = useState("normal");
+    const [isPopupBook, setIsPopupBook] = useState(false);
+
+    const [openNewReservaion, setOpenNewReservaion] = useState(false);
+
+    const handleClickOpenPopupBook = () => {
+        handleClose();
+        setIsPopupBook(true);
+    };
+
+    const handleClosePopupBook = () => {
+        setIsPopupBook(false);
+    };
 
     const handleOpen = () => {
         setOpen(true);
@@ -89,12 +111,14 @@ function ActionProject({
     };
 
     const handleOpenReservation = () => {
+        handleClose();
         setOpenReservaion(true);
         setReservationDate(() =>
             resDate ? convertDateTimeToDate(resDate) : ""
         );
         setReservationPrice(() => (resPrice ? resPrice : ""));
     };
+
     const handleCloseReservation = () => {
         setOpenReservaion(false);
         setReservationPrice("");
@@ -112,6 +136,8 @@ function ActionProject({
             navigate(`/admin/manageproject/managetimeshare/${id}`);
         } else if (value === "manage_user_timeshare") {
             navigate(`/admin/manageuser/ticket/${id}`);
+        } else if (value === "statistic") {
+            navigate(`/statistic/${id}`);
         }
     };
 
@@ -151,6 +177,35 @@ function ActionProject({
         handleCloseReservation();
     };
 
+    const handleSubmitNewStageOpenDateReservation = async (e) => {
+        e.preventDefault();
+
+        const form = {
+            reservationPrice: +newReservationPrice,
+            reservationDate:
+                newReservationDate !== ""
+                    ? convertDate(newReservationDate)
+                    : null,
+        };
+        console.log(form.reservationDate);
+        if (!form.reservationPrice || !form.reservationDate) {
+            return setNotify({
+                err: 1,
+                mess: "Please fill in all information",
+            });
+        }
+
+        const res = await updateReservation(axiosInstance, id, form);
+        if (res) {
+            setNotify({
+                ...res,
+                mess: res?.message,
+            });
+        }
+        fetchData();
+        handleCloseReservation();
+    };
+
     const handleOpenReservationDate = () => {
         if (!resPrice || !resDate) {
             handleClose();
@@ -177,12 +232,16 @@ function ActionProject({
         handleClose();
     };
 
-    const handleCloseBookingDate = async () => {
-        const res = await closeBookingDate(axiosInstance, id);
+    const handleCloseBookingDate = async (e) => {
+        e.preventDefault();
+        const form = {
+            id: id,
+            type: typeBookPriority,
+        };
+        const res = await closeBookingDate(axiosInstance, form);
         setNotify(res);
         fetchData();
-        // const res_one = await refundMoneyTimeshare(axiosInstance, id);
-        handleClose();
+        handleClosePopupBook();
     };
 
     const handleSubmitOpenBookingReservation = async (e) => {
@@ -212,6 +271,22 @@ function ActionProject({
         });
         fetchData();
         handleCloseReservaionDate();
+    };
+
+    const handleChangeCheckedBook = (e) => {
+        setTypeBookPriority(e.target.value);
+        console.log(e.target.value);
+    };
+
+    const handleOpenNewReservaion = () => {
+        setOpenNewReservaion(true);
+        handleClose();
+    };
+
+    const handleCloseNewReservaion = () => {
+        setOpenNewReservaion(false);
+        setNewReservationPrice("");
+        setNewReservationDate("");
     };
 
     return (
@@ -269,6 +344,20 @@ function ActionProject({
                                     </span>
                                 </div>
                                 <div
+                                    className={cx("item", "create_type_room")}
+                                    onClick={() =>
+                                        handleNavigate("statistic", id)
+                                    }
+                                >
+                                    <img
+                                        src={images.statisticIcon}
+                                        className={cx("icon")}
+                                    />
+                                    <span className={cx("title")}>
+                                        Statistic project
+                                    </span>
+                                </div>
+                                <div
                                     className={cx("item", "manage_type_room")}
                                     onClick={() =>
                                         handleNavigate("manage_type_room", id)
@@ -287,21 +376,6 @@ function ActionProject({
                                         Manage type room
                                     </span>
                                 </div>
-                                {/* <div
-                  className={cx("item", "manage_timeshare")}
-                  onClick={() => handleNavigate("manage_timeshare", id)}
-                >
-                  <svg
-                    xmlns="http://www.w3.org/2000/svg"
-                    width="16"
-                    height="16"
-                    fill="currentColor"
-                    viewBox="0 0 16 16"
-                  >
-                    <path d="M2.5 0a2 2 0 0 0-2 2v12a2 2 0 0 0 2 2h11a2 2 0 0 0 2-2V2a2 2 0 0 0-2-2zm5 2h1a1 1 0 0 1 1 1v3a1 1 0 0 1-1 1h-1a1 1 0 0 1-1-1V3a1 1 0 0 1 1-1m-5 1a1 1 0 0 1 1-1h1a1 1 0 0 1 1 1v7a1 1 0 0 1-1 1h-1a1 1 0 0 1-1-1zm9-1h1a1 1 0 0 1 1 1v10a1 1 0 0 1-1 1h-1a1 1 0 0 1-1-1V3a1 1 0 0 1 1-1" />
-                  </svg>
-                  <span className={cx("title")}>Manage timeshare</span>
-                </div> */}
                                 {status === 0 && !resDate && (
                                     <div
                                         className={cx(
@@ -399,7 +473,7 @@ function ActionProject({
                                 {status === 2 && (
                                     <div
                                         className={cx("item", "close_booking")}
-                                        onClick={handleCloseBookingDate}
+                                        onClick={handleClickOpenPopupBook}
                                     >
                                         <svg
                                             xmlns="http://www.w3.org/2000/svg"
@@ -413,6 +487,26 @@ function ActionProject({
                                         </svg>
                                         <span className={cx("title")}>
                                             Close booking
+                                        </span>
+                                    </div>
+                                )}
+                                {status === 3 && (
+                                    <div
+                                        className={cx("item", "close_booking")}
+                                        onClick={handleOpenNewReservaion}
+                                    >
+                                        <svg
+                                            xmlns="http://www.w3.org/2000/svg"
+                                            width="16"
+                                            height="16"
+                                            fill="currentColor"
+                                            viewBox="0 0 16 16"
+                                        >
+                                            <path d="M8.5 10c-.276 0-.5-.448-.5-1s.224-1 .5-1 .5.448.5 1-.224 1-.5 1" />
+                                            <path d="M10.828.122A.5.5 0 0 1 11 .5V1h.5A1.5 1.5 0 0 1 13 2.5V15h1.5a.5.5 0 0 1 0 1h-13a.5.5 0 0 1 0-1H3V1.5a.5.5 0 0 1 .43-.495l7-1a.5.5 0 0 1 .398.117M11.5 2H11v13h1V2.5a.5.5 0 0 0-.5-.5M4 1.934V15h6V1.077z" />
+                                        </svg>
+                                        <span className={cx("title")}>
+                                            Open new stage reservaion
                                         </span>
                                     </div>
                                 )}
@@ -591,7 +685,7 @@ function ActionProject({
                     <DialogActions>
                         <Button
                             style={{ fontSize: "1.4rem" }}
-                            onClick={handleCloseBookingDate}
+                            onClick={handleCloseReservaionDate}
                         >
                             Cancel
                         </Button>
@@ -599,6 +693,151 @@ function ActionProject({
                             style={{ fontSize: "1.4rem" }}
                             type="submit"
                             onClick={handleSubmitOpenBookingReservation}
+                        >
+                            Submit
+                        </Button>
+                    </DialogActions>
+                </Dialog>
+
+                <Dialog
+                    fullWidth="sm"
+                    maxWidth="sm"
+                    open={isPopupBook}
+                    onClose={handleClosePopupBook}
+                >
+                    <DialogTitle>
+                        <h2 className={cx("heading_popup")}>Optional sizes</h2>
+                    </DialogTitle>
+                    <DialogContent>
+                        <DialogContentText>
+                            <p className={cx("desc_popup")}>
+                                You can set my maximum width and whether to
+                                adapt or not.
+                            </p>
+                        </DialogContentText>
+                        <Box
+                            noValidate
+                            component="form"
+                            sx={{
+                                display: "flex",
+                                flexDirection: "column",
+                                m: "auto",
+                                width: "fit-content",
+                            }}
+                        >
+                            <FormControl sx={{ mt: 2, minWidth: 160 }}>
+                                <InputLabel htmlFor="typePriority">
+                                    Type priority
+                                </InputLabel>
+                                <Select
+                                    autoFocus
+                                    value={typeBookPriority}
+                                    onChange={handleChangeCheckedBook}
+                                    label="typePriority"
+                                    inputProps={{
+                                        name: "Type priority",
+                                        id: "typePriority",
+                                    }}
+                                >
+                                    <MenuItem value="normal">Normal</MenuItem>
+                                    <MenuItem value="random">Random</MenuItem>
+                                </Select>
+                            </FormControl>
+                        </Box>
+                    </DialogContent>
+                    <DialogActions>
+                        <Button
+                            sx={{ fontSize: 13 }}
+                            onClick={handleClosePopupBook}
+                        >
+                            Close
+                        </Button>
+                        <Button
+                            sx={{ fontSize: 13 }}
+                            onClick={handleCloseBookingDate}
+                        >
+                            Submit
+                        </Button>
+                    </DialogActions>
+                </Dialog>
+
+                <Dialog
+                    open={openNewReservaion}
+                    onClose={handleCloseNewReservaion}
+                    PaperProps={{
+                        component: "form",
+                        onSubmit: (event) => {
+                            event.preventDefault();
+                            const formData = new FormData(event.currentTarget);
+                            const formJson = Object.fromEntries(
+                                formData.entries()
+                            );
+                            const email = formJson.email;
+                            console.log(email);
+                            handleCloseReservation();
+                        },
+                    }}
+                >
+                    <DialogTitle>
+                        <h2 className={cx("heading_popup")}>
+                            New stage reservaion
+                        </h2>
+                    </DialogTitle>
+                    <DialogContent>
+                        <DialogContentText>
+                            <p className={cx("desc_popup")}>
+                                Please fill in the information below
+                            </p>
+                        </DialogContentText>
+                        <div className={cx("list-popup")}>
+                            <div className={cx("input_popup")}>
+                                <label
+                                    htmlFor="reservationPrice"
+                                    className={cx("label")}
+                                >
+                                    Reservation price
+                                </label>
+                                <input
+                                    type="number"
+                                    placeholder="Currency(USD)"
+                                    className={cx("input")}
+                                    value={newReservationPrice}
+                                    onChange={(e) =>
+                                        setNewReservationPrice(e.target.value)
+                                    }
+                                    id="reservationPrice"
+                                />
+                            </div>
+                            <div className={cx("input_popup")}>
+                                <label
+                                    htmlFor="reservationDate"
+                                    className={cx("label")}
+                                >
+                                    Reservation date
+                                </label>
+                                <input
+                                    type="date"
+                                    className={cx("input")}
+                                    value={newReservationDate}
+                                    onChange={(e) =>
+                                        setNewReservationDate(e.target.value)
+                                    }
+                                    id="reservationDate"
+                                />
+                            </div>
+                        </div>
+                    </DialogContent>
+                    <DialogActions>
+                        <Button
+                            style={{ fontSize: "1.4rem" }}
+                            onClick={handleCloseNewReservaion}
+                        >
+                            Cancel
+                        </Button>
+                        <Button
+                            style={{ fontSize: "1.4rem" }}
+                            type="submit"
+                            onClick={handleSubmitNewStageOpenDateReservation}
                         >
                             Submit
                         </Button>

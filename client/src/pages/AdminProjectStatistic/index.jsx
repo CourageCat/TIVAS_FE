@@ -49,148 +49,180 @@ function AdminProjectStatistic() {
     return (
         <div className={cx("wrapper")}>
             <h1 className={cx("heading")}>TIVAS Dashboard</h1>
-            <div className={cx("group-block")}>
-                {/* Left block */}
-                <div className={cx("block")}>
-                    {/* Up Block */}
-                    <div className={cx("up-block")}>
-                        <div className={cx("up-block-content")}>
-                            <div className={cx("price")}>
-                                {
-                                    statistic?.total
-                                        ?.numberOfReservationTicketBought
-                                }
-                            </div>
-                            <div className={cx("title")}>TICKETS PURCHASED</div>
-                        </div>
-                        <img
-                            src={images.bookedIcon}
-                            alt="icon"
-                            className={cx("icon")}
-                        />
-                    </div>
-                    {/* Down block */}
-                    <div className={cx("down-block", "left")}>
-                        <div className={cx("down-block-content")}>
-                            <div className={cx("row")}></div>
-                        </div>
-                    </div>
+            {!statistic ? (
+                <div className={cx("empty-wrapper")}>
+                    <img
+                        src={images.empty}
+                        alt="empty"
+                        className={cx("empty-img")}
+                    />
                 </div>
-
-                {/* Right block */}
-                <div className={cx("block")}>
-                    {/* Up Block */}
-                    <div className={cx("up-block")}>
-                        <div className={cx("up-block-content")}>
-                            <div className={cx("price", "right")}>
-                                {statistic?.total?.numberOfTimeSharesBooked}
+            ) : (
+                <>
+                    <div className={cx("group-block")}>
+                        {/* Left block */}
+                        <div className={cx("block")}>
+                            {/* Up Block */}
+                            <div className={cx("up-block")}>
+                                <div className={cx("up-block-content")}>
+                                    <div className={cx("price")}>
+                                        {
+                                            statistic?.total
+                                                ?.numberOfReservationTicketBought
+                                        }
+                                    </div>
+                                    <div className={cx("title")}>
+                                        TICKETS PURCHASED
+                                    </div>
+                                </div>
+                                <img
+                                    src={images.bookedIcon}
+                                    alt="icon"
+                                    className={cx("icon")}
+                                />
                             </div>
-                            <div className={cx("title")}>BOOKED TIMESHARES</div>
-                        </div>
-                        <img
-                            src={images.ticketIcon}
-                            alt="icon"
-                            className={cx("icon")}
-                        />
-                    </div>
-                    {/* Down block */}
-                    <div className={cx("down-block", "right")}>
-                        <div className={cx("down-block-content")}>
-                            <div className={cx("row")}></div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-            <div className={cx("chart-wrapper")}>
-                <div className={cx("chart-heading")}>
-                    PROJECT STATISTIC {id}
-                </div>
-                {statistic?.array?.map((item) => (
-                    <div className={cx("chart-content")}>
-                        <div className={cx("revenue-wrapper")}>
-                            {/* Total Revenue */}
-                            <div className={cx("content", "border")}>
-                                <div className={cx("header", "revenue")}>
-                                    TOTAL REVENUE
-                                </div>
-                                <div className={cx("revenue-price")}>
-                                    {Intl.NumberFormat("en-US", {
-                                        style: "currency",
-                                        currency: "USD",
-                                    })
-                                        .format(item?.revenue)
-                                        .replace(".00", "")}
-                                </div>
-                            </div>
-                            {/* Purchase Success */}
-                            <div className={cx("content", "border")}>
-                                <div className={cx("header")}>
-                                    PURCHASE SUCCESS
-                                </div>
-                                <div className={cx("price")}>
-                                    {Intl.NumberFormat("en-US", {
-                                        style: "currency",
-                                        currency: "USD",
-                                    })
-                                        .format(item?.purchasedSuccessPrice)
-                                        .replace(".00", "")}
-                                </div>
-                            </div>
-                            {/* Purchase Fail */}
-                            <div className={cx("content")}>
-                                <div className={cx("header")}>
-                                    PURCHASE FAIL
-                                </div>
-                                <div className={cx("price")}>
-                                    {Intl.NumberFormat("en-US", {
-                                        style: "currency",
-                                        currency: "USD",
-                                    })
-                                        .format(item?.purchasedFailedPrice)
-                                        .replace(".00", "")}
+                            {/* Down block */}
+                            <div className={cx("down-block", "left")}>
+                                <div className={cx("down-block-content")}>
+                                    <div className={cx("row")}></div>
                                 </div>
                             </div>
                         </div>
 
-                        <div className={cx("chart-info")}>
-                            <div className={cx("text", "revenue")}>
-                                Revenue in one stage{" "}
+                        {/* Right block */}
+                        <div className={cx("block")}>
+                            {/* Up Block */}
+                            <div className={cx("up-block")}>
+                                <div className={cx("up-block-content")}>
+                                    <div className={cx("price", "right")}>
+                                        {
+                                            statistic?.total
+                                                ?.numberOfTimeSharesBooked
+                                        }
+                                    </div>
+                                    <div className={cx("title")}>
+                                        BOOKED TIMESHARES
+                                    </div>
+                                </div>
+                                <img
+                                    src={images.ticketIcon}
+                                    alt="icon"
+                                    className={cx("icon")}
+                                />
                             </div>
-                            <div className={cx("text", "success")}>
-                                Total purchase success price in one stage
+                            {/* Down block */}
+                            <div className={cx("down-block", "right")}>
+                                <div className={cx("down-block-content")}>
+                                    <div className={cx("row")}></div>
+                                </div>
                             </div>
-                            <div className={cx("text", "fail")}>
-                                {" "}
-                                Total purchase fail price in one stage{" "}
-                            </div>
-                        </div>
-                        <div className={cx("chart")}>
-                            <React.StrictMode>
-                                <StyledEngineProvider injectFirst>
-                                    <BarChart
-                                        xAxis={[
-                                            {
-                                                scaleType: "band",
-                                                data: date,
-                                            },
-                                        ]}
-                                        series={[
-                                            { data: revenue, color: "#4650dd" },
-                                            { data: success, color: "#6ea8fe" },
-                                            {
-                                                data: fail,
-                                                color: "#d0d2f3",
-                                            },
-                                        ]}
-                                        width={300}
-                                        height={400}
-                                    />
-                                </StyledEngineProvider>
-                            </React.StrictMode>
                         </div>
                     </div>
-                ))}
-            </div>
+                    <div className={cx("chart-wrapper")}>
+                        <div className={cx("chart-heading")}>
+                            PROJECT STATISTIC {id}
+                        </div>
+                        {statistic?.array?.map((item) => (
+                            <div className={cx("chart-content")}>
+                                <div className={cx("revenue-wrapper")}>
+                                    {/* Total Revenue */}
+                                    <div className={cx("content", "border")}>
+                                        <div
+                                            className={cx("header", "revenue")}
+                                        >
+                                            TOTAL REVENUE
+                                        </div>
+                                        <div className={cx("revenue-price")}>
+                                            {Intl.NumberFormat("en-US", {
+                                                style: "currency",
+                                                currency: "USD",
+                                            })
+                                                .format(item?.revenue)
+                                                .replace(".00", "")}
+                                        </div>
+                                    </div>
+                                    {/* Purchase Success */}
+                                    <div className={cx("content", "border")}>
+                                        <div className={cx("header")}>
+                                            PURCHASE SUCCESS
+                                        </div>
+                                        <div className={cx("price")}>
+                                            {Intl.NumberFormat("en-US", {
+                                                style: "currency",
+                                                currency: "USD",
+                                            })
+                                                .format(
+                                                    item?.purchasedSuccessPrice
+                                                )
+                                                .replace(".00", "")}
+                                        </div>
+                                    </div>
+                                    {/* Purchase Fail */}
+                                    <div className={cx("content")}>
+                                        <div className={cx("header")}>
+                                            PURCHASE FAIL
+                                        </div>
+                                        <div className={cx("price")}>
+                                            {Intl.NumberFormat("en-US", {
+                                                style: "currency",
+                                                currency: "USD",
+                                            })
+                                                .format(
+                                                    item?.purchasedFailedPrice
+                                                )
+                                                .replace(".00", "")}
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div className={cx("chart-info")}>
+                                    <div className={cx("text", "revenue")}>
+                                        Revenue in one stage{" "}
+                                    </div>
+                                    <div className={cx("text", "success")}>
+                                        Total purchase success price in one
+                                        stage
+                                    </div>
+                                    <div className={cx("text", "fail")}>
+                                        {" "}
+                                        Total purchase fail price in one stage{" "}
+                                    </div>
+                                </div>
+                                <div className={cx("chart")}>
+                                    <React.StrictMode>
+                                        <StyledEngineProvider injectFirst>
+                                            <BarChart
+                                                xAxis={[
+                                                    {
+                                                        scaleType: "band",
+                                                        data: date,
+                                                    },
+                                                ]}
+                                                series={[
+                                                    {
+                                                        data: revenue,
+                                                        color: "#4650dd",
+                                                    },
+                                                    {
+                                                        data: success,
+                                                        color: "#6ea8fe",
+                                                    },
+                                                    {
+                                                        data: fail,
+                                                        color: "#d0d2f3",
+                                                    },
+                                                ]}
+                                                width={300}
+                                                height={400}
+                                            />
+                                        </StyledEngineProvider>
+                                    </React.StrictMode>
+                                </div>
+                            </div>
+                        ))}
+                    </div>
+                </>
+            )}
         </div>
     );
 }

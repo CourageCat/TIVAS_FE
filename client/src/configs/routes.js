@@ -33,6 +33,7 @@ import AdminHistoryTimeshares from "~/pages/AdminHistoryTimeshares";
 import AdminBeforeCloseBooking from "~/pages/AdminBeforeCloseBooking";
 import AdminProjectInReservation from "~/pages/AdminProjectInReservation";
 import AdminHistoryAllUserBuyTimeshare from "~/pages/AdminHistoryAllUserBuyTimeshare";
+import AdminDashBoard from "~/pages/AdminDashBoard";
 
 const routes = [
     {
@@ -124,7 +125,11 @@ const routes = [
         component: AdminCreateProject,
         layout: LayoutAdmin,
     },
-
+    {
+        path: "/admin",
+        component: AdminDashBoard,
+        layout: LayoutAdmin,
+    },
     {
         path: "/admin/user/manageuser/ban",
         component: AdminManageUser,
