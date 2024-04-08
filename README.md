@@ -1,2 +1,2 @@
-# TIVAS_FE
+# TIVAS
 Group's Project
