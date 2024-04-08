@@ -1,0 +1,84 @@
+@import "normalize.css";
+@import url("https://fonts.googleapis.com/css2?family=Aclonica&family=Inter:wght@300;400;500;600;700&family=Poppins:ital,wght@0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,300;1,400;1,500;1,600;1,700;1,800&family=Raleway:ital,wght@0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,300;1,400;1,500;1,600;1,700;1,800&family=Roboto:ital,wght@0,400;0,500;0,700;1,300;1,400;1,500;1,700&display=swap");
+@import "slick-carousel/slick/slick.css";
+@import "slick-carousel/slick/slick-theme.css";
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+:root {
+  --home-padding: 13px;
+  --footer-bg: #2e2100;
+  --error-color: #a50016;
+}
+
+html {
+  font-size: 62.5%;
+}
+
+body {
+  font-family: var(--font-family);
+  font-size: 1.6rem;
+  line-height: 1.5;
+  text-rendering: optimizespeed;
+  color: var(--text-color);
+  overflow-y: overlay;
+}
+
+a {
+  text-decoration: none;
+}
+
+ul li {
+  list-style: none;
+}
+
+body::-webkit-scrollbar {
+  width: 11px;
+}
+
+body::-webkit-scrollbar-track {
+  background-color: #fafafa;
+}
+
+body::-webkit-scrollbar-thumb {
+  background: #a8d8ea;
+}
+
+body .StripeElement {
+  background: #fff;
+  border: 1px solid #ababab;
+  padding: 18px 30px;
+  font-family: "Inter", sans-serif;
+}
+body .StripeElement--focus {
+  border: 1px solid #000;
+}
+body .StripeElement--invalid {
+  border-color: red;
+}
+body .StripeElement--webkit-autofill {
+  background-color: #fefde5 !important;
+}
+body .StripeElement ::-moz-placeholder {
+  color: #aab7c4;
+}
+body .StripeElement ::placeholder {
+  color: #aab7c4;
+}
+body .StripeElement .InputElement {
+  display: block;
+  margin-top: 10px;
+  font-size: 16px;
+  color: #495057;
+}
+body .StripeElement .StripeElement--invalid .ErrorMessage {
+  color: #fa755a;
+}
+body .CardTypeIcon {
+  width: 30px;
+  height: 20px;
+  margin-top: 10px;
+}/*# sourceMappingURL=GlobalStyles.css.map */

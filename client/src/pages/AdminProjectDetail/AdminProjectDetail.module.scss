@@ -1,0 +1,141 @@
+.wrapper {
+    // height: 2000px;
+    border-radius: 8px;
+    padding: 16px;
+    background-color: #fff;
+    box-shadow: rgba(17, 17, 26, 0.1) 0px 8px 24px,
+        rgba(247, 247, 250, 0.1) 0px 16px 56px,
+        rgba(17, 17, 26, 0.1) 0px 24px 80px;
+    padding-bottom: 30px;
+}
+// List Images
+
+.list-img {
+    // padding: 50px 0 0 100px;
+    content: "";
+    display: table;
+    clear: both;
+    // background: red;
+}
+
+.text-area {
+    width: 100%;
+    resize: none;
+    color: #8e8e8e;
+    outline: none;
+    border: 1px solid #b9bdc7;
+    border-radius: 8px;
+    padding: 9.5px 16px;
+    font-family: "Inter", sans-serif;
+    font-size: 1.5rem;
+    font-weight: 400;
+}
+
+.title {
+    font-family: "Inter", sans-serif;
+    font-size: 3rem;
+    font-weight: 400;
+}
+.title-type-room {
+    font-family: "Inter", sans-serif;
+    font-size: 2.5rem;
+    font-weight: 400;
+}
+
+.list-project {
+    padding: 20px;
+}
+.content {
+    margin-top: 30px;
+}
+
+.sub-title {
+    font-family: "Inter", sans-serif;
+    align-self: center;
+    font-size: 2.5rem;
+    font-weight: 400;
+}
+
+.row-wrapper {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    column-gap: 50px;
+}
+
+.project-detail {
+    margin-top: 50px;
+
+    .img {
+        width: 100%;
+        height: 312px;
+        object-fit: cover;
+        border-radius: 20px;
+    }
+
+    .info-detail {
+        margin-top: 30px;
+        background: #b9bdc736;
+        padding: 20px;
+        border-radius: 20px;
+
+        .row {
+            display: flex;
+            flex-direction: column;
+            row-gap: 10px;
+            margin-top: 20px;
+
+            .text {
+                font-family: "Inter", sans-serif;
+                font-size: 1.6rem;
+                font-weight: 400;
+                line-height: 1.5;
+            }
+            .info {
+                display: inline-block;
+                outline: none;
+                border: 1px solid #b9bdc7;
+                border-radius: 8px;
+                padding: 9.5px 16px;
+                font-family: "Inter", sans-serif;
+                font-size: 1.5rem;
+                font-weight: 400;
+            }
+        }
+
+        .row-wrapper {
+            // margin-top: 20px;
+            // display: flex;
+            gap: 90px;
+            justify-content: space-between;
+            .select-row {
+                display: flex;
+                align-items: center;
+                gap: 106px;
+
+                .text {
+                    font-family: "Inter", sans-serif;
+                    font-size: 1.6rem;
+                    font-weight: 400;
+                    line-height: 1.5;
+                }
+
+                .select-info,
+                .info {
+                    display: inline-block;
+                    outline: none;
+                    border: 1px solid #b9bdc7;
+                    border-radius: 8px;
+                    padding: 9.5px 16px;
+                    font-family: "Inter", sans-serif;
+                    font-size: 1.5rem;
+                    font-weight: 400;
+                    width: 300px;
+                    // color: #9b9b9b;
+                }
+            }
+        }
+    }
+}
+.all-room-type {
+    margin-top: 20px;
+}

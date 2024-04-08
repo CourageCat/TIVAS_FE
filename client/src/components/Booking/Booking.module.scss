@@ -1,0 +1,34 @@
+.content {
+    padding: 20px;
+    // display: flex;
+
+    .text {
+        font-family: "Poppins", sans-serif;
+        font-style: normal;
+        font-size: 1.7rem;
+        font-weight: 700;
+    }
+
+    .input {
+        margin-top: 30px;
+        font-family: "Poppins", sans-serif;
+        padding: 10px;
+        width: 100%;
+        border-radius: 10px;
+        border: #adadad solid 1px;
+    }
+
+    .submit-btn {
+        display: block;
+        padding: 10px;
+        margin-top: 30px;
+        // margin-left: auto;
+        border: none;
+        width: 100%;
+        border-radius: 20px;
+
+        &:hover {
+            background: #44bdd9;
+        }
+    }
+}

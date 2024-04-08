@@ -1,0 +1,78 @@
+:root {
+  --border-success: #47d864;
+  --icon-success: #47d864;
+  --border-error: #ff623d;
+  --icon-error: #ff623d;
+  --border-warning: #ffcc00;
+  --icon-warning: #ffcc00;
+}
+
+.alert-wrapper {
+  display: flex;
+  align-items: center;
+  background-color: #fff;
+  border-radius: 2px;
+  padding: 20px 0;
+  min-width: 400px;
+  max-width: 450px;
+  border-left: 4px solid;
+  box-shadow: 0 5px 8px rgba(0, 0, 0, 0.08);
+
+  &.success {
+    border-color: var(--border-success);
+
+    .icon {
+      color: var(--icon-success);
+    }
+  }
+  &.error {
+    border-color: var(--border-error);
+
+    .icon {
+      color: var(--icon-error);
+    }
+  }
+
+  &.warning {
+    border-color: var(--border-warning);
+
+    .icon {
+      color: var(--icon-warning);
+    }
+  }
+}
+
+.icon {
+  font-size: 2.4rem;
+}
+
+.icon,
+.close {
+  padding: 0 16px;
+}
+
+.content {
+  flex-grow: 1;
+}
+
+.title {
+  font-family: "Poppins", sans-serif;
+  font-size: 1.6rem;
+  font-weight: 600;
+  color: #333;
+}
+
+.desc {
+  margin-top: 6px;
+  padding-right: 10px;
+  font-family: "Inter", sans-serif;
+  font-size: 1.4rem;
+  line-height: 1.5;
+  color: #888;
+}
+
+.close {
+  font-size: 2rem;
+  color: rgba(0, 0, 0, 0.3);
+  cursor: pointer;
+}

@@ -1,0 +1,118 @@
+:root {
+  --logo-color: #fff;
+  --desc-color: #bfbcb2;
+}
+
+.footer-wrapper {
+  background: var(--footer-bg);
+  margin-top: 50px;
+  .container {
+    padding: 96px 55px 28px;
+
+    .top {
+      display: flex;
+      align-items: flex-start;
+      gap: 145px;
+
+      .left {
+        width: 350px;
+
+        .logo {
+          color: var(--logo-color);
+          font-family: "Aclonica", sans-serif;
+          font-size: 3.8rem;
+        }
+
+        .desc {
+          width: 100%;
+          display: inline-block;
+          margin-top: 18px;
+          font-family: "Poppins", sans-serif;
+          font-size: 1.4rem;
+          font-weight: 400;
+          color: #bfbcb2;
+          line-height: 1.5;
+
+          user-select: none;
+        }
+
+        .social-contact {
+          margin-top: 18px;
+          display: inline-flex;
+          gap: 18px;
+
+          .icon {
+            width: 18px;
+            height: 18px;
+          }
+        }
+      }
+
+      .right {
+        .row {
+          display: flex;
+          align-items: flex-start;
+          gap: 137px;
+        }
+        .column {
+          .title {
+            color: #fff;
+            font-family: "Poppins", sans-serif;
+            font-size: 1.6rem;
+            font-weight: 600;
+            line-height: 1.75;
+          }
+          .border {
+            margin-top: 14px;
+            width: 130px;
+            height: 1px;
+            background: #59554b;
+          }
+          .list-options {
+            margin-top: 28px;
+            display: inline-flex;
+            flex-direction: column;
+            row-gap: 12px;
+
+            .option {
+              color: var(--desc-color);
+              font-family: "Poppins", sans-serif;
+              font-size: 1.4rem;
+              font-weight: 400;
+              line-height: 1.85;
+
+              .bold {
+                color: #fff;
+                font-weight: 600;
+              }
+
+              &:hover {
+                color: #fff;
+              }
+            }
+          }
+        }
+      }
+    }
+
+    .bottom {
+      margin-top: 38px;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      .border {
+        width: 100%;
+        height: 1px;
+        background: #59554b;
+      }
+      .text {
+        margin-top: 28px;
+        color: var(--desc-color);
+        font-family: "Poppins", sans-serif;
+        font-size: 1.4rem;
+        font-weight: 400;
+        line-height: 1.85;
+      }
+    }
+  }
+}

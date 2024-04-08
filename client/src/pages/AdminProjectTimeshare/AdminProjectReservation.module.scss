@@ -1,0 +1,40 @@
+.wrapper {
+    border-radius: 8px;
+    padding: 16px;
+    background-color: #fff;
+    box-shadow: rgba(17, 17, 26, 0.1) 0px 8px 24px,
+      rgba(247, 247, 250, 0.1) 0px 16px 56px, rgba(17, 17, 26, 0.1) 0px 24px 80px;
+    padding-bottom: 30px;
+  }
+  
+  .title {
+    font-family: "Inter", sans-serif;
+    font-size: 3rem;
+    font-weight: 600;
+  }
+  
+  .list-project {
+    padding: 20px;
+  }
+  .content {
+    margin-top: 30px;
+  }
+  
+  .header-list {
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr 1fr 1fr 1fr;
+    gap: 40px;
+    border: #beb8b87b solid 0.5px;
+  
+    // margin-bottom: 40px;
+    padding: 10px 20px;
+    border-radius: 10px 10px 0 0;
+    background: #d0c3c334;
+  
+    .header {
+      font-family: "Inter", sans-serif;
+      font-size: 1.5rem;
+      font-weight: 600;
+    }
+  }
+  

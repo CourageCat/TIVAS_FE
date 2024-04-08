@@ -1,0 +1,38 @@
+// Header ============
+.header {
+    .navigation {
+        padding: 33px var(--home-padding) 0;
+    }
+}
+
+// Breadcrumbs
+.breadcrumbs {
+    margin-top: 15px;
+    background-color: #f3f3f3;
+    text-align: center;
+    padding: 48px 0;
+
+    .title {
+        font-family: "Poppins", sans-serif;
+        text-transform: uppercase;
+        font-size: 3rem;
+        font-weight: 700;
+        color: #000;
+    }
+
+    .nav {
+        color: #000;
+        font-size: 1.8rem;
+        font-family: "Inter", sans-serif;
+    }
+
+    .text {
+        color: #898989;
+    }
+    // padding: 40px 145px 0;
+}
+
+.tab-wrapper {
+    margin-top: 30px;
+    padding: 0 50px;
+}
